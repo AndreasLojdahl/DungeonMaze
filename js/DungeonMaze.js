@@ -246,6 +246,7 @@ export default {
                 <td><img src="/images/wall.jpg"></td> 
             </tr>
         </table>
+        <img src="/images/hero.png" class="hero-over"/><img>
         </div>
     `, 
 
