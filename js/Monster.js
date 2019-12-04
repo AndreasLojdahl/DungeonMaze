@@ -2,11 +2,10 @@
 
 export default{
 
-    props: ['tileArray'],
 
-    template:/*html*/`
+    template:/*html*/` 
     <div class="monster">               
-        <div v-for= "tile of tileArray">{{tile.type}}</div>
+        
     </div>
     `,
     
@@ -14,7 +13,6 @@ export default{
         
           return {
               position: 1,
-              monsterPos: 
     
         }
         
