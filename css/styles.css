@@ -42,8 +42,8 @@ h1{
   position: absolute;
   background: url("/images/hero.png");
   background-size: 100% 100%;
-  left: calc(0 * 6.6667%);   
-  top: calc(7 * 6.6667%); 
+  /*left: calc(0 * 6.6667%);   
+  top: calc(7 * 6.6667%); */
   border: 1px solid black;
 }
 
