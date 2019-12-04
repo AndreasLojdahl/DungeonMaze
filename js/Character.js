@@ -1,3 +1,5 @@
+import Monster from './Monster.js'
+
 export default{
 
     props:['position'],
