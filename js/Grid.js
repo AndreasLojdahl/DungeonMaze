@@ -144,7 +144,8 @@ export default{
             let futurePositionX = this.heroPosition.x + 1
             if (this.grid[this.heroPosition.y][futurePositionX] !== 'W'){
             this.heroPosition.x += 1;
-            }
+            console.log(this.heroPosition.x)
+            console.log('Inne i moveRight')
         },
         moveRight(){
             this.heroPosition.x -= 1;
@@ -153,10 +154,6 @@ export default{
             
             let randIndex = Math.ciel(Math.random()* this.monsterPos.length)
             let position = monsterPos[randIndex]
-
-        }
-
-        checkForWall(){
 
         }
       
@@ -176,8 +173,28 @@ export default{
        
     },
     mounted(){
-   
-
+        window.addEventListener('keyup', (e) => {
+            
+            
+                if(e.keyCode === 37){                   
+                   this.moveLeft()
+                    
+                }
+                if(e.keyCode === 38){
+                    this.moveUp()
+                     
+                }
+                if(e.keyCode === 39){   
+                    this.moveRight()
+                }
+                if(e.keyCode === 40){
+                    this.moveDown()
+                }
+                       
+            
+        })
+    
     }
+        
 
 }
