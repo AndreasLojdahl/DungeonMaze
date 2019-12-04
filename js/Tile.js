@@ -15,6 +15,7 @@ export default{
             console.log(this.properties.x, this.properties.y, this.properties.type)
             
             
+            
         },
 
       

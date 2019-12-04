@@ -17,7 +17,7 @@ export default{
         v-bind:key="'tile' + i + tile.x + tile.y"
         v-bind:class="'tile-type-' + tile.type"
         ></tile>
-        <Monster tileArray="flatTiles"></Monster>
+        
         
         <Character v-bind:position="heroPosition"></Character>
 
@@ -27,6 +27,7 @@ export default{
         <button v-on:click="moveUp">Up</button>
         <button v-on:click="moveDown">Down</button>
         <button v-on:click="moveRight">Right</button></button>
+        
 
         </div>
 
@@ -85,7 +86,16 @@ export default{
             heroPosition:{
                 x:0,
                 y:7
-            }
+            },
+
+            monsterPos: [
+               [12, 2],
+               [6, 4],
+               [4, 10],
+               [13, 8],
+               [7, 13],
+               [12, 12],
+            ]
            
         }
     },
@@ -113,42 +123,38 @@ export default{
             }
         },
         moveUp(){ 
-            let futurePositionY= this.heroPosition.y - 1
+            let futurePositionY = this.heroPosition.y - 1
             if (this.grid[futurePositionY][this.heroPosition.x] !== 'W'){
             this.heroPosition.y -= 1;
-            }
-            console.log(this.heroPosition.y)
-            console.log('Inne i moveUp')
+            }            
         },
         moveDown(){
-            let futurePositionY= this.heroPosition.y + 1
+            let futurePositionY = this.heroPosition.y + 1
             if (this.grid[futurePositionY][this.heroPosition.x] !== 'W'){
-            this.heroPosition.y += 1;
-            }
-            console.log(this.heroPosition.y)
-            console.log('Inne i moveDown')*/
-            if (this.grid[this.heroPosition.y][this.heroPosition.x] != 'W'){
-                this.heroPosition.y -= 1;
+                this.heroPosition.y += 1;
             }
         },
         moveLeft(){
-            let futurePositionX= this.heroPosition.x - 1
+            let futurePositionX = this.heroPosition.x - 1
             if (this.grid[this.heroPosition.y][futurePositionX] !== 'W'){
             this.heroPosition.x -= 1;
             }
-            console.log(this.heroPosition.x)
-            console.log('Inne i moveLeft')
         },
         moveRight(){
-            let futurePositionX= this.heroPosition.x + 1
+            let futurePositionX = this.heroPosition.x + 1
             if (this.grid[this.heroPosition.y][futurePositionX] !== 'W'){
             this.heroPosition.x += 1;
             }
             console.log(this.heroPosition.x)
             console.log('Inne i moveRight')
         },
-
-        checkForWall(){
+        moveRight(){
+            this.heroPosition.x -= 1;
+        },  
+        getMonsterPos(){
+            
+            let randIndex = Math.ciel(Math.random()* this.monsterPos.length)
+            let position = monsterPos[randIndex]
 
         }
       
@@ -168,8 +174,28 @@ export default{
        
     },
     mounted(){
-   
-
+        window.addEventListener('keyup', (e) => {
+            
+            
+                if(e.keyCode === 37){                   
+                   this.moveLeft()
+                    
+                }
+                if(e.keyCode === 38){
+                    this.moveUp()
+                     
+                }
+                if(e.keyCode === 39){   
+                    this.moveRight()
+                }
+                if(e.keyCode === 40){
+                    this.moveDown()
+                }
+                       
+            
+        })
+    
     }
+        
 
 }
