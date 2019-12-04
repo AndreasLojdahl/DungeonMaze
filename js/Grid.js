@@ -1,10 +1,15 @@
 import Tile from './Tile.js'
 import Character from './Character.js'
+import Chest1 from './Chest.js'
+import Chest2 from './Chest.js'
 import Monster from './Monster.js'
+
 export default{
     components:{
         Tile,
         Character,
+        Chest1,
+        Chest2,
         Monster
     },
 
@@ -20,6 +25,8 @@ export default{
         <Monster tileArray="flatTiles"></Monster>
         
         <Character v-bind:position="heroPosition"></Character>
+        <Chest1 v-bind:position="itemPosition1"></Chest1>
+        <Chest2 v-bind:position="itemPosition2"></Chest2>
 
         <div class="buttons-div">
 
@@ -85,7 +92,17 @@ export default{
             heroPosition:{
                 x:0,
                 y:7
-            }
+            },
+
+            itemPosition1:{
+                x:12,
+                y:4
+            },
+
+            itemPosition2:{
+                x:4,
+                y:13
+            },
            
         }
     },

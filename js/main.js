@@ -1,28 +1,28 @@
 
-//import App from './DungeonMaze.js'
+import App from './DungeonMaze.js'
 //all imports are done at the top of the file.
 
-//new Vue({
-  //  render: h => h(App)
-//}).$mount('#dungeonMaze')
+new Vue({
+   render: h => h(App)
+}).$mount('#dungeonMaze')
 
 //import Creatures from './Creatures'
 //import Hero from './Creatures'
 
 // Create the canvas
-var canvas = document.createElement("canvas");  //skapar canvas elemennt
-var ctx = canvas.getContext("2d");//kallar på funtionen att rita canvas i 2d
-canvas.width = 1000;//ställer in canvas bred
-canvas.height = 1000;//ställer in canvas höjd
-document.body.appendChild(canvas);
+// var canvas = document.createElement("canvas");  //skapar canvas elemennt
+// var ctx = canvas.getContext("2d");//kallar på funtionen att rita canvas i 2d
+// canvas.width = 1000;//ställer in canvas bred
+// canvas.height = 1000;//ställer in canvas höjd
+// document.body.appendChild(canvas);
 
-// Background image
-var bgReady = false;
-var bgImage = new Image();
-bgImage.onload = function () { //skapar en funktion som laddar backgrundsbild
-	bgReady = true;
-};
-bgImage.src = "images/background.png"; //ikonens källa
+// // Background image
+// var bgReady = false;
+// var bgImage = new Image();
+// bgImage.onload = function () { //skapar en funktion som laddar backgrundsbild
+// 	bgReady = true;
+// };
+// bgImage.src = "images/background.png"; //ikonens källa
 
 
 // Hero image
