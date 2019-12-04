@@ -1,3 +1,6 @@
+export class Creatures{}
+export class Hero{}
+
 class Creatures {
     constructor(hp, attack, name) {
         this.hp = hp;
@@ -58,3 +61,5 @@ class Superboss2 extends Creatures {
         hp = 57;
     }
 }
+
+

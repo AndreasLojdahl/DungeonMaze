@@ -48,3 +48,11 @@ class Fenrir extends Weapons {
     }
 }
 
+var backPack = new Vue({
+    el: '#backPack-1',
+    data: {
+      items: [
+        { IronSword}
+      ]
+    }
+  })
