@@ -9,10 +9,10 @@ export default{
     <div ref="hero" class="character"></div>
     `,
     
-    data() {       
+    data() {
         return {
-          
-    
+            x: 0,
+            y: 0
         }
     },
     watch:{
