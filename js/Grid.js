@@ -1,9 +1,11 @@
 import Tile from './Tile.js'
 import Character from './Character.js'
+import Monster from './Monster.js'
 export default{
     components:{
         Tile,
-        Character
+        Character,
+        Monster
     },
     template:`
     
@@ -15,6 +17,7 @@ export default{
         v-bind:key="'tile' + i + tile.x + tile.y"
         v-bind:class="'tile-type-' + tile.type"
         ></tile>
+        <Monster tileArray="flatTiles"></Monster>
         
         <Character v-bind:position="heroPosition"></Character>
 
