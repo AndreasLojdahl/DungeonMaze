@@ -3,6 +3,8 @@
 export default{
 
 
+    props: ['position'],
+
     template:/*html*/` 
     <div class="monster">               
         
@@ -30,18 +32,7 @@ export default{
             return true
             console.log(this.tileArray.type)
         },
-        // getPosition(){
-            
-        //     let randIndex = Math.ciel(Math.random()*1 /*tilesArray.length*/)
-        //     if(tilesArray(randIndex).type === room ){
-        //         position = tilesArray(randIndex)
-        //     }else{
-        //         this.getPosition
-        //     }
-
-        //     return position;
-
-        // }
+     
 
     },
     mounted(){
