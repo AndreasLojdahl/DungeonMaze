@@ -44,7 +44,7 @@ h1{
   background-size: 100% 100%;
   /*left: calc(0 * 6.6667%);   
   top: calc(7 * 6.6667%); */
-  border: 1px solid black;
+  /*border: 1px solid black;*/
 }
 
 .tile-type-W {
@@ -81,8 +81,9 @@ button{
   display: flex;
   justify-content: space-around;
   align-items: center;
-  margin-left: 35%;
-  margin-right: 35%;
+  
+  margin-left: 25%;
+  margin-right:25%;
 }
 * {
     margin: 0;

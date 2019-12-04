@@ -110,27 +110,31 @@ export default{
         },
         moveUp(){ 
             
-            this.heroPosition.y += 1;
+            this.heroPosition.y -= 1;
             console.log(this.heroPosition.y)
             console.log('Inne i moveUp')
-            return this.heroPosition.y;
+            
             
         },
         moveDown(){
-            this.heroPosition.y -= 1;
+            this.heroPosition.y += 1;
             console.log(this.heroPosition.y)
             console.log('Inne i moveDown')
         },
         moveLeft(){
-            this.heroPosition.x += 1;
+            this.heroPosition.x -= 1;
             console.log(this.heroPosition.x)
             console.log('Inne i moveLeft')
         },
         moveRight(){
-            this.heroPosition.x -= 1;
+            this.heroPosition.x += 1;
             console.log(this.heroPosition.x)
             console.log('Inne i moveRight')
         },
+
+        checkForWall(){
+
+        }
       
       
      
@@ -145,10 +149,7 @@ export default{
 
         console.log(this.flatTiles)
 
-        this.moveDown()
-        this.moveLeft()
-        this.moveRight()
-        this.moveUp()
+       
     },
     mounted(){
    
