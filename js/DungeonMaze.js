@@ -17,9 +17,6 @@ export default {
         
         <grid></grid>
 
-        
-       
-        
     </div>  
     `, 
 
