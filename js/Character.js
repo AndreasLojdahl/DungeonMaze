@@ -19,19 +19,7 @@ export default{
        
     },
     methods:{
-        moveUp: function(){
-            this.position-= 50
-        },
-        moveDown: function(){
-            this.position+= 50
-        },
-        moveLeft: function(){
-            console.log("test");
-            this.position2-= 50
-        },
-        moveRight: function(){
-            this.position2+= 50
-        },
+      
     },
     mounted(){
         //this.$refs.character.style.setProperty('background-color', 'blue')
