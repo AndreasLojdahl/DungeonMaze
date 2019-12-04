@@ -5,47 +5,50 @@ h1{
   display: flex;
   justify-content: center;
   font-family: monospace;
-  font-size: 500%;
+  font-size: 550%;
   margin-top: 2%;
+  margin-bottom: 3%;
 }
 .grid-layout{
   
   display: flex;              /* display flex*/
-  width: 45vw;
-  height: 45vh;           
+  width: 40%;
+  height: 500px;
   padding: 0;
-  align-items: center;
   flex-wrap: wrap;
-  margin-top: 0;
-  margin-left: 27%;
+  margin-left: 30%;
   position: relative; 
-  background-image: url("/img/DungeonMap1.jpg"); 
-  background-size: cover;
-  
+  background: url("/images/DungeonMap1.jpg"); 
+  background-size: 100% 100%;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
+
 .tile{
-  width: 5%;
-  height: 10%;
+  
+  width: 6.6667%;
+  height: 6.6667%;
   margin: 0;
   padding: 0;
-  background-color: rgb(189, 177, 139);
+  /*background-color: rgb(189, 177, 139);*/
   background-size: contain;
   border: 1px solid  black;
    
 }
 .character{
   display: flex;
-  width: 5%;
-  height: 10%;   
-  background-color: green;
+  width: 6.6667%;
+  height: 6.6667%;   
+  /*background-color: green;*/
   position: absolute;
-  left: calc(1 * 5%);   
-  top: calc(1 * 10%);  
+  background: url("/images/hero.png");
+  background-size: 100% 100%;
+  left: calc(0 * 6.6667%);   
+  top: calc(7 * 6.6667%); 
   border: 1px solid black;
 }
 
 .tile-type-W {
-  background-color: rgb(87, 82, 68); 
+  background-color: rgba(80, 54, 37, 0.2); 
   /*background-image: url('/img/DungeonMap1.jpg'); */
 }
 
@@ -57,6 +60,7 @@ h1{
   margin-bottom: 0;
   padding:0;
   font-family: monospace;
+  font-size: 200%;
 }
 
 /*.tile-type-C{
@@ -67,14 +71,19 @@ button{
   display: flex;
   justify-content: center;
   background-color: gray;
-  border-radius: 28px;
+  border-radius: 10px;
+  padding: 5%;
+  color: white;
+  font-family: monospace;
 }
-.buttonsMove{
+.buttons-div{
+  margin: 2%;
   display: flex;
   justify-content: space-around;
   align-items: center;
+  margin-left: 35%;
+  margin-right: 35%;
 }
-
 * {
   box-sizing: border-box;
 }
@@ -97,4 +106,6 @@ img {
   display: block;
   width: 50px;
   height: 50px;
-}
+
+}*/
+

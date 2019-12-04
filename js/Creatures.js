@@ -1,6 +1,9 @@
+<<<<<<< HEAD
 export class Creatures{}
 export class Hero{}
 
+=======
+>>>>>>> master
 class Creatures {
     constructor(hp, attack, name) {
         this.hp = hp;
@@ -60,6 +63,10 @@ class Superboss2 extends Creatures {
         attack = 15;
         hp = 57;
     }
+<<<<<<< HEAD
 }
 
 
+=======
+}
+>>>>>>> master

@@ -48,6 +48,7 @@ class Fenrir extends Weapons {
     }
 }
 
+<<<<<<< HEAD
 var backPack = new Vue({
     el: '#backPack-1',
     data: {
@@ -56,3 +57,5 @@ var backPack = new Vue({
       ]
     }
   })
+=======
+>>>>>>> master
