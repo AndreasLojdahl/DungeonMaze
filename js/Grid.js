@@ -7,8 +7,8 @@ export default{
         Character,
         Monster
     },
+
     template:`
-    
     <div class="grid-layout">
        
        <tile 
@@ -32,6 +32,7 @@ export default{
 
     </div>
     `,
+
     data(){
         
         return{
@@ -125,7 +126,10 @@ export default{
             this.heroPosition.y += 1;
             }
             console.log(this.heroPosition.y)
-            console.log('Inne i moveDown')
+            console.log('Inne i moveDown')*/
+            if (this.grid[this.heroPosition.y][this.heroPosition.x] != 'W'){
+                this.heroPosition.y -= 1;
+            }
         },
         moveLeft(){
             let futurePositionX= this.heroPosition.x - 1

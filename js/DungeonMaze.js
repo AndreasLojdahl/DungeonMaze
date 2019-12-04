@@ -7,7 +7,6 @@ export default {
     },
     
     template: ` 
-
     <div id="app">
 
         <h1>Dungeon Maze</h1>
