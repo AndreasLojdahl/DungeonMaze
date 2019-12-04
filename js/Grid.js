@@ -130,30 +130,28 @@ export default{
             }
         },
         moveUp(){ 
-            
+            let futurePositionY = this.heroPosition.y - 1
+            if (this.grid[futurePositionY][this.heroPosition.x] !== 'W'){
             this.heroPosition.y -= 1;
-            console.log(this.heroPosition.y)
-            console.log('Inne i moveUp')
-            
-            
+            }            
         },
         moveDown(){
-            /*this.heroPosition.y += 1;
-            console.log(this.heroPosition.y)
-            console.log('Inne i moveDown')*/
-            if (this.grid[this.heroPosition.y][this.heroPosition.x] != 'W'){
-                this.heroPosition.y -= 1;
+            let futurePositionY = this.heroPosition.y + 1
+            if (this.grid[futurePositionY][this.heroPosition.x] !== 'W'){
+                this.heroPosition.y += 1;
             }
         },
         moveLeft(){
+            let futurePositionX = this.heroPosition.x - 1
+            if (this.grid[this.heroPosition.y][futurePositionX] !== 'W'){
             this.heroPosition.x -= 1;
-            console.log(this.heroPosition.x)
-            console.log('Inne i moveLeft')
+            }
         },
         moveRight(){
+            let futurePositionX = this.heroPosition.x + 1
+            if (this.grid[this.heroPosition.y][futurePositionX] !== 'W'){
             this.heroPosition.x += 1;
-            console.log(this.heroPosition.x)
-            console.log('Inne i moveRight')
+            }
         },
 
         checkForWall(){
