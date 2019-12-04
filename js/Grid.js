@@ -1,11 +1,21 @@
 import Tile from './Tile.js'
 import Character from './Character.js'
-export default{
+import Chest1 from './Chest.js'
+import Chest2 from './Chest.js'
+    export default{
     components:{
         Tile,
+        Chest1,
+        Chest2,
         Character
     },
+
+    
+    
+
+    
     template:`
+    
     
     <div class="grid-layout">
        
@@ -16,8 +26,11 @@ export default{
         v-bind:class="'tile-type-' + tile.type"
         ></tile>
         
+    
+        
         <Character v-bind:position="heroPosition"></Character>
-
+        <Chest1 v-bind:position="itemPosition1"></Chest1>
+        <Chest2 v-bind:position="itemPosition2"></Chest2>
         <div class="buttons-div">
 
         <button v-on:click="moveLeft">Left</button>
@@ -75,7 +88,17 @@ export default{
                 ['W','W','W','W',' ',' ',' ',' ',' ','W',' ',' ',' ',' ','W'],
                 ['W','W','W','W','W','W','W','W','W','W','W','W','W','W','W'],
             ],
+            
+            itemPosition1:{
+                x:12,
+                y:4
+            },
 
+            itemPosition2:{
+                x:4,
+                y:13
+            },
+            
             heroPosition:{
                 x:0,
                 y:7
@@ -89,6 +112,8 @@ export default{
         }
     },
     methods:{
+
+        
 
         createMap (heigth,width){
      
@@ -105,6 +130,9 @@ export default{
                 }
             }
         },
+
+        
+        
         moveUp(){ 
             this.heroPosition.y += 1;
             console.log('Inne i moveUp')
@@ -118,9 +146,13 @@ export default{
         moveRight(){
             this.heroPosition.x -= 1;
         },
+
+        
      
        
     },
+
+    
 
     created(){
        
