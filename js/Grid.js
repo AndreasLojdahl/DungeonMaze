@@ -35,6 +35,8 @@ export default{
     data(){
         
         return{
+
+            
             tiles: [],
            /* grid : [      20x20 map
                 ['W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W'],
@@ -89,7 +91,8 @@ export default{
     computed:{
         flatTiles(){
             return this.tiles.flat()
-        }
+        },
+        
     },
     methods:{
 
@@ -109,21 +112,33 @@ export default{
             }
         },
         moveUp(){ 
-
-            this.heroPosition.y += 1;
+            
+            this.heroPosition.y -= 1;
             console.log(this.heroPosition.y)
             console.log('Inne i moveUp')
             
+            
         },
         moveDown(){
-            this.heroPosition.y -= 1;
+            this.heroPosition.y += 1;
+            console.log(this.heroPosition.y)
+            console.log('Inne i moveDown')
         },
         moveLeft(){
-            this.heroPosition.x += 1;
+            this.heroPosition.x -= 1;
+            console.log(this.heroPosition.x)
+            console.log('Inne i moveLeft')
         },
         moveRight(){
-            this.heroPosition.x -= 1;
-        },  
+            this.heroPosition.x += 1;
+            console.log(this.heroPosition.x)
+            console.log('Inne i moveRight')
+        },
+
+        checkForWall(){
+
+        }
+      
       
      
        
@@ -136,9 +151,11 @@ export default{
         console.log(this.tiles)
 
         console.log(this.flatTiles)
+
+       
     },
     mounted(){
-       
+   
 
     }
 
