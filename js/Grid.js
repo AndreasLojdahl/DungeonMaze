@@ -1,9 +1,11 @@
 import Tile from './Tile.js'
 import Character from './Character.js'
+import Monster from './Monster.js'
 export default{
     components:{
         Tile,
-        Character
+        Character,
+        Monster
     },
     template:`
     
@@ -15,6 +17,7 @@ export default{
         v-bind:key="'tile' + i + tile.x + tile.y"
         v-bind:class="'tile-type-' + tile.type"
         ></tile>
+        <Monster tileArray="flatTiles"></Monster>
         
         <Character v-bind:position="heroPosition"></Character>
 
@@ -32,6 +35,8 @@ export default{
     data(){
         
         return{
+
+            
             tiles: [],
            /* grid : [      20x20 map
                 ['W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W'],
@@ -86,7 +91,8 @@ export default{
     computed:{
         flatTiles(){
             return this.tiles.flat()
-        }
+        },
+        
     },
     methods:{
 
@@ -106,18 +112,34 @@ export default{
             }
         },
         moveUp(){ 
-            this.heroPosition.y += 1;
+            
+            this.heroPosition.y -= 1;
+            console.log(this.heroPosition.y)
             console.log('Inne i moveUp')
+            
+            
         },
         moveDown(){
-            this.heroPosition.y -= 1;
+            this.heroPosition.y += 1;
+            console.log(this.heroPosition.y)
+            console.log('Inne i moveDown')
         },
         moveLeft(){
-            this.heroPosition.x += 1;
+            this.heroPosition.x -= 1;
+            console.log(this.heroPosition.x)
+            console.log('Inne i moveLeft')
         },
         moveRight(){
-            this.heroPosition.x -= 1;
+            this.heroPosition.x += 1;
+            console.log(this.heroPosition.x)
+            console.log('Inne i moveRight')
         },
+
+        checkForWall(){
+
+        }
+      
+      
      
        
     },
@@ -129,8 +151,11 @@ export default{
         console.log(this.tiles)
 
         console.log(this.flatTiles)
+
+       
     },
     mounted(){
+   
 
     }
 
