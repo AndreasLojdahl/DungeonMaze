@@ -1,12 +1,13 @@
 import Tile from './Tile.js'
 import Character from './Character.js'
+
 export default{
     components:{
         Tile,
         Character
     },
+
     template:`
-    
     <div class="grid-layout">
 
         
@@ -19,8 +20,15 @@ export default{
         
      
         <Character></Character>
+        <div>
+        <button @click="moveLeft">Go Left</button>
+        <button @click="moveUp">Go Up</button>
+        <button @click="moveDown">Go Down</button>
+        <button @click="moveRight">Go Right</button>
+        </div>
     </div>
     `,
+
     data(){
         
         return{

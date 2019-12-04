@@ -8,8 +8,7 @@ h1{
   font-size: 500%;
   margin-top: 2%;
 }
-.grid-layout{
-  
+.grid-layout{  
   display: flex;              /* display flex*/
   width: 45vw;
   height: 45vh;           
@@ -19,19 +18,18 @@ h1{
   margin-top: 0;
   margin-left: 27%;
   position: relative; 
-  background-image: url("/img/DungeonMap1.jpg"); 
+  background-image: url("/images/DungeonMap1.jpg"); 
   background-size: cover;
+  
   
 }
 .tile{
+  display: inline-flex;
   width: 5%;
-  height: 10%;
+  height: 5%;
   margin: 0;
   padding: 0;
-  background-color: rgb(189, 177, 139);
-  background-size: contain;
   border: 1px solid  black;
-   
 }
 .character{
   display: flex;
@@ -46,7 +44,7 @@ h1{
 
 .tile-type-W {
   background-color: rgb(87, 82, 68); 
-  /*background-image: url('/img/DungeonMap1.jpg'); */
+  /*background-image: url('/images/DungeonMap1.jpg'); */
 }
 
 .char-info{
@@ -61,7 +59,7 @@ h1{
 
 /*.tile-type-C{
   background-color: rgb(42, 0, 141);  
-}*/
+}
 
 button{
   display: flex;
@@ -74,6 +72,8 @@ button{
   justify-content: space-around;
   align-items: center;
 }
+
+*/
 
 * {
     margin: 0;
