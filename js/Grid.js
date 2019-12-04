@@ -131,20 +131,29 @@ import Chest2 from './Chest.js'
             }
         },
 
-        
-        
         moveUp(){ 
-            this.heroPosition.y += 1;
-            console.log('Inne i moveUp')
+            let futurePositionY = this.heroPosition.y - 1
+            if (this.grid[futurePositionY][this.heroPosition.x] !== 'W'){
+            this.heroPosition.y -= 1;
+            }            
         },
         moveDown(){
-            this.heroPosition.y -= 1;
+            let futurePositionY = this.heroPosition.y + 1
+            if (this.grid[futurePositionY][this.heroPosition.x] !== 'W'){
+                this.heroPosition.y += 1;
+            }
         },
         moveLeft(){
-            this.heroPosition.x += 1;
+            let futurePositionX = this.heroPosition.x - 1
+            if (this.grid[this.heroPosition.y][futurePositionX] !== 'W'){
+            this.heroPosition.x -= 1;
+            }
         },
         moveRight(){
-            this.heroPosition.x -= 1;
+            let futurePositionX = this.heroPosition.x + 1
+            if (this.grid[this.heroPosition.y][futurePositionX] !== 'W'){
+            this.heroPosition.x += 1;
+            }
         },
 
         
