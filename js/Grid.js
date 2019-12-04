@@ -109,8 +109,11 @@ export default{
             }
         },
         moveUp(){ 
+
             this.heroPosition.y += 1;
+            console.log(this.heroPosition.y)
             console.log('Inne i moveUp')
+            
         },
         moveDown(){
             this.heroPosition.y -= 1;
@@ -120,7 +123,8 @@ export default{
         },
         moveRight(){
             this.heroPosition.x -= 1;
-        },
+        },  
+      
      
        
     },
@@ -134,6 +138,7 @@ export default{
         console.log(this.flatTiles)
     },
     mounted(){
+       
 
     }
 

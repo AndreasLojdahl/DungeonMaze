@@ -27,7 +27,10 @@ export default{
     mounted(){
         //this.$refs.character.style.setProperty('background-color', 'blue')
         this.$refs.hero.style.setProperty('left', `calc(${this.position.x} * 6.6667%)`)
+        console.log(this.position.x)
+       
         this.$refs.hero.style.setProperty('top', `calc(${this.position.y} * 6.6667%)`)
+        console.log(this.position.y)
     }
     
 
