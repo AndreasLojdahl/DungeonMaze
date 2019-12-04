@@ -15,8 +15,8 @@ export default {
         </div>
         
         <grid></grid>
-        
-    </div>
+
+    </div>  
     `, 
 
     data() {

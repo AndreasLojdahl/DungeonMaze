@@ -3,8 +3,8 @@ export default{
     props:['position'],
 
     template:`
-    
-    <div class="character"></div>
+
+    <div ref="hero" class="character"></div>
     `,
     
     data() {
@@ -33,6 +33,8 @@ export default{
     },
     mounted(){
         //this.$refs.character.style.setProperty('background-color', 'blue')
+        this.$refs.hero.style.setProperty('left', `calc(${this.position.x} * 6.6667%)`)
+        this.$refs.hero.style.setProperty('top', `calc(${this.position.y} * 6.6667%)`)
     }
     
 

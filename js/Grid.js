@@ -9,8 +9,7 @@ export default{
 
     template:`
     <div class="grid-layout">
-
-        
+       
        <tile 
        v-for="(tile, i) of flatTiles"
         v-bind:properties="tile"
@@ -18,14 +17,17 @@ export default{
         v-bind:class="'tile-type-' + tile.type"
         ></tile>
         
-     
-        <Character></Character>
-        <div>
-        <button @click="moveLeft">Go Left</button>
-        <button @click="moveUp">Go Up</button>
-        <button @click="moveDown">Go Down</button>
-        <button @click="moveRight">Go Right</button>
+        <Character v-bind:position="heroPosition"></Character>
+
+        <div class="buttons-div">
+
+        <button v-on:click="moveLeft">Left</button>
+        <button v-on:click="moveUp">Up</button>
+        <button v-on:click="moveDown">Down</button>
+        <button v-on:click="moveRight">Right</button></button>
+
         </div>
+
     </div>
     `,
 
@@ -60,21 +62,26 @@ export default{
             grid :[
 
                 ['W','W','W','W','W','W','W','W','W','W','W','W','W','W','W'],
-                ['W',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W'],
-                ['W',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W'],
-                ['W',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W'],
-                ['W',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W'],
-                ['W',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W'],
-                ['W',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W'],
-                ['W',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W'],
-                ['W',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W'],
-                ['W',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W'],
-                ['W',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W'],
-                ['W',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W'],
-                ['W',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W'],
-                ['W',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W'],
+                ['W','W','W',' ',' ',' ',' ',' ',' ',' ','W',' ',' ',' ','W'],
+                ['W','W',' ',' ',' ','W','W','W','W',' ',' ',' ',' ',' ','W'],
+                ['W',' ',' ',' ',' ','W',' ',' ','W',' ','W','W',' ',' ','W'],
+                ['W',' ','W','W',' ','W',' ',' ',' ',' ',' ','W',' ','W','W'],
+                ['W',' ',' ',' ',' ','W',' ',' ','W',' ','W','W','W','W','W'],
+                ['W','W',' ',' ',' ','W','W','W','W',' ',' ',' ',' ','W','W'],
+                [' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W','W',' ',' ','W'],
+                ['W',' ','W','W','W','W','W','W','W',' ','W','W',' ',' ','W'],
+                ['W',' ','W',' ',' ',' ','W','W',' ',' ',' ','W','W','W','W'],
+                ['W',' ',' ',' ',' ',' ','W',' ',' ','W',' ',' ',' ','W','W'],
+                ['W',' ','W','W','W','W','W',' ','W','W','W','W',' ',' ','W'],
+                ['W',' ',' ','W','W',' ',' ',' ',' ','W','W','W',' ',' ','W'],
+                ['W','W','W','W',' ',' ',' ',' ',' ','W',' ',' ',' ',' ','W'],
                 ['W','W','W','W','W','W','W','W','W','W','W','W','W','W','W'],
-            ]
+            ],
+
+            heroPosition:{
+                x:0,
+                y:7
+            }
            
         }
     },
@@ -99,7 +106,21 @@ export default{
                   
                 }
             }
-        }
+        },
+        moveUp(){ 
+            this.heroPosition.y += 1;
+            console.log('Inne i moveUp')
+        },
+        moveDown(){
+            this.heroPosition.y -= 1;
+        },
+        moveLeft(){
+            this.heroPosition.x += 1;
+        },
+        moveRight(){
+            this.heroPosition.x -= 1;
+        },
+     
        
     },
 
