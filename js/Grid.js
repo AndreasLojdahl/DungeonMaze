@@ -121,6 +121,10 @@ export default{
             
         },
         moveDown(){
+            if(this.grid[this.heroPosition.y++][this.heroPosition.x].type !== 'W'){
+                this.heroPosition.y += 1;
+            }
+            
             /*this.heroPosition.y += 1;
             console.log(this.heroPosition.y)
             console.log('Inne i moveDown')*/
