@@ -1,6 +1,7 @@
 import Tile from './Tile.js'
 import Character from './Character.js'
 import Monster from './Monster.js'
+
 export default{
     components:{
         Tile,
@@ -73,7 +74,7 @@ export default{
                 ['W',' ','W','W',' ','W',' ',' ',' ',' ',' ','W',' ','W','W'],
                 ['W',' ',' ',' ',' ','W',' ',' ','W',' ','W','W','W','W','W'],
                 ['W','W',' ',' ',' ','W','W','W','W',' ',' ',' ',' ','W','W'],
-                [' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W','W',' ',' ','W'],
+                [' ',' ','M',' ',' ',' ',' ',' ',' ',' ','W','W',' ',' ','W'],
                 ['W',' ','W','W','W','W','W','W','W',' ','W','W',' ',' ','W'],
                 ['W',' ','W',' ',' ',' ','W','W',' ',' ',' ','W','W','W','W'],
                 ['W',' ',' ',' ',' ',' ','W',' ',' ','W',' ',' ',' ','W','W'],
@@ -82,6 +83,13 @@ export default{
                 ['W','W','W','W',' ',' ',' ',' ',' ','W',' ',' ',' ',' ','W'],
                 ['W','W','W','W','W','W','W','W','W','W','W','W','W','W','W'],
             ],
+
+            // W = Wall
+            // M = Monster
+            // B = Boss
+            // T = Treasure Chest
+            // K = Key?
+
 
             heroPosition:{
                 x:0,
@@ -145,18 +153,20 @@ export default{
             if (this.grid[this.heroPosition.y][futurePositionX] !== 'W'){
             this.heroPosition.x += 1;
             }
-            console.log(this.heroPosition.x)
-            console.log('Inne i moveRight')
+
+            // check for Monster on the position
+            if (this.grid[this.heroPosition.y][futurePositionX] === 'M'){
+                this.$Children.Character.fightMonster(11);
+                }
         },
-        moveRight(){
-            this.heroPosition.x -= 1;
-        },  
         getMonsterPos(){
             
             let randIndex = Math.ciel(Math.random()* this.monsterPos.length)
             let position = monsterPos[randIndex]
 
         }
+
+
       
       
      
@@ -176,14 +186,11 @@ export default{
     mounted(){
         window.addEventListener('keyup', (e) => {
             
-            
                 if(e.keyCode === 37){                   
                    this.moveLeft()
-                    
                 }
                 if(e.keyCode === 38){
                     this.moveUp()
-                     
                 }
                 if(e.keyCode === 39){   
                     this.moveRight()

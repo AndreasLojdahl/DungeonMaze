@@ -7,7 +7,7 @@ h1{
   font-family: monospace;
   font-size: 550%;
   margin-top: 2%;
-  margin-bottom: 3%;
+  margin-bottom: 0%;
 }
 .grid-layout{  
   display: flex;              /* display flex*/
