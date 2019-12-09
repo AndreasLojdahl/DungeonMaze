@@ -1,5 +1,4 @@
-
-//import Character from './Character.js'
+import Character from './Character.js'
 
 
 export default{
