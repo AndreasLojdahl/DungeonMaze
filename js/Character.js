@@ -5,10 +5,9 @@ import Finalboss from './Finalboss.js'
 
 export default{
 
-    props:['position'],
+    props:['position','backPack'],
 
     template:`
-
     <div ref="hero" class="character"></div>
     `,
     
@@ -19,6 +18,7 @@ export default{
             health: 15,
         }
     },
+
     watch:{
         position:{
             deep: true,
@@ -27,11 +27,13 @@ export default{
             }
         },
         health:{
+            deep: true,
             handler(){
                 this.updateHealth()
             }
         }
     },
+
     methods:{
         updatePosition(){
             this.$refs.hero.style.setProperty('left', `calc(${this.position.x} * 6.6667%)`)
@@ -56,16 +58,14 @@ export default{
             }
         },
        updateHealth(){
-           this.$emit('changeHealth', this.health);
+           console.log(this.health);
+           this.$emit('changehealth', this.health);
        }
-    
-        
-
     },
+
     mounted(){
         this.updatePosition();
+        this.updateHealth();
        
     }
-    
-
 }

@@ -1,5 +1,4 @@
 import Grid from './Grid.js'
-import Character from './Character.js'
 
 export default {
 
@@ -7,16 +6,14 @@ export default {
 
     components:{
         Grid,
-        Character,
     },
     
     template: ` 
     <div id="app">
-
         <h1>Dungeon Maze</h1>
         <div class="char-info">
         <h3 class="health">Health: 
-            <span class="health-points"
+            <span class="health-points" 
             >{{ healthPoints }}
             </span>
         </h3>
@@ -24,20 +21,21 @@ export default {
             <span class="level-number">1</span>
         </h3>
         </div>
-        
-        <grid></grid>
-
+        <grid @changehealth="changedhealth"></grid>
     </div>  
     `, 
 
     data() {
         return{
-            healthPoints: 10,
+            healthPoints: 0,
         }
     },
 
     methods: {
-
+        changedhealth(newhealth){
+            console.log(this.healthPoints, newhealth);
+            this.healthPoints = newhealth;
+        }
     },
 
     computed: {

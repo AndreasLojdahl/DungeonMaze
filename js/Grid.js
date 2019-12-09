@@ -25,11 +25,13 @@ export default{
     template:`
     <div class="grid-layout">
        
-       <tile 
+       <tile  
        v-for="(tile, i) of flatTiles"
         v-bind:properties="tile"
         v-bind:key="'tile' + i + tile.x + tile.y"
         v-bind:class="'tile-type-' + tile.type"
+        ref="flatTiles"
+      
         ></tile>
         <Monster tileArray="flatTiles"></Monster>
         
@@ -39,25 +41,25 @@ export default{
         <Hero v-bind:stats="heroStats"></Hero>
         <Finalboss v-bind:position="finalBossData"></Finalboss>
         
-        
+        <Character 
+        ref="hero" 
+        @changehealth="changeherohealth" 
+        v-bind:position="heroPosition">
+        </Character>
+
         <div class="buttons-div">
 
         <button v-on:click="moveLeft">Left</button>
         <button v-on:click="moveUp">Up</button>
         <button v-on:click="moveDown">Down</button>
-        <button v-on:click="moveRight">Right</button></button> -->
-
-
+        <button v-on:click="moveRight">Right</button></button>
         </div>
-
     </div>
     `,
 
     data(){
-        
         return{
 
-            
             tiles: [],
            /* grid : [      20x20 map
                 ['W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W'],
@@ -79,12 +81,10 @@ export default{
                 ['W',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W'],
                 ['W',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W'],
                 ['W',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W'],
-                ['W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W'],
-           
-                
+                ['W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W'],     
               ],*/
-            grid :[
 
+            grid :[
                 ['W','W','W','W','W','W','W','W','W','W','W','W','W','W','W'],
                 ['W','W','W',' ',' ',' ',' ',' ',' ',' ','W',' ',' ',' ','W'],
                 ['W','W',' ',' ',' ','W','W','W','W',' ',' ',' ',' ',' ','W'],
@@ -111,6 +111,42 @@ export default{
                 x:12,
                 y:4
             },
+            monsterPos: [
+               [12, 2],
+               [6, 4],
+               [4, 10],
+               [13, 8],
+               [7, 13],
+               [12, 12],
+            ],
+
+            backPack:{
+
+                ironSword:'',
+                shield:'',
+                helmet:'',
+                chest:'',
+
+
+            }
+                
+            
+                
+            
+
+            
+                
+
+            
+           
+        }
+    },
+
+    computed:{
+        flatTiles(){
+            return this.tiles.flat()
+        },
+    },
 
             itemPosition2:{
                 x:4,
