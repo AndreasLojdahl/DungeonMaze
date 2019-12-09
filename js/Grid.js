@@ -12,11 +12,13 @@ export default{
     template:`
     <div class="grid-layout">
        
-       <tile 
+       <tile  
        v-for="(tile, i) of flatTiles"
         v-bind:properties="tile"
         v-bind:key="'tile' + i + tile.x + tile.y"
         v-bind:class="'tile-type-' + tile.type"
+        ref="flatTiles"
+      
         ></tile>
         
         <Character 
@@ -70,7 +72,7 @@ export default{
                 ['W',' ','W','W',' ','W',' ',' ',' ',' ',' ','W',' ','W','W'],
                 ['W',' ',' ',' ',' ','W',' ',' ','W',' ','W','W','W','W','W'],
                 ['W','W',' ',' ',' ','W','W','W','W',' ',' ',' ',' ','W','W'],
-                [' ',' ','M',' ',' ',' ',' ',' ',' ',' ','W','W',' ',' ','W'],
+                [' ',' ','M',' ',' ',' ','M',' ',' ',' ','W','W',' ',' ','W'],
                 ['W',' ','W','W','W','W','W','W','W',' ','W','W',' ',' ','W'],
                 ['W',' ','W',' ',' ',' ','W','W',' ',' ',' ','W','W','W','W'],
                 ['W',' ',' ',' ',' ',' ','W',' ',' ','W',' ',' ',' ','W','W'],
@@ -99,7 +101,26 @@ export default{
                [13, 8],
                [7, 13],
                [12, 12],
-            ]
+            ],
+
+            backPack:{
+
+                ironSword:'',
+                shield:'',
+                helmet:'',
+                chest:'',
+
+
+            }
+                
+            
+                
+            
+
+            
+                
+
+            
            
         }
     },
@@ -143,15 +164,33 @@ export default{
             let futurePositionX = this.heroPosition.x - 1
             if (this.grid[this.heroPosition.y][futurePositionX] !== 'W'){
                 this.heroPosition.x -= 1;
+               /* if(this.grid[this.heroPosition.y][futurePositionX] == 'M'){
+                    let index = this.heroPosition.y*15+futurePositionX;
+                    this.grid[this.heroPosition.y][futurePositionX] = ' ';
+                    console.log(this.grid[this.heroPosition.y][futurePositionX])
+                    //this.flatTiles[index].type = ' ';
+                    console.log(this.flatTiles[index].type);
+                    this.$refs.flatTiles[index].updateTileType();
+                    console.log(this.$refs.flatTiles[index].properties.type);
+                }*/
+            //this.heroPosition.x -= 1;
+            //console.log(this.flatTiles[0]);
+            //console.log(this.$refs.foo0);
+            //this.flatTiles[0].type = ' ';
+            //this.tiles[0][0].updateTileType();
             }
             this.checkForMonster(this.heroPosition.y, futurePositionX);
         },
+
         moveRight(){
             let futurePositionX = this.heroPosition.x + 1
             if (this.grid[this.heroPosition.y][futurePositionX] !== 'W'){
             this.heroPosition.x += 1;
             }
             this.checkForMonster(this.heroPosition.y, futurePositionX);
+            
+            console.log(this.heroPosition.x)
+            console.log('Inne i moveRight')
         },
         getMonsterPos(){
             let randIndex = Math.ciel(Math.random()* this.monsterPos.length)
@@ -160,8 +199,14 @@ export default{
         checkForMonster(positionY, positionX){
              if (this.grid[positionY][positionX] === 'M'){
                 this.$refs.hero.fightMonster(11);
-                this.grid[positionY][positionX] === ' '
-                }
+                let index = positionY*15+positionX;
+                this.grid[positionY][positionX] = ' ';
+                //console.log(this.grid[this.position.y][futurePositionX])
+                //this.flatTiles[index].type = ' ';
+                //console.log(this.flatTiles[index].type);
+                this.$refs.flatTiles[index].updateTileType();
+                console.log(this.$refs.flatTiles[index].properties.type);
+             }
         },
         changeherohealth(newhealth){
             console.log(newhealth);

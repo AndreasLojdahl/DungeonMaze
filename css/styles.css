@@ -50,6 +50,14 @@ h1{
   /*background-image: url('/img/DungeonMap1.jpg'); */
 }
 
+.tile-type-M{
+  background-color: rgb(255, 255, 31);
+}
+
+.tile-type-K{
+  background-color: tomato;
+}
+
 .char-info{
   display: flex;
   justify-content: space-around;

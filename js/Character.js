@@ -2,7 +2,7 @@ import Monster from './Monster.js'
 
 export default{
 
-    props:['position'],
+    props:['position','backPack'],
 
     template:`
     <div ref="hero" class="character"></div>
