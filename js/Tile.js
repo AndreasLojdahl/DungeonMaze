@@ -3,7 +3,7 @@ export default{
     props: ['properties'],
     template:`
        <!-- <button v-on:click="logPosition" class="tile"></button>     v-on:click = @click-->
-        <div class="tile" v-on:click="logPosition"> </div>
+        <div ref="tile" class="tile" v-on:click="logPosition"> </div>
     `,
     data(){
         return{
@@ -29,9 +29,17 @@ export default{
         },
 
         updateTileType(){
+            
             if(this.properties.type === 'I'){
+                this.$refs.tile.style.setProperty('background', 'none')
                 this.properties.type = ' ';
             }
+            else if( this.properties.type === 'M'){
+                this.$refs.tile.style.setProperty('background', 'none')
+                this.properties.type = ' ';
+            }
+
+            
         }
 
        

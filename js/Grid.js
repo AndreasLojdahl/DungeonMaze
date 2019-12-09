@@ -11,11 +11,12 @@ export default{
     template:`
     <div class="grid-layout">
        
-       <tile 
+       <tile  
        v-for="(tile, i) of flatTiles"
         v-bind:properties="tile"
         v-bind:key="'tile' + i + tile.x + tile.y"
         v-bind:class="'tile-type-' + tile.type"
+        ref="flatTiles"
       
         ></tile>
         
@@ -160,10 +161,19 @@ export default{
             let futurePositionX = this.heroPosition.x - 1
             if (this.grid[this.heroPosition.y][futurePositionX] !== 'W'){
                 if(this.grid[this.heroPosition.y][futurePositionX] == 'I'){
+                    let index = this.heroPosition.y*15+futurePositionX;
                     this.grid[this.heroPosition.y][futurePositionX] = ' ';
                     console.log(this.grid[this.heroPosition.y][futurePositionX])
+                    //this.flatTiles[index].type = ' ';
+                    console.log(this.flatTiles[index].type);
+                    this.$refs.flatTiles[index].updateTileType();
+                    console.log(this.$refs.flatTiles[index].properties.type);
                 }
             this.heroPosition.x -= 1;
+            //console.log(this.flatTiles[0]);
+            //console.log(this.$refs.foo0);
+            //this.flatTiles[0].type = ' ';
+            //this.tiles[0][0].updateTileType();
             }
         },
 
