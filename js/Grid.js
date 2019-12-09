@@ -1,6 +1,7 @@
 import Tile from './Tile.js'
 import Character from './Character.js'
 import Monster from './Monster.js'
+
 export default{
     components:{
         Tile,
@@ -19,7 +20,7 @@ export default{
         ></tile>
         
         
-        <Character v-bind:position="heroPosition"></Character>
+        <Character ref="hero" v-bind:position="heroPosition"></Character>
 
         <div class="buttons-div">
 
@@ -73,7 +74,7 @@ export default{
                 ['W',' ','W','W',' ','W',' ',' ',' ',' ',' ','W',' ','W','W'],
                 ['W',' ',' ',' ',' ','W',' ',' ','W',' ','W','W','W','W','W'],
                 ['W','W',' ',' ',' ','W','W','W','W',' ',' ',' ',' ','W','W'],
-                [' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W','W',' ',' ','W'],
+                [' ',' ','M',' ',' ',' ',' ',' ',' ',' ','W','W',' ',' ','W'],
                 ['W',' ','W','W','W','W','W','W','W',' ','W','W',' ',' ','W'],
                 ['W',' ','W',' ',' ',' ','W','W',' ',' ',' ','W','W','W','W'],
                 ['W',' ',' ',' ',' ',' ','W',' ',' ','W',' ',' ',' ','W','W'],
@@ -82,6 +83,13 @@ export default{
                 ['W','W','W','W',' ',' ',' ',' ',' ','W',' ',' ',' ',' ','W'],
                 ['W','W','W','W','W','W','W','W','W','W','W','W','W','W','W'],
             ],
+
+            // W = Wall
+            // M = Monster
+            // B = Boss
+            // T = Treasure Chest
+            // K = Key?
+
 
             heroPosition:{
                 x:0,
@@ -126,36 +134,42 @@ export default{
             let futurePositionY = this.heroPosition.y - 1
             if (this.grid[futurePositionY][this.heroPosition.x] !== 'W'){
             this.heroPosition.y -= 1;
-            }            
+            }         
+            this.checkForMonster(futurePositionY, this.heroPosition.x);   
         },
         moveDown(){
             let futurePositionY = this.heroPosition.y + 1
             if (this.grid[futurePositionY][this.heroPosition.x] !== 'W'){
                 this.heroPosition.y += 1;
             }
+            this.checkForMonster(futurePositionY, this.heroPosition.x);
         },
         moveLeft(){
             let futurePositionX = this.heroPosition.x - 1
             if (this.grid[this.heroPosition.y][futurePositionX] !== 'W'){
-            this.heroPosition.x -= 1;
+                this.heroPosition.x -= 1;
             }
+            this.checkForMonster(this.heroPosition.y, futurePositionX);
         },
         moveRight(){
             let futurePositionX = this.heroPosition.x + 1
             if (this.grid[this.heroPosition.y][futurePositionX] !== 'W'){
             this.heroPosition.x += 1;
-            console.log(this.heroPosition.x)
-            console.log('Inne i moveRight')
+            }
+            this.checkForMonster(this.heroPosition.y, futurePositionX);
         },
-        moveRight(){
-            this.heroPosition.x -= 1;
-        },  
         getMonsterPos(){
-            
             let randIndex = Math.ciel(Math.random()* this.monsterPos.length)
             let position = monsterPos[randIndex]
+        },
+        checkForMonster(positionY, positionX){
+             if (this.grid[positionY][positionX] === 'M'){
+                this.$refs.hero.fightMonster(11);
+                this.grid[positionY][positionX] === ' '
+                }
+        },
 
-        }
+
       
       
      
@@ -175,14 +189,11 @@ export default{
     mounted(){
         window.addEventListener('keyup', (e) => {
             
-            
                 if(e.keyCode === 37){                   
                    this.moveLeft()
-                    
                 }
                 if(e.keyCode === 38){
                     this.moveUp()
-                     
                 }
                 if(e.keyCode === 39){   
                     this.moveRight()
