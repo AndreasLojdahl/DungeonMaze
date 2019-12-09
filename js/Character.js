@@ -2,17 +2,16 @@ import Monster from './Monster.js'
 
 export default{
 
-    props:['position'],
+    props:['position','backPack'],
 
     template:`
 
     <div ref="hero" class="character"></div>
     `,
     
-    data() {       
+    data() {
         return {
-          
-    
+            
         }
     },
     watch:{
@@ -30,6 +29,10 @@ export default{
        
         this.$refs.hero.style.setProperty('top', `calc(${this.position.y} * 6.6667%)`)
         console.log(this.position.y)
+        },
+
+        updateHealth(){
+
         }
        
     
