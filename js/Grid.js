@@ -76,7 +76,7 @@ export default{
                 ['W',' ','W','W',' ','W',' ',' ',' ',' ',' ','W',' ','W','W'],
                 ['W',' ',' ',' ',' ','W',' ',' ','W',' ','W','W','W','W','W'],
                 ['W','W',' ',' ',' ','W','W','W','W',' ',' ',' ',' ','W','W'],
-                [' ',' ','M',' ',' ',' ',' ',' ',' ',' ','W','W',' ',' ','W'],
+                [' ',' ','M',' ',' ',' ','M',' ',' ',' ','W','W',' ',' ','W'],
                 ['W',' ','W','W','W','W','W','W','W',' ','W','W',' ',' ','W'],
                 ['W',' ','W',' ',' ',' ','W','W',' ',' ',' ','W','W','W','W'],
                 ['W',' ',' ',' ',' ',' ','W',' ',' ','W',' ',' ',' ','W','W'],
@@ -171,7 +171,7 @@ export default{
             let futurePositionX = this.heroPosition.x - 1
             if (this.grid[this.heroPosition.y][futurePositionX] !== 'W'){
                 this.heroPosition.x -= 1;
-                if(this.grid[this.heroPosition.y][futurePositionX] == 'I'){
+               /* if(this.grid[this.heroPosition.y][futurePositionX] == 'M'){
                     let index = this.heroPosition.y*15+futurePositionX;
                     this.grid[this.heroPosition.y][futurePositionX] = ' ';
                     console.log(this.grid[this.heroPosition.y][futurePositionX])
@@ -179,8 +179,8 @@ export default{
                     console.log(this.flatTiles[index].type);
                     this.$refs.flatTiles[index].updateTileType();
                     console.log(this.$refs.flatTiles[index].properties.type);
-                }
-            this.heroPosition.x -= 1;
+                }*/
+            //this.heroPosition.x -= 1;
             //console.log(this.flatTiles[0]);
             //console.log(this.$refs.foo0);
             //this.flatTiles[0].type = ' ';
@@ -195,7 +195,7 @@ export default{
             this.heroPosition.x += 1;
             }
             this.checkForMonster(this.heroPosition.y, futurePositionX);
-            this.heroPosition.x += 1;}
+            
             console.log(this.heroPosition.x)
             console.log('Inne i moveRight')
         },
@@ -206,8 +206,14 @@ export default{
         checkForMonster(positionY, positionX){
              if (this.grid[positionY][positionX] === 'M'){
                 this.$refs.hero.fightMonster(11);
-                this.grid[positionY][positionX] === ' '
-                }
+                let index = positionY*15+positionX;
+                this.grid[positionY][positionX] = ' ';
+                //console.log(this.grid[this.position.y][futurePositionX])
+                //this.flatTiles[index].type = ' ';
+                //console.log(this.flatTiles[index].type);
+                this.$refs.flatTiles[index].updateTileType();
+                console.log(this.$refs.flatTiles[index].properties.type);
+             }
         },
 
 
