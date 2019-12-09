@@ -3,10 +3,10 @@ import Character from './Character.js'
 export default{
 
 
-    props: ['position'],
+    props: ['Stats'],
 
     template:/*html*/` 
-    <div class="monster">               
+    <div class="Hero">               
         
     </div>
     `,
@@ -14,7 +14,9 @@ export default{
     data() {
         
           return {
-              position: 1,
+              hp: 10,
+              attack: 3,
+              level: 1,
     
         }
         
@@ -32,6 +34,14 @@ export default{
             return true
             console.log(this.tileArray.type)
         },
+
+        heroLevelsUp(){
+            level++,
+            attack++
+        },
+    
+
+    
      
 
     },

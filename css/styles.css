@@ -45,6 +45,19 @@ h1{
   /*border: 1px solid black;*/
 }
 
+.finalboss{
+  display: flex;
+  width: 6.6667%;
+  height: 6.6667%;   
+  /*background-color: green;*/
+  position: absolute;
+  background: url("/images/finalboss.png");
+  background-size: 100% 100%;
+  left: calc(0 * 6.6667%);   
+  top: calc(7 * 6.6667%); 
+  border: 1px solid black;
+}
+
 .chest1{
   display: flex;
   width: 6.6667%;

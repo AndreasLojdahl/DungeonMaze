@@ -3,6 +3,12 @@ import Character from './Character.js'
 import Chest1 from './Chest.js'
 import Chest2 from './Chest.js'
 import Monster from './Monster.js'
+import Hero from './Hero.js'
+import Finalboss from './Finalboss.js'
+
+
+
+
 
 export default{
     components:{
@@ -10,7 +16,10 @@ export default{
         Character,
         Chest1,
         Chest2,
-        Monster
+        Monster,
+        Finalboss,
+        Hero
+        
     },
 
     template:`
@@ -27,13 +36,15 @@ export default{
         <Character v-bind:position="heroPosition"></Character>
         <Chest1 v-bind:position="itemPosition1"></Chest1>
         <Chest2 v-bind:position="itemPosition2"></Chest2>
-
+        <Hero v-bind:stats="heroStats"></Hero>
+        <Finalboss v-bind:position="finalBossData"></Finalboss>
+        
         <div class="buttons-div">
 
-        <button v-on:click="moveLeft">Left</button>
+        <!-- <button v-on:click="moveLeft">Left</button>
         <button v-on:click="moveUp">Up</button>
         <button v-on:click="moveDown">Down</button>
-        <button v-on:click="moveRight">Right</button></button>
+        <button v-on:click="moveRight">Right</button></button> -->
 
         </div>
 
@@ -76,7 +87,7 @@ export default{
                 ['W','W','W',' ',' ',' ',' ',' ',' ',' ','W',' ',' ',' ','W'],
                 ['W','W',' ',' ',' ','W','W','W','W',' ',' ',' ',' ',' ','W'],
                 ['W',' ',' ',' ',' ','W',' ',' ','W',' ','W','W',' ',' ','W'],
-                ['W',' ','W','W',' ','W',' ',' ',' ',' ',' ','W',' ','W','W'],
+                ['W',' ','W','W',' ','W','W',' ',' ',' ',' ','W','W','W','W'],
                 ['W',' ',' ',' ',' ','W',' ',' ','W',' ','W','W','W','W','W'],
                 ['W','W',' ',' ',' ','W','W','W','W',' ',' ',' ',' ','W','W'],
                 ['W',' ',' ',' ',' ',' ',' ',' ',' ',' ','W','W',' ',' ','W'],
@@ -85,7 +96,7 @@ export default{
                 ['W',' ',' ',' ',' ',' ','W',' ',' ','W',' ',' ',' ','W','W'],
                 ['W',' ','W','W','W','W','W',' ','W','W','W','W',' ',' ','W'],
                 ['W',' ',' ','W','W',' ',' ',' ',' ','W','W','W',' ',' ','W'],
-                ['W','W','W','W',' ',' ',' ',' ',' ','W',' ',' ',' ',' ','W'],
+                ['W','W','W','W','W',' ',' ',' ',' ','W',' ',' ',' ',' ','W'],
                 ['W','W','W','W','W','W','W','W','W','W','W','W','W','W','W'],
             ],
 
@@ -103,6 +114,17 @@ export default{
                 x:4,
                 y:13
             },
+
+            finalBossData:{
+                x:6,
+                y:4
+            },
+
+            heroStats:{
+                hp: 10,
+                attack: 3,
+                level: 1
+            }
            
         }
     },
@@ -138,9 +160,10 @@ export default{
         moveDown(){
             let futurePositionY = this.heroPosition.y + 1
             if (this.grid[futurePositionY][this.heroPosition.x] !== 'W'){
-                this.heroPosition.y += 1;
+            this.heroPosition.y += 1;
+            ;
             }
-        },
+    },
         moveLeft(){
             let futurePositionX = this.heroPosition.x - 1
             if (this.grid[this.heroPosition.y][futurePositionX] !== 'W'){
@@ -154,14 +177,21 @@ export default{
             }
         },
 
-        checkForWall(){
-
+        checkChest(){
+            if (this.grid[this.heroPosition.y][futurePositionX] !== 'C'){
+            ;
+            }
         }
       
       
      
        
     },
+
+    changeText(){
+        document.getElementById('health').innerHTML = '14';
+    },
+    
 
     created(){
        
@@ -174,7 +204,28 @@ export default{
        
     },
     mounted(){
-   
+        window.addEventListener('keyup', (e) => {
+
+            if(e.keyCode === 37){
+                this.moveLeft()
+               
+            }
+            if(e.keyCode === 38){
+                this.moveUp()
+                
+                
+            }
+            if(e.keyCode === 39){
+                this.moveRight()
+            }
+            if(e.keyCode === 40){
+                this.moveDown()
+            }
+
+
+    })
+
+
 
     }
 

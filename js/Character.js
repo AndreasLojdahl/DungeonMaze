@@ -1,4 +1,6 @@
 import Monster from './Monster.js'
+import Hero from './Hero.js'
+import Finalboss from './Finalboss.js'
 
 export default{
 
@@ -12,7 +14,7 @@ export default{
     data() {
         return {
             x: 0,
-            y: 0
+            y: 0,
         }
     },
     watch:{
