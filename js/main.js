@@ -1,9 +1,13 @@
+
 import App from './DungeonMaze.js'
 //all imports are done at the top of the file.
 
 new Vue({
-    render: h => h(App)
+   render: h => h(App)
 }).$mount('#dungeonMaze')
+
+//import Creatures from './Creatures'
+//import Hero from './Creatures'
 
 // Create the canvas
 // var canvas = document.createElement("canvas");  //skapar canvas elemennt
@@ -84,29 +88,29 @@ addEventListener("keyup", function (e) {
 }, false);
 
 // Reset the game when the player catches a monster
-// var reset = function () { //om en reset sker så aktuverar det funtionen
-// 	hero.x = canvas.width - 1000; //placerar ikonen på specifikt ställer
-// 	hero.y = canvas.height - 620; //placerar ikonen på specifikt ställer
+var reset = function () { //om en reset sker så aktuverar det funtionen
+	hero.x = canvas.width - 1000; //placerar ikonen på specifikt ställer
+	hero.y = canvas.height - 620; //placerar ikonen på specifikt ställer
 
-// 	// Throw the monster somewhere on the screen randomly
-// 	monster.x = 32 + (Math.random() * (canvas.width - 64));
-//     monster.y = 32 + (Math.random() * (canvas.height - 64));
+	// Throw the monster somewhere on the screen randomly
+	monster.x = 32 + (Math.random() * (canvas.width - 64));
+    monster.y = 32 + (Math.random() * (canvas.height - 64));
     
-//     item1.x = 32 + (Math.random() * (canvas.width - 64));
-//     item1.y = 32 + (Math.random() * (canvas.height - 64));
+    item1.x = 32 + (Math.random() * (canvas.width - 64));
+    item1.y = 32 + (Math.random() * (canvas.height - 64));
     
-//     item2.x = 32 + (Math.random() * (canvas.width - 64));
-//     item2.y = 32 + (Math.random() * (canvas.height - 64));
+    item2.x = 32 + (Math.random() * (canvas.width - 64));
+    item2.y = 32 + (Math.random() * (canvas.height - 64));
     
-//     item3.x = 32 + (Math.random() * (canvas.width - 64));
-//     item3.y = 32 + (Math.random() * (canvas.height - 64));
+    item3.x = 32 + (Math.random() * (canvas.width - 64));
+    item3.y = 32 + (Math.random() * (canvas.height - 64));
     
-//     item4.x = 32 + (Math.random() * (canvas.width - 64));
-//     item4.y = 32 + (Math.random() * (canvas.height - 64));
+    item4.x = 32 + (Math.random() * (canvas.width - 64));
+    item4.y = 32 + (Math.random() * (canvas.height - 64));
     
-//     itemM.x = canvas.height - 170;
-// 	itemM.y = canvas.width - 170;
-// };
+    itemM.x = canvas.height - 170;
+	itemM.y = canvas.width - 170;
+};
 
 // Update game objects
 var update = function (modifier) {
@@ -330,6 +334,6 @@ requestAnimationFrame = w.requestAnimationFrame || w.webkitRequestAnimationFrame
 
 // spela spelet
 var then = Date.now();
-// reset();
-// main();
+reset();
+main();
 
