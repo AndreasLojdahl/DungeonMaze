@@ -16,6 +16,7 @@ export default{
         v-bind:properties="tile"
         v-bind:key="'tile' + i + tile.x + tile.y"
         v-bind:class="'tile-type-' + tile.type"
+      
         ></tile>
         
         
@@ -72,7 +73,7 @@ export default{
                 ['W',' ',' ',' ',' ','W',' ',' ','W',' ','W','W',' ',' ','W'],
                 ['W',' ','W','W',' ','W',' ',' ',' ',' ',' ','W',' ','W','W'],
                 ['W',' ',' ',' ',' ','W',' ',' ','W',' ','W','W','W','W','W'],
-                ['W','W',' ',' ',' ','W','W','W','W',' ',' ',' ',' ','W','W'],
+                ['W','W','I',' ',' ','W','W','W','W',' ',' ',' ',' ','W','W'],
                 [' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W','W',' ',' ','W'],
                 ['W',' ','W','W','W','W','W','W','W',' ','W','W',' ',' ','W'],
                 ['W',' ','W',' ',' ',' ','W','W',' ',' ',' ','W','W','W','W'],
@@ -95,7 +96,26 @@ export default{
                [13, 8],
                [7, 13],
                [12, 12],
-            ]
+            ],
+
+            backPack:{
+
+                ironSword:'',
+                shield:'',
+                helmet:'',
+                chest:'',
+
+
+            }
+                
+            
+                
+            
+
+            
+                
+
+            
            
         }
     },
@@ -106,6 +126,8 @@ export default{
         
     },
     methods:{
+
+       
 
         createMap (heigth,width){
      
@@ -137,23 +159,31 @@ export default{
         moveLeft(){
             let futurePositionX = this.heroPosition.x - 1
             if (this.grid[this.heroPosition.y][futurePositionX] !== 'W'){
+                if(this.grid[this.heroPosition.y][futurePositionX] == 'I'){
+                    this.grid[this.heroPosition.y][futurePositionX] = ' ';
+                    console.log(this.grid[this.heroPosition.y][futurePositionX])
+                }
             this.heroPosition.x -= 1;
             }
         },
+
         moveRight(){
             let futurePositionX = this.heroPosition.x + 1
             if (this.grid[this.heroPosition.y][futurePositionX] !== 'W'){
-            this.heroPosition.x += 1;
+            this.heroPosition.x += 1;}
             console.log(this.heroPosition.x)
             console.log('Inne i moveRight')
         },
-        moveRight(){
-            this.heroPosition.x -= 1;
-        },  
+      
         getMonsterPos(){
             
             let randIndex = Math.ciel(Math.random()* this.monsterPos.length)
             let position = monsterPos[randIndex]
+
+        },
+
+        checkForItem(position){
+           
 
         }
       
