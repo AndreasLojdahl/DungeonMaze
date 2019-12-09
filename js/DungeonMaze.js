@@ -2,6 +2,8 @@ import Grid from './Grid.js'
 
 export default {
 
+    props:['health'],
+
     components:{
         Grid,
     },

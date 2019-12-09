@@ -1,37 +1,50 @@
 import Character from './Character.js'
 
-
 export default{
 
-    props: ['position'],
+
+    props: ['Stats'],
 
     template:/*html*/` 
-    <div ref="monster" class="monster">               
+    <div class="Hero">               
+        
     </div>
     `,
     
     data() {
+        
           return {
-              position: 1,
+              hp: 10,
+              attack: 3,
+              level: 1,
     
         }
+        
     },
-
     computed:{
        
     },
-
     created(){
 
-    },
 
+    },
     methods:{
+        
         isAlive(){
             return true
             console.log(this.tileArray.type)
         },
-    },
 
+        heroLevelsUp(){
+            level++,
+            attack++
+        },
+    
+
+    
+     
+
+    },
     mounted(){
        
     }

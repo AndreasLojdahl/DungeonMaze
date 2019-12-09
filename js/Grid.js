@@ -1,12 +1,25 @@
 import Tile from './Tile.js'
 import Character from './Character.js'
+import Chest1 from './Chest.js'
+import Chest2 from './Chest.js'
 import Monster from './Monster.js'
+import Hero from './Hero.js'
+import Finalboss from './Finalboss.js'
+
+
+
+
 
 export default{
     components:{
         Tile,
         Character,
-        Monster
+        Chest1,
+        Chest2,
+        Monster,
+        Finalboss,
+        Hero
+        
     },
 
     template:`
@@ -20,6 +33,13 @@ export default{
         ref="flatTiles"
       
         ></tile>
+        <Monster tileArray="flatTiles"></Monster>
+        
+        <Character ref="hero" v-bind:position="heroPosition"></Character>
+        <Chest1 v-bind:position="itemPosition1"></Chest1>
+        <Chest2 v-bind:position="itemPosition2"></Chest2>
+        <Hero v-bind:stats="heroStats"></Hero>
+        <Finalboss v-bind:position="finalBossData"></Finalboss>
         
         <Character 
         ref="hero" 
@@ -73,28 +93,25 @@ export default{
                 ['W',' ','W','W',' ','W',' ',' ',' ',' ',' ','W',' ','W','W'],
                 ['W',' ',' ','I',' ','W',' ',' ','W',' ','W','W','W','W','W'],
                 ['W','W',' ',' ',' ','W','W','W','W',' ',' ',' ',' ','W','W'],
-                [' ',' ','M',' ',' ',' ','M',' ',' ',' ','W','W',' ',' ','W'],
+                ['W',' ','M',' ',' ',' ',' ',' ',' ',' ','W','W',' ',' ','W'],
                 ['W',' ','W','W','W','W','W','W','W',' ','W','W',' ',' ','W'],
                 ['W',' ','W',' ',' ',' ','W','W',' ',' ',' ','W','W','W','W'],
                 ['W',' ',' ',' ',' ',' ','W',' ',' ','W',' ',' ',' ','W','W'],
                 ['W',' ','W','W','W','W','W',' ','W','W','W','W',' ',' ','W'],
                 ['W',' ',' ','W','W',' ',' ',' ',' ','W','W','W',' ',' ','W'],
-                ['W','W','W','W',' ',' ',' ',' ',' ','W',' ',' ',' ',' ','W'],
+                ['W','W','W','W','W',' ',' ',' ',' ','W',' ',' ',' ',' ','W'],
                 ['W','W','W','W','W','W','W','W','W','W','W','W','W','W','W'],
             ],
 
-            // W = Wall
-            // M = Monster
-            // B = Boss
-            // T = Treasure Chest
-            // K = Key?
-
-
             heroPosition:{
-                x:0,
+                x:1,
                 y:7
             },
 
+            itemPosition1:{
+                x:12,
+                y:4
+            },
             monsterPos: [
                [12, 2],
                [6, 4],
@@ -190,6 +207,10 @@ export default{
            // this.checkForMonster(this.heroPosition.y, futurePositionX);
            // this.changeTileType(this.heroPosition.y, futurePositionX);
         },
+            itemPosition2:{
+                x:4,
+                y:13
+            },
 
         moveRight(){
             let futurePositionX = this.heroPosition.x + 1
@@ -198,6 +219,25 @@ export default{
                 this.checkForItem(this.heroPosition.y, futurePositionX)
                 this.heroPosition.x += 1;
             }
+            finalBossData:{
+                x:6,
+                y:4
+            },
+
+            heroStats:{
+                hp: 10,
+                attack: 3,
+                level: 1
+            },
+           
+            monsterPos: [
+                [12, 2],
+                [6, 4],
+                [4, 10],
+                [13, 8],
+                [7, 13],
+                [12, 12],
+             ]
             
             console.log(this.heroPosition.x)
             console.log('Inne i moveRight')
@@ -217,6 +257,33 @@ export default{
                 //console.log(this.flatTiles[index].type);
                 //this.$refs.flatTiles[index].updateTileType();
                 //console.log(this.$refs.flatTiles[index].properties.type);
+           
+
+
+        }
+         
+     },
+     computed:{
+         flatTiles(){
+             return this.tiles.flat()
+         },
+         
+     },
+     methods:{
+ 
+         createMap (heigth,width){
+      
+             for(let rows = 0; rows < heigth; rows++){
+                 this.tiles[rows] = [];
+                 for(let cols = 0; cols < width; cols++){
+                     let properties = {
+                         x: cols,
+                         y: rows,
+                         type: this.grid[rows][cols]
+                     }
+                     this.tiles[rows].push(properties)
+                   
+                 }
              }
         },
         checkForItem(positionY, positionX){
@@ -239,16 +306,69 @@ export default{
             this.$refs.flatTiles[index].updateTileType();
 
         }
+         },
+         moveUp(){ 
+             let futurePositionY = this.heroPosition.y - 1
+             if (this.grid[futurePositionY][this.heroPosition.x] !== 'W'){
+             this.heroPosition.y -= 1;
+             }         
+             this.checkForMonster(futurePositionY, this.heroPosition.x);   
+         },
+         moveDown(){
+             let futurePositionY = this.heroPosition.y + 1
+             if (this.grid[futurePositionY][this.heroPosition.x] !== 'W'){
+                 this.heroPosition.y += 1;
+             }
+             this.checkForMonster(futurePositionY, this.heroPosition.x);
+         },
+         moveLeft(){
+             let futurePositionX = this.heroPosition.x - 1
+             if (this.grid[this.heroPosition.y][futurePositionX] !== 'W'){
+                 this.heroPosition.x -= 1;
+             }
+             this.checkForMonster(this.heroPosition.y, futurePositionX);
+         },
+         moveRight(){
+             let futurePositionX = this.heroPosition.x + 1
+             if (this.grid[this.heroPosition.y][futurePositionX] !== 'W'){
+             this.heroPosition.x += 1;
+             }
+             this.checkForMonster(this.heroPosition.y, futurePositionX);
+         },
+         getMonsterPos(){
+             let randIndex = Math.ciel(Math.random()* this.monsterPos.length)
+             let position = monsterPos[randIndex]
+         },
+         checkForMonster(positionY, positionX){
+              if (this.grid[positionY][positionX] === 'M'){
+                 this.$refs.hero.fightMonster(11);
+                 this.grid[positionY][positionX] === ' '
+                 }
+         },
+ 
+ 
+       
     },
 
-    created(){   
+    created(){
+       
+      
+        
+     },
+ 
+     created(){
+       
         this.createMap(15,15)         //undefined = this.
+        
         console.log(this.tiles)
-        console.log(this.flatTiles)
-    },
 
+        console.log(this.flatTiles)
+
+       
+    },
     mounted(){
         window.addEventListener('keyup', (e) => {
+            
                 if(e.keyCode === 37){                   
                    this.moveLeft()
                 }
@@ -261,7 +381,11 @@ export default{
                 if(e.keyCode === 40){
                     this.moveDown()
                 }
+                       
+            
         })
+    
     }
+        
 
 }
