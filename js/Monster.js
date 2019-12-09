@@ -1,5 +1,6 @@
 import Character from './Character.js'
 
+
 export default{
 
     props: ['position'],

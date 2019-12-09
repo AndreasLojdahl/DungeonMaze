@@ -49,7 +49,7 @@ export default{
 
         <div class="buttons-div">
 
-        <!-- <button v-on:click="moveLeft">Left</button>
+        <button v-on:click="moveLeft">Left</button>
         <button v-on:click="moveUp">Up</button>
         <button v-on:click="moveDown">Down</button>
         <button v-on:click="moveRight">Right</button></button>
@@ -173,7 +173,11 @@ export default{
                 [12, 12],
              ]
             
-         }
+           
+
+
+        }
+         
      },
      computed:{
          flatTiles(){
@@ -239,135 +243,27 @@ export default{
  
  
        
+    },
+
+    created(){
        
       
         
      },
  
      created(){
-        
-         this.createMap(15,15)         //undefined = this.
-         
-         console.log(this.tiles)
- 
-         console.log(this.flatTiles)
- 
-        
-     },
-     mounted(){
-         window.addEventListener('keyup', (e) => {
-             
-                 if(e.keyCode === 37){                   
-                    this.moveLeft()
-                 }
-                 if(e.keyCode === 38){
-                     this.moveUp()
-                 }
-                 if(e.keyCode === 39){   
-                     this.moveRight()
-                 }
-                 if(e.keyCode === 40){
-                     this.moveDown()
-                 }
-                        
-             
-         })
-     
-     }
-         
- 
- }
-    methods:{
-        createMap (heigth,width){
-     
-            for(let rows = 0; rows < heigth; rows++){
-                this.tiles[rows] = [];
-                for(let cols = 0; cols < width; cols++){
-                    let properties = {
-                        x: cols,
-                        y: rows,
-                        type: this.grid[rows][cols]
-                    }
-                    this.tiles[rows].push(properties)
-                }
-            }
-        },
-        moveUp(){ 
-            let futurePositionY = this.heroPosition.y - 1
-            if (this.grid[futurePositionY][this.heroPosition.x] !== 'W'){
-            this.heroPosition.y -= 1;
-            }         
-            this.checkForMonster(futurePositionY, this.heroPosition.x);   
-        },
-        moveDown(){
-            let futurePositionY = this.heroPosition.y + 1
-            if (this.grid[futurePositionY][this.heroPosition.x] !== 'W'){
-                this.heroPosition.y += 1;
-            }
-            this.checkForMonster(futurePositionY, this.heroPosition.x);
-        },
-        moveLeft(){
-            let futurePositionX = this.heroPosition.x - 1
-            if (this.grid[this.heroPosition.y][futurePositionX] !== 'W'){
-                this.heroPosition.x -= 1;
-               /* if(this.grid[this.heroPosition.y][futurePositionX] == 'M'){
-                    let index = this.heroPosition.y*15+futurePositionX;
-                    this.grid[this.heroPosition.y][futurePositionX] = ' ';
-                    console.log(this.grid[this.heroPosition.y][futurePositionX])
-                    //this.flatTiles[index].type = ' ';
-                    console.log(this.flatTiles[index].type);
-                    this.$refs.flatTiles[index].updateTileType();
-                    console.log(this.$refs.flatTiles[index].properties.type);
-                }*/
-            //this.heroPosition.x -= 1;
-            //console.log(this.flatTiles[0]);
-            //console.log(this.$refs.foo0);
-            //this.flatTiles[0].type = ' ';
-            //this.tiles[0][0].updateTileType();
-            }
-            this.checkForMonster(this.heroPosition.y, futurePositionX);
-        },
-
-        moveRight(){
-            let futurePositionX = this.heroPosition.x + 1
-            if (this.grid[this.heroPosition.y][futurePositionX] !== 'W'){
-            this.heroPosition.x += 1;
-            }
-            this.checkForMonster(this.heroPosition.y, futurePositionX);
-            
-            console.log(this.heroPosition.x)
-            console.log('Inne i moveRight')
-        },
-        getMonsterPos(){
-            let randIndex = Math.ciel(Math.random()* this.monsterPos.length)
-            let position = monsterPos[randIndex]
-        },
-        checkForMonster(positionY, positionX){
-             if (this.grid[positionY][positionX] === 'M'){
-                this.$refs.hero.fightMonster(11);
-                let index = positionY*15+positionX;
-                this.grid[positionY][positionX] = ' ';
-                //console.log(this.grid[this.position.y][futurePositionX])
-                //this.flatTiles[index].type = ' ';
-                //console.log(this.flatTiles[index].type);
-                this.$refs.flatTiles[index].updateTileType();
-                console.log(this.$refs.flatTiles[index].properties.type);
-             }
-        },
-        changeherohealth(newhealth){
-            console.log(newhealth);
-            this.$emit('changehealth', newhealth);
-        }
-    },
-
-    created(){   
+       
         this.createMap(15,15)         //undefined = this.
+        
         console.log(this.tiles)
-        console.log(this.flatTiles)
-    },
 
+        console.log(this.flatTiles)
+
+       
+    },
     mounted(){
         window.addEventListener('keyup', (e) => {
+            
                 if(e.keyCode === 37){                   
                    this.moveLeft()
                 }
@@ -380,7 +276,11 @@ export default{
                 if(e.keyCode === 40){
                     this.moveDown()
                 }
+                       
+            
         })
+    
     }
+        
 
 }
