@@ -134,45 +134,40 @@ export default{
             let futurePositionY = this.heroPosition.y - 1
             if (this.grid[futurePositionY][this.heroPosition.x] !== 'W'){
             this.heroPosition.y -= 1;
-            }            
+            }         
+            this.checkForMonster(futurePositionY, this.heroPosition.x);   
         },
         moveDown(){
             let futurePositionY = this.heroPosition.y + 1
             if (this.grid[futurePositionY][this.heroPosition.x] !== 'W'){
                 this.heroPosition.y += 1;
             }
+            this.checkForMonster(futurePositionY, this.heroPosition.x);
         },
         moveLeft(){
             let futurePositionX = this.heroPosition.x - 1
             if (this.grid[this.heroPosition.y][futurePositionX] !== 'W'){
-            this.heroPosition.x -= 1;
+                this.heroPosition.x -= 1;
             }
+            this.checkForMonster(this.heroPosition.y, futurePositionX);
         },
         moveRight(){
             let futurePositionX = this.heroPosition.x + 1
             if (this.grid[this.heroPosition.y][futurePositionX] !== 'W'){
             this.heroPosition.x += 1;
-            
             }
-
-            // check for Monster on the position
-            
-            if (this.grid[this.heroPosition.y][futurePositionX] === 'M'){
-                this.$refs.hero.fightMonster(11);
-                this.grid[this.heroPosition.y][futurePositionX] === ' '
-                }
-                
+            this.checkForMonster(this.heroPosition.y, futurePositionX);
         },
         getMonsterPos(){
-            
             let randIndex = Math.ciel(Math.random()* this.monsterPos.length)
             let position = monsterPos[randIndex]
-
         },
-
-        removeMonster(){
-
-        }
+        checkForMonster(positionY, positionX){
+             if (this.grid[positionY][positionX] === 'M'){
+                this.$refs.hero.fightMonster(11);
+                this.grid[positionY][positionX] === ' '
+                }
+        },
 
 
       
