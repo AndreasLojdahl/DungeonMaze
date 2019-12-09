@@ -89,7 +89,7 @@ export default{
                 ['W','W','W',' ',' ',' ',' ',' ',' ',' ','W',' ',' ',' ','W'],
                 ['W','W',' ',' ',' ','W','W','W','W',' ',' ',' ',' ',' ','W'],
                 ['W',' ',' ',' ',' ','W',' ',' ','W',' ','W','W',' ',' ','W'],
-                ['W',' ','W','W',' ','W','W',' ',' ',' ',' ','W','W','W','W'],
+                ['W',' ','W','W',' ','W','W',' ',' ',' ',' ','W','C','W','W'],
                 ['W',' ',' ',' ',' ','W',' ',' ','W',' ','W','W','W','W','W'],
                 ['W','W',' ',' ',' ','W','W','W','W',' ',' ',' ',' ','W','W'],
                 ['W',' ','M',' ',' ',' ',' ',' ',' ',' ','W','W',' ',' ','W'],
@@ -98,7 +98,7 @@ export default{
                 ['W',' ',' ',' ',' ',' ','W',' ',' ','W',' ',' ',' ','W','W'],
                 ['W',' ','W','W','W','W','W',' ','W','W','W','W',' ',' ','W'],
                 ['W',' ',' ','W','W',' ',' ',' ',' ','W','W','W',' ',' ','W'],
-                ['W','W','W','W','W',' ',' ',' ',' ','W',' ',' ',' ',' ','W'],
+                ['W','W','W','W','C',' ',' ',' ',' ','W',' ',' ',' ',' ','W'],
                 ['W','W','W','W','W','W','W','W','W','W','W','W','W','W','W'],
             ],
 
@@ -110,6 +110,22 @@ export default{
             itemPosition1:{
                 x:12,
                 y:4
+            },
+
+            itemPosition2:{
+                x:4,
+                y:13
+            },
+
+            finalBossData:{
+                x:6,
+                y:4
+            },
+
+            heroStats:{
+                hp: 10,
+                attack: 3,
+                level: 1
             },
             monsterPos: [
                [12, 2],
@@ -148,43 +164,7 @@ export default{
         },
     },
 
-            itemPosition2:{
-                x:4,
-                y:13
-            },
-
-            finalBossData:{
-                x:6,
-                y:4
-            },
-
-            heroStats:{
-                hp: 10,
-                attack: 3,
-                level: 1
-            },
-           
-            monsterPos: [
-                [12, 2],
-                [6, 4],
-                [4, 10],
-                [13, 8],
-                [7, 13],
-                [12, 12],
-             ]
             
-           
-
-
-        }
-         
-     },
-     computed:{
-         flatTiles(){
-             return this.tiles.flat()
-         },
-         
-     },
      methods:{
  
          createMap (heigth,width){
@@ -207,7 +187,8 @@ export default{
              if (this.grid[futurePositionY][this.heroPosition.x] !== 'W'){
              this.heroPosition.y -= 1;
              }         
-             this.checkForMonster(futurePositionY, this.heroPosition.x);   
+             this.checkForMonster(futurePositionY, this.heroPosition.x);
+             this.checkForChest(this.heroPosition.y, futurePositionX);   
          },
          moveDown(){
              let futurePositionY = this.heroPosition.y + 1
@@ -215,6 +196,7 @@ export default{
                  this.heroPosition.y += 1;
              }
              this.checkForMonster(futurePositionY, this.heroPosition.x);
+             this.checkForChest(this.heroPosition.y, futurePositionX);
          },
          moveLeft(){
              let futurePositionX = this.heroPosition.x - 1
@@ -222,6 +204,8 @@ export default{
                  this.heroPosition.x -= 1;
              }
              this.checkForMonster(this.heroPosition.y, futurePositionX);
+             this.checkForChest(this.heroPosition.y, futurePositionX);
+             this.removeChest();
          },
          moveRight(){
              let futurePositionX = this.heroPosition.x + 1
@@ -229,6 +213,7 @@ export default{
              this.heroPosition.x += 1;
              }
              this.checkForMonster(this.heroPosition.y, futurePositionX);
+             this.checkForChest(this.heroPosition.y, futurePositionX);
          },
          getMonsterPos(){
              let randIndex = Math.ciel(Math.random()* this.monsterPos.length)
@@ -239,9 +224,28 @@ export default{
                  this.$refs.hero.fightMonster(11);
                  this.grid[positionY][positionX] === ' '
                  }
-         },
+                },
+        
+        
+        changeherohealth(newhealth){
+                    console.log(newhealth);
+                    this.$emit('changehealth', newhealth);
+                },
+         
+
+        checkForChest(positionY, positionX){
+             if (this.grid[positionY][positionX] === 'C'){
+                this.$refs.hero.checkChest();
+                this.grid[positionY][positionX] === ' '
+                }
+            },
+
+        removeChest(){
+            this.Chest1 = false;
+            this.Chest2 = false;
+        }
  
- 
+        
        
     },
 
@@ -284,3 +288,4 @@ export default{
         
 
 }
+

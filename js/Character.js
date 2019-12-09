@@ -16,6 +16,9 @@ export default{
             x: 0,
             y: 0,
             health: 15,
+            attack: 10,
+            level: 1,
+            
         }
     },
 
@@ -41,6 +44,17 @@ export default{
        
             this.$refs.hero.style.setProperty('top', `calc(${this.position.y} * 6.6667%)`)
             console.log(this.position.y)
+        },
+
+        checkChest() {
+        this.health++;
+        this.level++;
+        },
+
+        heroLevelsUp(){
+            this.level++,
+            this.attack++,
+            this.health++
         },
 
         fightMonster(monsterHealth){

@@ -14,9 +14,10 @@ export default{
     data() {
         
           return {
-              hp: 10,
+              hp: 15,
               attack: 3,
               level: 1,
+              
     
         }
         
