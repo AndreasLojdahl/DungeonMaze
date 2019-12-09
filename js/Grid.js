@@ -1,5 +1,6 @@
 import Tile from './Tile.js'
 import Character from './Character.js'
+
 import Chest1 from './Chest.js'
 import Chest2 from './Chest.js'
 import Monster from './Monster.js'
@@ -10,16 +11,19 @@ import Finalboss from './Finalboss.js'
 
 
 
+
 export default{
     components:{
         Tile,
         Character,
+
         Chest1,
         Chest2,
         Monster,
         Finalboss,
         Hero
         
+
     },
 
     template:`
@@ -33,6 +37,7 @@ export default{
         ></tile>
         <Monster tileArray="flatTiles"></Monster>
         
+        
         <Character v-bind:position="heroPosition"></Character>
         <Chest1 v-bind:position="itemPosition1"></Chest1>
         <Chest2 v-bind:position="itemPosition2"></Chest2>
@@ -44,7 +49,12 @@ export default{
         <!-- <button v-on:click="moveLeft">Left</button>
         <button v-on:click="moveUp">Up</button>
         <button v-on:click="moveDown">Down</button>
+
         <button v-on:click="moveRight">Right</button></button> -->
+
+        <button v-on:click="moveRight">Right</button></button>
+        
+
 
         </div>
 
@@ -125,6 +135,16 @@ export default{
                 attack: 3,
                 level: 1
             }
+      
+      monsterPos: [
+               [12, 2],
+               [6, 4],
+               [4, 10],
+               [13, 8],
+               [7, 13],
+               [12, 12],
+            ]
+
            
         }
     },
@@ -156,6 +176,15 @@ export default{
             if (this.grid[futurePositionY][this.heroPosition.x] !== 'W'){
             this.heroPosition.y -= 1;
             }            
+
+
+        },
+        moveDown(){
+            let futurePositionY = this.heroPosition.y + 1
+            if (this.grid[futurePositionY][this.heroPosition.x] !== 'W'){
+                this.heroPosition.y += 1;
+            }
+
         },
         moveDown(){
             let futurePositionY = this.heroPosition.y + 1
@@ -169,18 +198,40 @@ export default{
             if (this.grid[this.heroPosition.y][futurePositionX] !== 'W'){
             this.heroPosition.x -= 1;
             }
+
+ },
+        moveRight(){
+            let futurePositionX = this.heroPosition.x + 1
+            if (this.grid[this.heroPosition.y][futurePositionX] !== 'W'){
+            this.heroPosition.x += 1;
+            console.log(this.heroPosition.x)
+            console.log('Inne i moveRight')
+        },
+        moveRight(){
+            this.heroPosition.x -= 1;
+        },  
+        getMonsterPos(){
+            
+            let randIndex = Math.ciel(Math.random()* this.monsterPos.length)
+            let position = monsterPos[randIndex]
+
         },
         moveRight(){
             let futurePositionX = this.heroPosition.x + 1
             if (this.grid[this.heroPosition.y][futurePositionX] !== 'W'){
             this.heroPosition.x += 1;
-            }
+            console.log(this.heroPosition.x)
+            console.log('Inne i moveRight')
         },
+        moveRight(){
+            this.heroPosition.x -= 1;
+        },  
+        getMonsterPos(){
+            
+            let randIndex = Math.ciel(Math.random()* this.monsterPos.length)
+            let position = monsterPos[randIndex]
 
-        checkChest(){
-            if (this.grid[this.heroPosition.y][futurePositionX] !== 'C'){
-            ;
-            }
+
         }
       
       
@@ -206,6 +257,7 @@ export default{
     mounted(){
         window.addEventListener('keyup', (e) => {
 
+
             if(e.keyCode === 37){
                 this.moveLeft()
                
@@ -224,9 +276,27 @@ export default{
 
 
     })
+      
+               },
+        moveRight(){
+            let futurePositionX = this.heroPosition.x + 1
+            if (this.grid[this.heroPosition.y][futurePositionX] !== 'W'){
+            this.heroPosition.x += 1;
+            console.log(this.heroPosition.x)
+            console.log('Inne i moveRight')
+        },
+        moveRight(){
+            this.heroPosition.x -= 1;
+        },  
+        getMonsterPos(){
+            
+            let randIndex = Math.ciel(Math.random()* this.monsterPos.length)
+            let position = monsterPos[randIndex]
+
 
 
 
     }
+        
 
 }
