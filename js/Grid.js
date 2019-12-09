@@ -1,45 +1,28 @@
 import Tile from './Tile.js'
 import Character from './Character.js'
-import Chest1 from './Chest.js'
-import Chest2 from './Chest.js'
+import Chest from './Chest.js'
 import Monster from './Monster.js'
-import Hero from './Hero.js'
 import Finalboss from './Finalboss.js'
-
-
-
-
 
 export default{
     components:{
         Tile,
         Character,
-        Chest1,
-        Chest2,
+        Chest,
         Monster,
-        Finalboss,
-        Hero
-        
+        Finalboss
     },
 
     template:`
     <div class="grid-layout">
        
        <tile  
-       v-for="(tile, i) of flatTiles"
+        v-for="(tile, i) of flatTiles"
         v-bind:properties="tile"
         v-bind:key="'tile' + i + tile.x + tile.y"
         v-bind:class="'tile-type-' + tile.type"
         ref="flatTiles"
-      
         ></tile>
-        <Monster tileArray="flatTiles"></Monster>
-        
-        <Character ref="hero" v-bind:position="heroPosition"></Character>
-        <Chest1 v-bind:position="itemPosition1"></Chest1>
-        <Chest2 v-bind:position="itemPosition2"></Chest2>
-        <Hero v-bind:stats="heroStats"></Hero>
-        <Finalboss v-bind:position="finalBossData"></Finalboss>
         
         <Character 
         ref="hero" 
@@ -47,13 +30,21 @@ export default{
         v-bind:position="heroPosition">
         </Character>
 
-        <div class="buttons-div">
+        <Chest 
+        ref="chest" 
+        @changehealth="changeherohealth" 
+        v-bind:position1="heroPosition">
+        </Chest>
 
+        <!--
+        <Monster tileArray="flatTiles"></Monster>
+        <div class="buttons-div">
         <button v-on:click="moveLeft">Left</button>
         <button v-on:click="moveUp">Up</button>
         <button v-on:click="moveDown">Down</button>
         <button v-on:click="moveRight">Right</button></button>
         </div>
+        -->
     </div>
     `,
 
@@ -89,28 +80,30 @@ export default{
                 ['W','W','W',' ',' ',' ',' ',' ',' ',' ','W',' ',' ',' ','W'],
                 ['W','W',' ',' ',' ','W','W','W','W',' ',' ',' ',' ',' ','W'],
                 ['W',' ',' ',' ',' ','W',' ',' ','W',' ','W','W',' ',' ','W'],
-                ['W',' ','W','W',' ','W','W',' ',' ',' ',' ','W','W','W','W'],
+                ['W',' ','W','W',' ','W','B',' ',' ',' ',' ','W',' ','W','W'],
                 ['W',' ',' ',' ',' ','W',' ',' ','W',' ','W','W','W','W','W'],
                 ['W','W',' ',' ',' ','W','W','W','W',' ',' ',' ',' ','W','W'],
-                ['W',' ','M',' ',' ',' ',' ',' ',' ',' ','W','W',' ',' ','W'],
+                [' ',' ','M',' ',' ',' ',' ',' ',' ',' ','W','W',' ',' ','W'],
                 ['W',' ','W','W','W','W','W','W','W',' ','W','W',' ',' ','W'],
                 ['W',' ','W',' ',' ',' ','W','W',' ',' ',' ','W','W','W','W'],
                 ['W',' ',' ',' ',' ',' ','W',' ',' ','W',' ',' ',' ','W','W'],
                 ['W',' ','W','W','W','W','W',' ','W','W','W','W',' ',' ','W'],
-                ['W',' ',' ','W','W',' ',' ',' ',' ','W','W','W',' ',' ','W'],
-                ['W','W','W','W','W',' ',' ',' ',' ','W',' ',' ',' ',' ','W'],
+                ['W',' ','K','W','W',' ',' ',' ',' ','W','W','W',' ',' ','W'],
+                ['W','W','W','W',' ',' ',' ',' ',' ','W',' ',' ',' ',' ','W'],
                 ['W','W','W','W','W','W','W','W','W','W','W','W','W','W','W'],
             ],
+            
+            // W = Wall
+            // M = Monster
+            // B = Boss
+            // T = Treasure Chest
+            // K = Key?
 
             heroPosition:{
-                x:1,
+                x:0,
                 y:7
             },
 
-            itemPosition1:{
-                x:12,
-                y:4
-            },
             monsterPos: [
                [12, 2],
                [6, 4],
@@ -120,75 +113,38 @@ export default{
                [12, 12],
             ],
 
-            backPack:{
+            chestPositions: [
+                [2,12],
+                [2,2],
+                [10,4],
+                [12,4],
+                [4,13],
+                [10,13],
+                [7,3],
+                [11,1],
+                [3,9],
+                [8,13]
+            ],
 
+            chests: [],
+
+            backPack:{
                 ironSword:'',
                 shield:'',
                 helmet:'',
                 chest:'',
-
-
             }
-                
-            
-                
-            
-
-            
-                
-
-            
-           
         }
     },
 
     computed:{
         flatTiles(){
             return this.tiles.flat()
-        },
-    },
-
-            itemPosition2:{
-                x:4,
-                y:13
-            },
-
-            finalBossData:{
-                x:6,
-                y:4
-            },
-
-            heroStats:{
-                hp: 10,
-                attack: 3,
-                level: 1
-            },
-           
-            monsterPos: [
-                [12, 2],
-                [6, 4],
-                [4, 10],
-                [13, 8],
-                [7, 13],
-                [12, 12],
-             ]
-            
-           
-
-
         }
-         
      },
-     computed:{
-         flatTiles(){
-             return this.tiles.flat()
-         },
-         
-     },
+
      methods:{
- 
          createMap (heigth,width){
-      
              for(let rows = 0; rows < heigth; rows++){
                  this.tiles[rows] = [];
                  for(let cols = 0; cols < width; cols++){
@@ -198,7 +154,6 @@ export default{
                          type: this.grid[rows][cols]
                      }
                      this.tiles[rows].push(properties)
-                   
                  }
              }
          },
@@ -235,35 +190,25 @@ export default{
              let position = monsterPos[randIndex]
          },
          checkForMonster(positionY, positionX){
-              if (this.grid[positionY][positionX] === 'M'){
+            if (this.grid[positionY][positionX] === 'M'){
                  this.$refs.hero.fightMonster(11);
                  this.grid[positionY][positionX] === ' '
-                 }
+            }
          },
- 
- 
-       
+         changeherohealth(newhealth){
+            console.log(newhealth);
+            this.$emit('changehealth', newhealth);
+        }, 
     },
-
-    created(){
-       
-      
-        
-     },
  
      created(){
-       
         this.createMap(15,15)         //undefined = this.
-        
         console.log(this.tiles)
-
         console.log(this.flatTiles)
-
-       
     },
+
     mounted(){
         window.addEventListener('keyup', (e) => {
-            
                 if(e.keyCode === 37){                   
                    this.moveLeft()
                 }
@@ -276,8 +221,6 @@ export default{
                 if(e.keyCode === 40){
                     this.moveDown()
                 }
-                       
-            
         })
     
     }

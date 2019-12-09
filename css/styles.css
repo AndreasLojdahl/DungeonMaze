@@ -1,6 +1,7 @@
 *{
   box-sizing: border-box;
 }
+
 h1{
   display: flex;
   justify-content: center;
@@ -9,6 +10,7 @@ h1{
   margin-top: 2%;
   margin-bottom: 3%;
 }
+
 .grid-layout{  
   display: flex;              /* display flex*/
   width: 40%;
@@ -23,15 +25,15 @@ h1{
 }
 
 .tile{
-  
   width: 6.6667%;
   height: 6.6667%;
   margin: 0;
   padding: 0;
   /*background-color: rgb(189, 177, 139);*/
   background-size: contain;
-  border: 1px solid  black;
+  /*border: 1px solid  black;*/
 }
+
 .character{
   display: flex;
   width: 6.6667%;
@@ -43,7 +45,6 @@ h1{
   /*left: calc(0 * 6.6667%);   
   top: calc(7 * 6.6667%); */
   /*border: 1px solid black;*/
-
 }
 
 .finalboss{
@@ -54,75 +55,6 @@ h1{
   position: absolute;
   background: url("/images/finalboss.png");
   background-size: 100% 100%;
-  left: calc(0 * 6.6667%);   
-  top: calc(7 * 6.6667%); 
-  border: 1px solid black;
-}
-
-.chest1{
-  display: flex;
-  width: 6.6667%;
-  height: 6.6667%;   
-  /*background-color: green;*/
-  position: absolute;
-  background: url("/images/Normal Chest.png");
-  background-size: 100% 100%;
-  left: calc(0 * 6.6667%);   
-  top: calc(7 * 6.6667%); 
-  border: 1px solid black;
-}
-
-.chest2{
-  display: flex;
-  width: 6.6667%;
-  height: 6.6667%;   
-  /*background-color: green;*/
-  position: absolute;
-  background: url("/images/Normal Chest.png");
-  background-size: 100% 100%;
-  left: calc(0 * 6.6667%);   
-  top: calc(7 * 6.6667%); 
-  border: 1px solid black;
-
-}
-
-.finalboss{
-  display: flex;
-  width: 6.6667%;
-  height: 6.6667%;   
-  /*background-color: green;*/
-  position: absolute;
-  background: url("/images/finalboss.png");
-  background-size: 100% 100%;
-  left: calc(0 * 6.6667%);   
-  top: calc(7 * 6.6667%); 
-  border: 1px solid black;
-}
-
-.chest1{
-  display: flex;
-  width: 6.6667%;
-  height: 6.6667%;   
-  /*background-color: green;*/
-  position: absolute;
-  background: url("/images/Normal Chest.png");
-  background-size: 100% 100%;
-  left: calc(0 * 6.6667%);   
-  top: calc(7 * 6.6667%); 
-  border: 1px solid black;
-}
-
-.chest2{
-  display: flex;
-  width: 6.6667%;
-  height: 6.6667%;   
-  /*background-color: green;*/
-  position: absolute;
-  background: url("/images/Normal Chest.png");
-  background-size: 100% 100%;
-  left: calc(0 * 6.6667%);   
-  top: calc(7 * 6.6667%); 
-  border: 1px solid black;
 }
 
 .tile-type-W {
@@ -131,11 +63,21 @@ h1{
 }
 
 .tile-type-M{
-  background-color: rgb(255, 255, 31);
+  /*background-color: rgb(255, 255, 31);*/
+  background-image: url('/images/fish.png');
+  background-repeat: no-repeat;
 }
 
 .tile-type-K{
-  background-color: tomato;
+  /*background-color: tomato;*/
+  background-image: url('/images/NormalChest.png');
+  background-repeat: no-repeat;
+}
+
+.tile-type-B{
+  /*background-color: tomato;*/
+  background-image: url('/images/werewolf.png');
+  background-repeat: no-repeat;
 }
 
 .char-info{
