@@ -3,7 +3,7 @@ import Character from './Character.js'
 
 export default{
 
-    props: ['position'],
+    props: ['monsterPosition'],
 
     template:/*html*/` 
     <div ref="monster" class="monster">               
