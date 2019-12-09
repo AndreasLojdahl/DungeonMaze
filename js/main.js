@@ -1,6 +1,4 @@
-
-import App from './DungeonMaze.js'
-//all imports are done at the top of the file.
+import DungeonMaze from './DungeonMaze.js'
 
 new Vue({
    render: h => h(App)
