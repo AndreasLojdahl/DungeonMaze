@@ -1,3 +1,21 @@
+<ul id="v-for-object" class="demo">
+  <li v-for="value in object">
+    {{ value }}
+  </li>
+</ul>
+
+new Vue({
+    el: '#v-for-object',
+    data: {
+      object: {
+        title: 'How to do lists in Vue',
+        author: 'Jane Doe',
+        publishedAt: '2016-04-10'
+      }
+    }
+  })
+
+
 class Money {
     constructor(moneyamount) {
 this.moneyamount = moneyamount;
