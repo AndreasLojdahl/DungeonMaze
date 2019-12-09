@@ -33,7 +33,7 @@ export default{
         ></tile>
         <Monster tileArray="flatTiles"></Monster>
         
-        <Character v-bind:position="heroPosition"></Character>
+        <Character ref="hero" v-bind:position="heroPosition"></Character>
         <Chest1 v-bind:position="itemPosition1"></Chest1>
         <Chest2 v-bind:position="itemPosition2"></Chest2>
         <Hero v-bind:stats="heroStats"></Hero>
@@ -90,7 +90,7 @@ export default{
                 ['W',' ','W','W',' ','W','W',' ',' ',' ',' ','W','W','W','W'],
                 ['W',' ',' ',' ',' ','W',' ',' ','W',' ','W','W','W','W','W'],
                 ['W','W',' ',' ',' ','W','W','W','W',' ',' ',' ',' ','W','W'],
-                [' ',' ','M',' ',' ',' ',' ',' ',' ',' ','W','W',' ',' ','W'],
+                ['W',' ','M',' ',' ',' ',' ',' ',' ',' ','W','W',' ',' ','W'],
                 ['W',' ','W','W','W','W','W','W','W',' ','W','W',' ',' ','W'],
                 ['W',' ','W',' ',' ',' ','W','W',' ',' ',' ','W','W','W','W'],
                 ['W',' ',' ',' ',' ',' ','W',' ',' ','W',' ',' ',' ','W','W'],
@@ -99,13 +99,6 @@ export default{
                 ['W','W','W','W','W',' ',' ',' ',' ','W',' ',' ',' ',' ','W'],
                 ['W','W','W','W','W','W','W','W','W','W','W','W','W','W','W'],
             ],
-
-            // W = Wall
-            // M = Monster
-            // B = Boss
-            // T = Treasure Chest
-            // K = Key?
-
 
             heroPosition:{
                 x:1,
@@ -131,114 +124,118 @@ export default{
                 hp: 10,
                 attack: 3,
                 level: 1
-            }
+            },
            
-        }
-    },
-    computed:{
-        flatTiles(){
-            return this.tiles.flat()
-        },
-        
-    },
-    methods:{
-
-        createMap (heigth,width){
-     
-            for(let rows = 0; rows < heigth; rows++){
-                this.tiles[rows] = [];
-                for(let cols = 0; cols < width; cols++){
-                    let properties = {
-                        x: cols,
-                        y: rows,
-                        type: this.grid[rows][cols]
-                    }
-                    this.tiles[rows].push(properties)
-                  
-                }
-            }
-        },
-        moveUp(){ 
-            let futurePositionY = this.heroPosition.y - 1
-            if (this.grid[futurePositionY][this.heroPosition.x] !== 'W'){
-            this.heroPosition.y -= 1;
-            }         
-            this.checkForMonster(futurePositionY, this.heroPosition.x);   
-        },
-        moveDown(){
-            let futurePositionY = this.heroPosition.y + 1
-            if (this.grid[futurePositionY][this.heroPosition.x] !== 'W'){
-            this.heroPosition.y += 1;
-            ;
-            }
-            this.checkForMonster(futurePositionY, this.heroPosition.x);
-        },
-        moveLeft(){
-            let futurePositionX = this.heroPosition.x - 1
-            if (this.grid[this.heroPosition.y][futurePositionX] !== 'W'){
-                this.heroPosition.x -= 1;
-            }
-            this.checkForMonster(this.heroPosition.y, futurePositionX);
-        },
-        moveRight(){
-            let futurePositionX = this.heroPosition.x + 1
-            if (this.grid[this.heroPosition.y][futurePositionX] !== 'W'){
-            this.heroPosition.x += 1;
-            }
-            this.checkForMonster(this.heroPosition.y, futurePositionX);
-        },
-        getMonsterPos(){
-            let randIndex = Math.ciel(Math.random()* this.monsterPos.length)
-            let position = monsterPos[randIndex]
-        },
-        checkForMonster(positionY, positionX){
-             if (this.grid[positionY][positionX] === 'M'){
-                this.$refs.hero.fightMonster(11);
-                this.grid[positionY][positionX] === ' '
-                }
-        },
-
-
-      
-      
-     
-       
-    },
-
-    changeText(){
-        document.getElementById('health').innerHTML = '14';
-    },
-    
-
-    created(){
-       
-        this.createMap(15,15)         //undefined = this.
-        
-        console.log(this.tiles)
-
-        console.log(this.flatTiles)
-
-       
-    },
-    mounted(){
-        window.addEventListener('keyup', (e) => {
+            monsterPos: [
+                [12, 2],
+                [6, 4],
+                [4, 10],
+                [13, 8],
+                [7, 13],
+                [12, 12],
+             ]
             
-                if(e.keyCode === 37){                   
-                   this.moveLeft()
-                }
-                if(e.keyCode === 38){
-                    this.moveUp()
-                }
-                if(e.keyCode === 39){   
-                    this.moveRight()
-                }
-                if(e.keyCode === 40){
-                    this.moveDown()
-                }
-                       
-            
-        })
-    
-    }
-
-}
+         }
+     },
+     computed:{
+         flatTiles(){
+             return this.tiles.flat()
+         },
+         
+     },
+     methods:{
+ 
+         createMap (heigth,width){
+      
+             for(let rows = 0; rows < heigth; rows++){
+                 this.tiles[rows] = [];
+                 for(let cols = 0; cols < width; cols++){
+                     let properties = {
+                         x: cols,
+                         y: rows,
+                         type: this.grid[rows][cols]
+                     }
+                     this.tiles[rows].push(properties)
+                   
+                 }
+             }
+         },
+         moveUp(){ 
+             let futurePositionY = this.heroPosition.y - 1
+             if (this.grid[futurePositionY][this.heroPosition.x] !== 'W'){
+             this.heroPosition.y -= 1;
+             }         
+             this.checkForMonster(futurePositionY, this.heroPosition.x);   
+         },
+         moveDown(){
+             let futurePositionY = this.heroPosition.y + 1
+             if (this.grid[futurePositionY][this.heroPosition.x] !== 'W'){
+                 this.heroPosition.y += 1;
+             }
+             this.checkForMonster(futurePositionY, this.heroPosition.x);
+         },
+         moveLeft(){
+             let futurePositionX = this.heroPosition.x - 1
+             if (this.grid[this.heroPosition.y][futurePositionX] !== 'W'){
+                 this.heroPosition.x -= 1;
+             }
+             this.checkForMonster(this.heroPosition.y, futurePositionX);
+         },
+         moveRight(){
+             let futurePositionX = this.heroPosition.x + 1
+             if (this.grid[this.heroPosition.y][futurePositionX] !== 'W'){
+             this.heroPosition.x += 1;
+             }
+             this.checkForMonster(this.heroPosition.y, futurePositionX);
+         },
+         getMonsterPos(){
+             let randIndex = Math.ciel(Math.random()* this.monsterPos.length)
+             let position = monsterPos[randIndex]
+         },
+         checkForMonster(positionY, positionX){
+              if (this.grid[positionY][positionX] === 'M'){
+                 this.$refs.hero.fightMonster(11);
+                 this.grid[positionY][positionX] === ' '
+                 }
+         },
+ 
+ 
+       
+       
+      
+        
+     },
+ 
+     created(){
+        
+         this.createMap(15,15)         //undefined = this.
+         
+         console.log(this.tiles)
+ 
+         console.log(this.flatTiles)
+ 
+        
+     },
+     mounted(){
+         window.addEventListener('keyup', (e) => {
+             
+                 if(e.keyCode === 37){                   
+                    this.moveLeft()
+                 }
+                 if(e.keyCode === 38){
+                     this.moveUp()
+                 }
+                 if(e.keyCode === 39){   
+                     this.moveRight()
+                 }
+                 if(e.keyCode === 40){
+                     this.moveDown()
+                 }
+                        
+             
+         })
+     
+     }
+         
+ 
+ }

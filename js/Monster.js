@@ -6,7 +6,7 @@ export default{
     props: ['position'],
 
     template:/*html*/` 
-    <div ref="monster" class="monster">               
+    <div class="monster">               
         
     </div>
     `,
@@ -15,7 +15,7 @@ export default{
         
           return {
               position: 1,
-              health: 9,
+    
         }
         
     },
