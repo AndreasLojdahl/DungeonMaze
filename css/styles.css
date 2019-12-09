@@ -51,10 +51,14 @@ h1{
 }
 
 .tile-type-M{
-  background-color: rgb(255, 255, 31);
+  /*background-color: rgb(255, 255, 31);*/
+  background-image: url('/images/LesserDarkKnightFamiliar.png');
 }
 
 .tile-type-K{
+  background-color: tomato;
+}
+.tile-type-I{
   background-color: tomato;
 }
 
@@ -109,4 +113,8 @@ img {
   height: 50px;
 
 }*/
+
+.alert{
+  background-color: tomato;
+}
 

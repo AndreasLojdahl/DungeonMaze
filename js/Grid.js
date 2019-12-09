@@ -23,6 +23,7 @@ export default{
         
         <Character 
         ref="hero" 
+        @changelevel="changeherolevel"
         @changehealth="changeherohealth" 
         v-bind:position="heroPosition">
         </Character>
@@ -70,7 +71,7 @@ export default{
                 ['W','W',' ',' ',' ','W','W','W','W',' ',' ',' ',' ',' ','W'],
                 ['W',' ',' ',' ',' ','W',' ',' ','W',' ','W','W',' ',' ','W'],
                 ['W',' ','W','W',' ','W',' ',' ',' ',' ',' ','W',' ','W','W'],
-                ['W',' ',' ',' ',' ','W',' ',' ','W',' ','W','W','W','W','W'],
+                ['W',' ',' ','I',' ','W',' ',' ','W',' ','W','W','W','W','W'],
                 ['W','W',' ',' ',' ','W','W','W','W',' ',' ',' ',' ','W','W'],
                 [' ',' ','M',' ',' ',' ','M',' ',' ',' ','W','W',' ',' ','W'],
                 ['W',' ','W','W','W','W','W','W','W',' ','W','W',' ',' ','W'],
@@ -149,21 +150,28 @@ export default{
         moveUp(){ 
             let futurePositionY = this.heroPosition.y - 1
             if (this.grid[futurePositionY][this.heroPosition.x] !== 'W'){
-            this.heroPosition.y -= 1;
+                this.checkForMonster(futurePositionY, this.heroPosition.x); 
+                this.checkForItem(futurePositionY,this.heroPosition.x);
+                this.heroPosition.y -= 1;
             }         
-            this.checkForMonster(futurePositionY, this.heroPosition.x);   
+              
         },
         moveDown(){
             let futurePositionY = this.heroPosition.y + 1
             if (this.grid[futurePositionY][this.heroPosition.x] !== 'W'){
+                this.checkForMonster(futurePositionY,this.heroPosition.x);
+                this.checkForItem(futurePositionY,this.heroPosition.x);
                 this.heroPosition.y += 1;
             }
-            this.checkForMonster(futurePositionY, this.heroPosition.x);
+            //this.checkForMonster(futurePositionY, this.heroPosition.x);
         },
         moveLeft(){
             let futurePositionX = this.heroPosition.x - 1
             if (this.grid[this.heroPosition.y][futurePositionX] !== 'W'){
+                this.checkForMonster(this.heroPosition.y, futurePositionX);
+                this.checkForItem(this.heroPosition.y, futurePositionX)
                 this.heroPosition.x -= 1;
+            }
                /* if(this.grid[this.heroPosition.y][futurePositionX] == 'M'){
                     let index = this.heroPosition.y*15+futurePositionX;
                     this.grid[this.heroPosition.y][futurePositionX] = ' ';
@@ -178,16 +186,18 @@ export default{
             //console.log(this.$refs.foo0);
             //this.flatTiles[0].type = ' ';
             //this.tiles[0][0].updateTileType();
-            }
-            this.checkForMonster(this.heroPosition.y, futurePositionX);
+            
+           // this.checkForMonster(this.heroPosition.y, futurePositionX);
+           // this.changeTileType(this.heroPosition.y, futurePositionX);
         },
 
         moveRight(){
             let futurePositionX = this.heroPosition.x + 1
             if (this.grid[this.heroPosition.y][futurePositionX] !== 'W'){
-            this.heroPosition.x += 1;
+                this.checkForMonster(this.heroPosition.y, futurePositionX);
+                this.checkForItem(this.heroPosition.y, futurePositionX)
+                this.heroPosition.x += 1;
             }
-            this.checkForMonster(this.heroPosition.y, futurePositionX);
             
             console.log(this.heroPosition.x)
             console.log('Inne i moveRight')
@@ -199,18 +209,35 @@ export default{
         checkForMonster(positionY, positionX){
              if (this.grid[positionY][positionX] === 'M'){
                 this.$refs.hero.fightMonster(11);
-                let index = positionY*15+positionX;
-                this.grid[positionY][positionX] = ' ';
+                this.changeTileType(positionY, positionX);
+                //let index = positionY*15+positionX;
+                //this.grid[positionY][positionX] = ' ';
                 //console.log(this.grid[this.position.y][futurePositionX])
                 //this.flatTiles[index].type = ' ';
                 //console.log(this.flatTiles[index].type);
-                this.$refs.flatTiles[index].updateTileType();
-                console.log(this.$refs.flatTiles[index].properties.type);
+                //this.$refs.flatTiles[index].updateTileType();
+                //console.log(this.$refs.flatTiles[index].properties.type);
              }
+        },
+        checkForItem(positionY, positionX){
+            if(this.grid[positionY][positionX] === 'I'){
+                this.$refs.hero.updateHeroLevel();
+                this.changeTileType(positionY, positionX);
+            }
+
         },
         changeherohealth(newhealth){
             console.log(newhealth);
             this.$emit('changehealth', newhealth);
+        },
+        changeherolevel(newlevel){
+            this.$emit('changelevel', newlevel);
+        },
+        changeTileType(positionY, positionX){
+            let index = positionY*15+positionX;
+            this.grid[positionY][positionX] = ' ';
+            this.$refs.flatTiles[index].updateTileType();
+
         }
     },
 

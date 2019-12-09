@@ -36,6 +36,9 @@ export default{
                 this.$refs.tile.style.setProperty('background', 'none')
                 this.properties.type = ' ';
             }
+            else if(this.properties.type === 'I'){
+                this.properties.type = ' ';
+            }
 
             
         }

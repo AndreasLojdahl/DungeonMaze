@@ -13,6 +13,13 @@ export default{
             x: 0,
             y: 0,
             health: 15,
+            level: 0,
+            backpack:{
+                IronSword: '',
+                Shield:''
+            }
+                
+            
         }
     },
 
@@ -27,6 +34,12 @@ export default{
             deep: true,
             handler(){
                 this.updateHealth()
+            }
+        },
+        level:{
+            deep:true,
+            handler(){
+                this.updateLevel()
             }
         }
     },
@@ -54,10 +67,20 @@ export default{
                 }
             }
         },
+        updateHeroLevel(){
+            this.level += 1;
+            this.health += 10;
+        },
        updateHealth(){
            console.log(this.health);
            this.$emit('changehealth', this.health);
+       },
+       updateLevel(){
+           console.log(this.level);
+           
+           this.$emit('changelevel', this.level);
        }
+
     },
 
     mounted(){

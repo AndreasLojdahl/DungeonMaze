@@ -16,16 +16,17 @@ export default {
             </span>
         </h3>
         <h3 class="level">Level: 
-            <span class="level-number">1</span>
+            <span class="level-number">{{ level }}</span>
         </h3>
         </div>
-        <grid @changehealth="changedhealth"></grid>
+        <grid @changehealth="changedhealth" @changelevel="changedLevel"></grid>
     </div>  
     `, 
 
     data() {
         return{
             healthPoints: 0,
+            level: 0,
         }
     },
 
@@ -33,7 +34,11 @@ export default {
         changedhealth(newhealth){
             console.log(this.healthPoints, newhealth);
             this.healthPoints = newhealth;
+        },
+        changedLevel(newlevel){
+            this.level = newlevel;
         }
+    
     },
 
     computed: {
