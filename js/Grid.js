@@ -1,6 +1,5 @@
 import Tile from './Tile.js'
 import Character from './Character.js'
-import Chest from './Chest.js'
 import Monster from './Monster.js'
 import Finalboss from './Finalboss.js'
 
@@ -8,7 +7,6 @@ export default{
     components:{
         Tile,
         Character,
-        Chest,
         Monster,
         Finalboss
     },
@@ -29,12 +27,6 @@ export default{
         @changehealth="changeherohealth" 
         v-bind:position="heroPosition">
         </Character>
-
-        <Chest 
-        ref="chest" 
-        @changehealth="changeherohealth" 
-        v-bind:position1="heroPosition">
-        </Chest>
 
         <!--
         <Monster tileArray="flatTiles"></Monster>
@@ -88,7 +80,7 @@ export default{
                 ['W',' ','W',' ',' ',' ','W','W',' ',' ',' ','W','W','W','W'],
                 ['W',' ',' ',' ',' ',' ','W',' ',' ','W',' ',' ',' ','W','W'],
                 ['W',' ','W','W','W','W','W',' ','W','W','W','W',' ',' ','W'],
-                ['W',' ','K','W','W',' ',' ',' ',' ','W','W','W',' ',' ','W'],
+                ['W',' ',' ','W','W',' ',' ',' ',' ','W','W','W',' ',' ','W'],
                 ['W','W','W','W',' ',' ',' ',' ',' ','W',' ',' ',' ',' ','W'],
                 ['W','W','W','W','W','W','W','W','W','W','W','W','W','W','W'],
             ],
@@ -114,16 +106,16 @@ export default{
             ],
 
             chestPositions: [
-                [2,12],
-                [2,2],
-                [10,4],
-                [12,4],
-                [4,13],
-                [10,13],
-                [7,3],
-                [11,1],
-                [3,9],
-                [8,13]
+                {x: 2, y: 12},
+                {x: 2, y: 2},
+                {x: 10, y: 4},
+                {x: 12, y: 4},
+                {x: 4, y: 13},
+                {x: 10, y: 13},
+                {x: 7, y: 3},
+                {x: 11, y: 1},
+                {x: 3, y: 9},
+                {x: 8, y: 13},
             ],
 
             chests: [],
@@ -145,6 +137,8 @@ export default{
 
      methods:{
          createMap (heigth,width){
+            this.grid[0][0] = 'C';
+            this.spawnTreasureChests();
              for(let rows = 0; rows < heigth; rows++){
                  this.tiles[rows] = [];
                  for(let cols = 0; cols < width; cols++){
@@ -155,6 +149,23 @@ export default{
                      }
                      this.tiles[rows].push(properties)
                  }
+             }
+         },
+         spawnTreasureChests(){
+             for(let i = 0; i < 5; i++){
+                let generatedAmountOfGold = Math.floor((Math.random() * 150) + 50);
+                let generatedChestPosition = Math.floor((Math.random() * 10));
+                console.log(generatedAmountOfGold, generatedChestPosition);
+
+                let chestPosition = this.chestPositions[generatedChestPosition];
+                console.log(chestPosition);
+            
+                 this.chests[i] = {
+                    y: chestPosition.y,
+                    x: chestPosition.x,  
+                    amountOfGold: generatedAmountOfGold
+                 }
+                 this.grid[chestPosition.y][chestPosition.x] = 'C'; //places Treasure Chest in the grid
              }
          },
          moveUp(){ 
@@ -205,6 +216,7 @@ export default{
         this.createMap(15,15)         //undefined = this.
         console.log(this.tiles)
         console.log(this.flatTiles)
+        //this.spawnTreasureChests()
     },
 
     mounted(){
@@ -222,8 +234,5 @@ export default{
                     this.moveDown()
                 }
         })
-    
     }
-        
-
 }
