@@ -56,7 +56,7 @@ export default{
         },
        updateHealth(){
            console.log(this.health);
-           this.$emit('changeHealth', this.health);
+           this.$emit('changehealth', this.health);
        }
     },
 

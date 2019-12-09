@@ -19,7 +19,11 @@ export default{
         v-bind:class="'tile-type-' + tile.type"
         ></tile>
         
-        <Character ref="hero" v-bind:position="heroPosition"></Character>
+        <Character 
+        ref="hero" 
+        @changehealth="changeherohealth" 
+        v-bind:position="heroPosition">
+        </Character>
 
         <div class="buttons-div">
 
@@ -159,6 +163,10 @@ export default{
                 this.grid[positionY][positionX] === ' '
                 }
         },
+        changeherohealth(newhealth){
+            console.log(newhealth);
+            this.$emit('changehealth', newhealth);
+        }
     },
 
     created(){   

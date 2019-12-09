@@ -1,11 +1,9 @@
 import Grid from './Grid.js'
-import Character from './Character.js'
 
 export default {
 
     components:{
         Grid,
-        Character,
     },
     
     template: ` 
@@ -14,7 +12,6 @@ export default {
         <div class="char-info">
         <h3 class="health">Health: 
             <span class="health-points" 
-            @changeHealth="changedHealth"
             >{{ healthPoints }}
             </span>
         </h3>
@@ -22,19 +19,20 @@ export default {
             <span class="level-number">1</span>
         </h3>
         </div>
-        <grid></grid>
+        <grid @changehealth="changedhealth"></grid>
     </div>  
     `, 
 
     data() {
         return{
-            healthPoints: '',
+            healthPoints: 0,
         }
     },
 
     methods: {
-        changedHealth(newHealth){
-            healthPoints = newHealth;
+        changedhealth(newhealth){
+            console.log(this.healthPoints, newhealth);
+            this.healthPoints = newhealth;
         }
     },
 
