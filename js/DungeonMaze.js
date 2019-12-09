@@ -10,11 +10,11 @@ export default {
     
     template: ` 
     <div id="app">
-
         <h1>Dungeon Maze</h1>
         <div class="char-info">
         <h3 class="health">Health: 
-            <span class="health-points"
+            <span class="health-points" 
+            @changeHealth="changedHealth"
             >{{ healthPoints }}
             </span>
         </h3>
@@ -22,20 +22,20 @@ export default {
             <span class="level-number">1</span>
         </h3>
         </div>
-        
         <grid></grid>
-
     </div>  
     `, 
 
     data() {
         return{
-            healthPoints: 10,
+            healthPoints: '',
         }
     },
 
     methods: {
-
+        changedHealth(newHealth){
+            healthPoints = newHealth;
+        }
     },
 
     computed: {

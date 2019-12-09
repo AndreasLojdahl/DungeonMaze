@@ -19,7 +19,6 @@ export default{
         v-bind:class="'tile-type-' + tile.type"
         ></tile>
         
-        
         <Character ref="hero" v-bind:position="heroPosition"></Character>
 
         <div class="buttons-div">
@@ -28,18 +27,13 @@ export default{
         <button v-on:click="moveUp">Up</button>
         <button v-on:click="moveDown">Down</button>
         <button v-on:click="moveRight">Right</button></button>
-        
-
         </div>
-
     </div>
     `,
 
     data(){
-        
         return{
 
-            
             tiles: [],
            /* grid : [      20x20 map
                 ['W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W'],
@@ -61,12 +55,10 @@ export default{
                 ['W',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W'],
                 ['W',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W'],
                 ['W',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W'],
-                ['W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W'],
-           
-                
+                ['W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W'],     
               ],*/
-            grid :[
 
+            grid :[
                 ['W','W','W','W','W','W','W','W','W','W','W','W','W','W','W'],
                 ['W','W','W',' ',' ',' ',' ',' ',' ',' ','W',' ',' ',' ','W'],
                 ['W','W',' ',' ',' ','W','W','W','W',' ',' ',' ',' ',' ','W'],
@@ -107,14 +99,14 @@ export default{
            
         }
     },
+
     computed:{
         flatTiles(){
             return this.tiles.flat()
         },
-        
     },
-    methods:{
 
+    methods:{
         createMap (heigth,width){
      
             for(let rows = 0; rows < heigth; rows++){
@@ -126,7 +118,6 @@ export default{
                         type: this.grid[rows][cols]
                     }
                     this.tiles[rows].push(properties)
-                  
                 }
             }
         },
@@ -168,27 +159,16 @@ export default{
                 this.grid[positionY][positionX] === ' '
                 }
         },
-
-
-      
-      
-     
-       
     },
 
-    created(){
-       
+    created(){   
         this.createMap(15,15)         //undefined = this.
-        
         console.log(this.tiles)
-
         console.log(this.flatTiles)
-
-       
     },
+
     mounted(){
         window.addEventListener('keyup', (e) => {
-            
                 if(e.keyCode === 37){                   
                    this.moveLeft()
                 }
@@ -201,11 +181,7 @@ export default{
                 if(e.keyCode === 40){
                     this.moveDown()
                 }
-                       
-            
         })
-    
     }
-        
 
 }
