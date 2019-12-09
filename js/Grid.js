@@ -20,7 +20,7 @@ export default{
         ></tile>
         
         
-        <Character v-bind:position="heroPosition"></Character>
+        <Character ref="hero" v-bind:position="heroPosition"></Character>
 
         <div class="buttons-div">
 
@@ -152,17 +152,25 @@ export default{
             let futurePositionX = this.heroPosition.x + 1
             if (this.grid[this.heroPosition.y][futurePositionX] !== 'W'){
             this.heroPosition.x += 1;
+            
             }
 
             // check for Monster on the position
+            
             if (this.grid[this.heroPosition.y][futurePositionX] === 'M'){
-                this.$Children.Character.fightMonster(11);
+                this.$refs.hero.fightMonster(11);
+                this.grid[this.heroPosition.y][futurePositionX] === ' '
                 }
+                
         },
         getMonsterPos(){
             
             let randIndex = Math.ciel(Math.random()* this.monsterPos.length)
             let position = monsterPos[randIndex]
+
+        },
+
+        removeMonster(){
 
         }
 

@@ -13,7 +13,7 @@ export default{
         return {
             x: 0,
             y: 0,
-            health: 15,
+            health: 10,
         }
     },
     watch:{
@@ -32,21 +32,23 @@ export default{
     methods:{
         updatePosition(){
             this.$refs.hero.style.setProperty('left', `calc(${this.position.x} * 6.6667%)`)
-        console.log(this.position.x)
+            console.log(this.position.x)
        
-        this.$refs.hero.style.setProperty('top', `calc(${this.position.y} * 6.6667%)`)
-        console.log(this.position.y)
+            this.$refs.hero.style.setProperty('top', `calc(${this.position.y} * 6.6667%)`)
+            console.log(this.position.y)
         },
 
         fightMonster(monsterHealth){
             while (this.health > 0){
                 monsterHealth--;
                 this.health--;
-                if (monsterHealth >= 0){
+                if (monsterHealth == 0){
                     alert("You defeated the monster!");  
+                    return;
                 } 
                 if (this.health == 0){
                     alert("You have died. GAME OVER."); 
+                    window.location.reload();
                 }
             }
         },
