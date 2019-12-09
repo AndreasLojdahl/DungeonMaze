@@ -1,5 +1,5 @@
 import Grid from './Grid.js'
-import Hero from './Creatures.js'
+
 import Character from './Character.js'
 
 export default {
