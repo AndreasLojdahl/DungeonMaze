@@ -75,7 +75,7 @@ export default{
                 ['W',' ','W','W',' ','W','B',' ',' ',' ',' ','W',' ','W','W'],
                 ['W',' ',' ',' ',' ','W',' ',' ','W',' ','W','W','W','W','W'],
                 ['W','W',' ',' ',' ','W','W','W','W',' ',' ',' ',' ','W','W'],
-                [' ',' ','M',' ',' ',' ',' ',' ',' ',' ','W','W',' ',' ','W'],
+                [' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W','W',' ',' ','W'],
                 ['W',' ','W','W','W','W','W','W','W',' ','W','W',' ',' ','W'],
                 ['W',' ','W',' ',' ',' ','W','W',' ',' ',' ','W','W','W','W'],
                 ['W',' ',' ',' ',' ',' ','W',' ',' ','W',' ',' ',' ','W','W'],
@@ -96,13 +96,13 @@ export default{
                 y:7
             },
 
-            monsterPos: [
-               [12, 2],
-               [6, 4],
-               [4, 10],
-               [13, 8],
-               [7, 13],
-               [12, 12],
+            monsterPositions: [
+                {x: 12, y: 2},
+                {x: 6, y: 4},
+                {x: 4, y: 10},
+                {x: 13, y: 8},
+                {x: 7, y: 13},
+                {x: 12, y: 12},
             ],
 
             chestPositions: [
@@ -119,6 +119,7 @@ export default{
             ],
 
             chests: [],
+            monsters: [],
 
             backPack:{
                 ironSword:'',
@@ -137,8 +138,8 @@ export default{
 
      methods:{
          createMap (heigth,width){
-            this.grid[0][0] = 'C';
             this.spawnTreasureChests();
+            this.spawnMonsters();
              for(let rows = 0; rows < heigth; rows++){
                  this.tiles[rows] = [];
                  for(let cols = 0; cols < width; cols++){
@@ -154,18 +155,27 @@ export default{
          spawnTreasureChests(){
              for(let i = 0; i < 5; i++){
                 let generatedAmountOfGold = Math.floor((Math.random() * 150) + 50);
-                let generatedChestPosition = Math.floor((Math.random() * 10));
-                console.log(generatedAmountOfGold, generatedChestPosition);
-
-                let chestPosition = this.chestPositions[generatedChestPosition];
-                console.log(chestPosition);
+                let generatedChestPosition = this.getRandomNumber(this.chestPositions);
             
                  this.chests[i] = {
-                    y: chestPosition.y,
-                    x: chestPosition.x,  
+                    y: generatedChestPosition.y,
+                    x: generatedChestPosition.x,  
                     amountOfGold: generatedAmountOfGold
                  }
-                 this.grid[chestPosition.y][chestPosition.x] = 'C'; //places Treasure Chest in the grid
+                 this.grid[generatedChestPosition.y][generatedChestPosition.x] = 'C'; //places Treasure Chest in the grid
+             }
+         },
+         spawnMonsters(){
+            for(let i = 0; i < 2; i++){
+                let generatedAmountOfHealth = Math.floor((Math.random() * 20) + 10);
+                let generatedMonsterPosition = this.getRandomNumber(this.monsterPositions);
+            
+                 this.monsters[i] = {
+                    y: generatedMonsterPosition.y,
+                    x: generatedMonsterPosition.x,  
+                    monsterHealth: generatedAmountOfHealth
+                 }
+                 this.grid[generatedMonsterPosition.y][generatedMonsterPosition.x] = 'M'; //places a Monster in the grid
              }
          },
          moveUp(){ 
@@ -210,6 +220,15 @@ export default{
             console.log(newhealth);
             this.$emit('changehealth', newhealth);
         }, 
+        getRandomNumber(array) {
+            // randomly pick one position from the array and remove it afterwards so it can't be chosen again
+            for (let i = 0; i < array.length; i++) {
+                let randomNumber = Math.floor(Math.random() * array.length);
+                let chosenPosition = array[randomNumber];
+                array.splice(randomNumber, 1);
+                return chosenPosition; 
+            }
+        }
     },
  
      created(){
