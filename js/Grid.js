@@ -90,7 +90,7 @@ export default{
                 ['W',' ','W','W',' ','W','W',' ',' ',' ',' ','W','W','W','W'],
                 ['W',' ',' ',' ',' ','W',' ',' ','W',' ','W','W','W','W','W'],
                 ['W','W',' ',' ',' ','W','W','W','W',' ',' ',' ',' ','W','W'],
-                ['W',' ',' ',' ',' ',' ',' ',' ',' ',' ','W','W',' ',' ','W'],
+                [' ',' ','M',' ',' ',' ',' ',' ',' ',' ','W','W',' ',' ','W'],
                 ['W',' ','W','W','W','W','W','W','W',' ','W','W',' ',' ','W'],
                 ['W',' ','W',' ',' ',' ','W','W',' ',' ',' ','W','W','W','W'],
                 ['W',' ',' ',' ',' ',' ','W',' ',' ','W',' ',' ',' ','W','W'],
@@ -99,6 +99,13 @@ export default{
                 ['W','W','W','W','W',' ',' ',' ',' ','W',' ',' ',' ',' ','W'],
                 ['W','W','W','W','W','W','W','W','W','W','W','W','W','W','W'],
             ],
+
+            // W = Wall
+            // M = Monster
+            // B = Boss
+            // T = Treasure Chest
+            // K = Key?
+
 
             heroPosition:{
                 x:1,
@@ -155,7 +162,8 @@ export default{
             let futurePositionY = this.heroPosition.y - 1
             if (this.grid[futurePositionY][this.heroPosition.x] !== 'W'){
             this.heroPosition.y -= 1;
-            }            
+            }         
+            this.checkForMonster(futurePositionY, this.heroPosition.x);   
         },
         moveDown(){
             let futurePositionY = this.heroPosition.y + 1
@@ -163,25 +171,34 @@ export default{
             this.heroPosition.y += 1;
             ;
             }
-    },
+            this.checkForMonster(futurePositionY, this.heroPosition.x);
+        },
         moveLeft(){
             let futurePositionX = this.heroPosition.x - 1
             if (this.grid[this.heroPosition.y][futurePositionX] !== 'W'){
-            this.heroPosition.x -= 1;
+                this.heroPosition.x -= 1;
             }
+            this.checkForMonster(this.heroPosition.y, futurePositionX);
         },
         moveRight(){
             let futurePositionX = this.heroPosition.x + 1
             if (this.grid[this.heroPosition.y][futurePositionX] !== 'W'){
             this.heroPosition.x += 1;
             }
+            this.checkForMonster(this.heroPosition.y, futurePositionX);
+        },
+        getMonsterPos(){
+            let randIndex = Math.ciel(Math.random()* this.monsterPos.length)
+            let position = monsterPos[randIndex]
+        },
+        checkForMonster(positionY, positionX){
+             if (this.grid[positionY][positionX] === 'M'){
+                this.$refs.hero.fightMonster(11);
+                this.grid[positionY][positionX] === ' '
+                }
         },
 
-        checkChest(){
-            if (this.grid[this.heroPosition.y][futurePositionX] !== 'C'){
-            ;
-            }
-        }
+
       
       
      
@@ -205,28 +222,23 @@ export default{
     },
     mounted(){
         window.addEventListener('keyup', (e) => {
-
-            if(e.keyCode === 37){
-                this.moveLeft()
-               
-            }
-            if(e.keyCode === 38){
-                this.moveUp()
-                
-                
-            }
-            if(e.keyCode === 39){
-                this.moveRight()
-            }
-            if(e.keyCode === 40){
-                this.moveDown()
-            }
-
-
-    })
-
-
-
+            
+                if(e.keyCode === 37){                   
+                   this.moveLeft()
+                }
+                if(e.keyCode === 38){
+                    this.moveUp()
+                }
+                if(e.keyCode === 39){   
+                    this.moveRight()
+                }
+                if(e.keyCode === 40){
+                    this.moveDown()
+                }
+                       
+            
+        })
+    
     }
 
 }

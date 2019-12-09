@@ -1,8 +1,15 @@
+<<<<<<< HEAD
 
 import App from './DungeonMaze.js'
+=======
+import DungeonMaze from './DungeonMaze.js'
+>>>>>>> master
 //all imports are done at the top of the file.
 
+//export const eventHub = new Vue();
+
 new Vue({
+<<<<<<< HEAD
    render: h => h(App)
 }).$mount('#dungeonMaze')
 
@@ -337,3 +344,7 @@ var then = Date.now();
 reset();
 main();
 
+=======
+    render: h => h(DungeonMaze)
+}).$mount('#dungeonMaze')
+>>>>>>> master
