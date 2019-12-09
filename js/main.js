@@ -1,5 +1,8 @@
 import DungeonMaze from './DungeonMaze.js'
 
 new Vue({
-    render: h => h(DungeonMaze)
+   render: h => h(App)
 }).$mount('#dungeonMaze')
+
+
+
