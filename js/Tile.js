@@ -5,6 +5,7 @@ export default{
        <!-- <button v-on:click="logPosition" class="tile"></button>     v-on:click = @click-->
         <div ref="tile" class="tile" v-on:click="logPosition"> </div>
     `,
+
     data(){
         return{
             type: ' '
@@ -22,10 +23,7 @@ export default{
     
     methods: {
         logPosition(){
-            console.log(this.properties.x, this.properties.y, this.properties.type)
-            
-            
-            
+            console.log(this.properties.x, this.properties.y, this.properties.type)       
         },
 
         updateTileType(){
@@ -46,6 +44,7 @@ export default{
 
       
     }, 
+
     mounted(){
        /* if(this.properties.type === 'W') {
             this.$refs.tile.style.setProperty('background-color', 'blue')
