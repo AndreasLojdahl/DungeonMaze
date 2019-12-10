@@ -1,8 +1,3 @@
-import Monster from './Monster.js'
-import Hero from './Hero.js'
-import Finalboss from './Finalboss.js'
-
-
 export default{
 
     props:['position','backPack'],
@@ -48,7 +43,7 @@ export default{
                 monsterHealth--;
                 this.health--;
                 if (monsterHealth == 0){
-                    alert("You defeated the monster!");  
+                    alert('You have defeated the monster!');
                     return;
                 } 
                 if (this.health == 0){
