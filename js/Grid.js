@@ -93,7 +93,7 @@ export default{
                 ['W',' ','W','W',' ','W',' ',' ',' ',' ',' ','W',' ','W','W'],
                 ['W',' ',' ','I',' ','W',' ',' ','W',' ','W','W','W','W','W'],
                 ['W','W',' ',' ',' ','W','W','W','W',' ',' ',' ',' ','W','W'],
-                ['W',' ','M',' ',' ',' ',' ',' ',' ',' ','W','W',' ',' ','W'],
+                [' ',' ','M',' ',' ',' ',' ',' ',' ',' ','W','W',' ',' ','W'],
                 ['W',' ','W','W','W','W','W','W','W',' ','W','W',' ',' ','W'],
                 ['W',' ','W',' ',' ',' ','W','W',' ',' ',' ','W','W','W','W'],
                 ['W',' ',' ',' ',' ',' ','W',' ',' ','W',' ',' ',' ','W','W'],
@@ -104,7 +104,7 @@ export default{
             ],
 
             heroPosition:{
-                x:1,
+                x:0,
                 y:7
             },
 
@@ -129,7 +129,31 @@ export default{
                 chest:'',
 
 
-            }
+            },
+
+            finalBossData:{
+                x:6,
+                y:4
+            },
+
+            heroStats:{
+                hp: 10,
+                attack: 3,
+                level: 1
+            },
+           
+            monsterPos: [
+                [12, 2],
+                [6, 4],
+                [4, 10],
+                [13, 8],
+                [7, 13],
+                [12, 12],
+             ],
+             itemPosition2:{
+                x:4,
+                y:13
+            },
                 
             
                 
@@ -189,29 +213,8 @@ export default{
                 this.checkForItem(this.heroPosition.y, futurePositionX)
                 this.heroPosition.x -= 1;
             }
-               /* if(this.grid[this.heroPosition.y][futurePositionX] == 'M'){
-                    let index = this.heroPosition.y*15+futurePositionX;
-                    this.grid[this.heroPosition.y][futurePositionX] = ' ';
-                    console.log(this.grid[this.heroPosition.y][futurePositionX])
-                    //this.flatTiles[index].type = ' ';
-                    console.log(this.flatTiles[index].type);
-                    this.$refs.flatTiles[index].updateTileType();
-                    console.log(this.$refs.flatTiles[index].properties.type);
-                }*/
-            //this.heroPosition.x -= 1;
-            //console.log(this.flatTiles[0]);
-            //console.log(this.$refs.foo0);
-            //this.flatTiles[0].type = ' ';
-            //this.tiles[0][0].updateTileType();
-            
-           // this.checkForMonster(this.heroPosition.y, futurePositionX);
-           // this.changeTileType(this.heroPosition.y, futurePositionX);
         },
-            itemPosition2:{
-                x:4,
-                y:13
-            },
-
+           
         moveRight(){
             let futurePositionX = this.heroPosition.x + 1
             if (this.grid[this.heroPosition.y][futurePositionX] !== 'W'){
@@ -219,79 +222,28 @@ export default{
                 this.checkForItem(this.heroPosition.y, futurePositionX)
                 this.heroPosition.x += 1;
             }
-            finalBossData:{
-                x:6,
-                y:4
-            },
-
-            heroStats:{
-                hp: 10,
-                attack: 3,
-                level: 1
-            },
-           
-            monsterPos: [
-                [12, 2],
-                [6, 4],
-                [4, 10],
-                [13, 8],
-                [7, 13],
-                [12, 12],
-             ]
             
             console.log(this.heroPosition.x)
             console.log('Inne i moveRight')
         },
+
         getMonsterPos(){
             let randIndex = Math.ciel(Math.random()* this.monsterPos.length)
             let position = monsterPos[randIndex]
         },
+
         checkForMonster(positionY, positionX){
              if (this.grid[positionY][positionX] === 'M'){
                 this.$refs.hero.fightMonster(11);
-                this.changeTileType(positionY, positionX);
-                //let index = positionY*15+positionX;
-                //this.grid[positionY][positionX] = ' ';
-                //console.log(this.grid[this.position.y][futurePositionX])
-                //this.flatTiles[index].type = ' ';
-                //console.log(this.flatTiles[index].type);
-                //this.$refs.flatTiles[index].updateTileType();
-                //console.log(this.$refs.flatTiles[index].properties.type);
-           
+                this.changeTileType(positionY, positionX);  
+            }
 
-
-        }
-         
-     },
-     computed:{
-         flatTiles(){
-             return this.tiles.flat()
-         },
-         
-     },
-     methods:{
- 
-         createMap (heigth,width){
-      
-             for(let rows = 0; rows < heigth; rows++){
-                 this.tiles[rows] = [];
-                 for(let cols = 0; cols < width; cols++){
-                     let properties = {
-                         x: cols,
-                         y: rows,
-                         type: this.grid[rows][cols]
-                     }
-                     this.tiles[rows].push(properties)
-                   
-                 }
-             }
         },
         checkForItem(positionY, positionX){
             if(this.grid[positionY][positionX] === 'I'){
                 this.$refs.hero.updateHeroLevel();
                 this.changeTileType(positionY, positionX);
             }
-
         },
         changeherohealth(newhealth){
             console.log(newhealth);
@@ -306,56 +258,15 @@ export default{
             this.$refs.flatTiles[index].updateTileType();
 
         }
-         },
-         moveUp(){ 
-             let futurePositionY = this.heroPosition.y - 1
-             if (this.grid[futurePositionY][this.heroPosition.x] !== 'W'){
-             this.heroPosition.y -= 1;
-             }         
-             this.checkForMonster(futurePositionY, this.heroPosition.x);   
-         },
-         moveDown(){
-             let futurePositionY = this.heroPosition.y + 1
-             if (this.grid[futurePositionY][this.heroPosition.x] !== 'W'){
-                 this.heroPosition.y += 1;
-             }
-             this.checkForMonster(futurePositionY, this.heroPosition.x);
-         },
-         moveLeft(){
-             let futurePositionX = this.heroPosition.x - 1
-             if (this.grid[this.heroPosition.y][futurePositionX] !== 'W'){
-                 this.heroPosition.x -= 1;
-             }
-             this.checkForMonster(this.heroPosition.y, futurePositionX);
-         },
-         moveRight(){
-             let futurePositionX = this.heroPosition.x + 1
-             if (this.grid[this.heroPosition.y][futurePositionX] !== 'W'){
-             this.heroPosition.x += 1;
-             }
-             this.checkForMonster(this.heroPosition.y, futurePositionX);
-         },
-         getMonsterPos(){
-             let randIndex = Math.ciel(Math.random()* this.monsterPos.length)
-             let position = monsterPos[randIndex]
-         },
-         checkForMonster(positionY, positionX){
-              if (this.grid[positionY][positionX] === 'M'){
-                 this.$refs.hero.fightMonster(11);
-                 this.grid[positionY][positionX] === ' '
-                 }
-         },
- 
- 
-       
-    },
-
-    created(){
-       
-      
-        
+         
      },
- 
+     computed:{
+         flatTiles(){
+             return this.tiles.flat()
+         },
+         
+     },
+
      created(){
        
         this.createMap(15,15)         //undefined = this.

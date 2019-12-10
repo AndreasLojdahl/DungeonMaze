@@ -5,7 +5,7 @@ export default{
     template:`
 
     <div ref="item1" class="chest1"></div>
-    <div ref="item2" class="chest2"></div>
+    
     `,
     
     data() {       
@@ -24,10 +24,7 @@ export default{
 
     },
     mounted(){
-        //this.$refs.character.style.setProperty('background-color', 'blue')
-        this.$refs.item1.style.setProperty('left', `calc(${this.position.x} * 6.6667%)`)
-        this.$refs.item1.style.setProperty('top', `calc(${this.position.y} * 6.6667%)`)
-        this.$refs.item2.style.setProperty('left', `calc(${this.position.x} * 6.6667%)`)
-        this.$refs.item2.style.setProperty('top', `calc(${this.position.y} * 6.6667%)`)
+       
+      
     }
 }

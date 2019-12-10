@@ -17,10 +17,7 @@ export default{
             y: 0,
             health: 15,
             level: 0,
-            backpack:{
-                IronSword: '',
-                Shield:''
-            }
+        
                 
             
         }
