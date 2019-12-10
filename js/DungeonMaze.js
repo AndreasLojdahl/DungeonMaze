@@ -9,7 +9,16 @@ export default {
     },
     
     template: ` 
-    <div id="app">
+    <div id="app" class="content">
+
+        <video autoplay muted loop id="myVideo">
+        <source src="/images/Candle.mp4" type="video/mp4">
+        </video>
+
+        <video autoplay muted loop id="myVideo2">
+        <source src="/images/Candle.mp4" type="video/mp4">
+        </video>
+
         <h1>Dungeon Maze</h1>
         <div class="char-info">
         <h3 class="health">Health: 
@@ -20,8 +29,10 @@ export default {
         <h3 class="level">Level: 
             <span class="level-number">1</span>
         </h3>
+
         </div>
         <grid @changehealth="changedhealth"></grid>
+
     </div>  
     `, 
 
