@@ -239,11 +239,12 @@ export default{
     },
 
     mounted(){
+        
         window.addEventListener('keyup', (e) => {
                 if(e.keyCode === 37){                   
                    this.moveLeft()
                 }
-                if(e.keyCode === 38){
+                if(e.keyCode === 38){  
                     this.moveUp()
                 }
                 if(e.keyCode === 39){   
