@@ -34,6 +34,12 @@ export default{
             handler(){
                 this.updateHealth()
             }
+        },
+        level:{
+            deep: true,
+            handler(){
+                this.updateLevel()
+            }
         }
     },
 
@@ -52,7 +58,7 @@ export default{
         },
 
         heroLevelsUp(){
-            this.level++,
+            level++,
             this.attack++,
             this.health++
         },
@@ -76,10 +82,14 @@ export default{
            this.$emit('changehealth', this.health);
        }
     },
+    updateLevel(){
+           console.log(this.level);
+           this.$emit('changelevel', this.level);
+       },
+    
 
     mounted(){
         this.updatePosition();
         this.updateHealth();
-       
-    }
-}
+        this.updateLevel();
+    }}

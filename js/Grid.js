@@ -44,6 +44,7 @@ export default{
         <Character 
         ref="hero" 
         @changehealth="changeherohealth" 
+        @changelevel="changeherolevel" 
         v-bind:position="heroPosition">
         </Character>
 
@@ -230,6 +231,10 @@ export default{
         changeherohealth(newhealth){
                     console.log(newhealth);
                     this.$emit('changehealth', newhealth);
+                },
+        changeherolevel(newlevel){
+                    console.log(newlevel);
+                    this.$emit('changelevel', newlevel);
                 },
          
 
