@@ -1,33 +1,34 @@
-//import Character from './Character.js'
+import Character from './Character.js'
+
 
 export default{
 
-
-    props: ['position'],
+    props: ['monsterPosition'],
 
     template:/*html*/` 
-    <div class="monster">               
-        
+    <div ref="monster" class="monster">               
     </div>
     `,
     
     data() {
-        
           return {
-              position: 1,
+              x:0,
+              y:0
+              
     
         }
-        
     },
+
     computed:{
        
     },
-    created(){
 
+    created(){
+        
 
     },
+
     methods:{
-        
         isAlive(){
             return true
             console.log(this.tileArray.type)
@@ -35,7 +36,8 @@ export default{
      
 
     },
+
     mounted(){
-       
+        this.setMonsterPosition()
     }
 }
