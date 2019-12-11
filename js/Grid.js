@@ -129,6 +129,7 @@ export default{
                 attack: 3,
                 level: 1
             },
+
             monsterPos: [
                [12, 2],
                [6, 4],
@@ -137,6 +138,7 @@ export default{
                [7, 13],
                [12, 12],
             ],
+
             monsterPositions: [
                 {x: 12, y: 2},
                 {x: 6, y: 4},
@@ -168,19 +170,8 @@ export default{
                 shield:'',
                 helmet:'',
                 chest:'',
-
-
-            }
-                
-            
-                
-            
-
-            
-                
-
-            
-           
+            },
+            shownMessage1: false,
         }
     },
 
@@ -208,7 +199,6 @@ export default{
                    
                  }
              }
-             //this.showFirstStoryMessage()
          },
          spawnTreasureChests(){
              for(let i = 0; i < 5; i++){
@@ -236,10 +226,14 @@ export default{
                  this.grid[generatedMonsterPosition.y][generatedMonsterPosition.x] = 'M'; //places a Monster in the grid
              }
          },
-         showFirstStoryMessage(){
-            alert("Whats's this? You just woke up on a hard rocky floor, with a massive headache to boot. Looks like you had too much "+
-            "to drink last night, eh? Do you recall what your mom told you about alcohol? Hanging on the wall close to you there's a note that reads: 'Welcome to my Dungeon Maze, I wanna see how you play. "+
-            "If you want to get out alive, you better collect yourself enough gold. Good luck, friend.'"); 
+         checkForStoryMessage(y,x){
+             if ((y === 7) && (x === 1) && (this.shownMessage1 == false)){
+                alert("What's this? You just woke up on a hard rocky floor, with a massive headache to boot. Looks like you had too much "+
+                "to drink last night... or did you? Close to you, hanging on the wall, you spot a note with a message scribbled on it. "+
+                "'If you want to get out alive, you better collect yourself enough gold. Good luck, old friend.' ... Old friend?... You can't help but wonder. "+
+                "Who on earth did this to you?"); 
+                this.shownMessage1 = true;
+            }
          },
          moveUp(){ 
              let futurePositionY = this.heroPosition.y - 1
@@ -276,6 +270,7 @@ export default{
              this.heroPosition.x += 1;
              }
              this.checkForMonster(this.heroPosition.y, futurePositionX);
+             this.checkForStoryMessage(this.heroPosition.y, this.heroPosition.x);
              this.checkForChest(this.heroPosition.y, futurePositionX);
          },
          
@@ -319,7 +314,12 @@ export default{
         removeChest(){
             this.Chest1 = false;
             this.Chest2 = false;
-        },
+            },
+        
+        changeherohealth(newhealth){
+            console.log(newhealth);
+            this.$emit('changehealth', newhealth);
+        }, 
         getRandomNumber(array) {
             // randomly pick one position from the array and remove it afterwards so it can't be chosen again
             for (let i = 0; i < array.length; i++) {
