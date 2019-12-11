@@ -9,8 +9,6 @@ export default{
     data(){
         return{
             type: ' ',
-            visible: true,
-            hidden: true,
         }
       
     },
@@ -42,11 +40,6 @@ export default{
                 this.properties.type = ' ';
             }
         },
-
-        updateTileVisibility(tileIndex){
-                this.tileIndex.hidden = false;
-                this.tileIndex.visible = true;
-        }
     }, 
 
     mounted(){
