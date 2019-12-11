@@ -401,12 +401,12 @@ export default{
                 
             }
         },
-         checkForTreasure(room){
-             if (this.grid[] === 'C'){
+        //  checkForTreasure(room){
+        //      if (this.grid[] === 'C'){
                 
-           }
+        //    }
             
-        },
+        // },
         grabTreasure(positionY, positionX){
 
         }
