@@ -227,9 +227,7 @@ export default{
              let futurePositionY = this.heroPosition.y - 1
              if (this.grid[futurePositionY][this.heroPosition.x] !== 'W'){
              this.heroPosition.y -= 1;
-             }         
-             this.checkForMonster(futurePositionY, this.heroPosition.x);   
-             this.isHeroInRoom()
+             }            
              this.checkForMonster(futurePositionY, this.heroPosition.x);
              this.checkForChest(futurePositionY, this.heroPosition.x);   
          },
@@ -240,7 +238,7 @@ export default{
              }
              this.checkForMonster(futurePositionY, this.heroPosition.x);
              this.checkForChest(futurePositionY, this.heroPosition.x);
-             this.isHeroInRoom()
+           
          },
          moveLeft(){
              let futurePositionX = this.heroPosition.x - 1
@@ -250,7 +248,6 @@ export default{
              this.checkForMonster(this.heroPosition.y, futurePositionX);
              this.checkForChest(this.heroPosition.y, futurePositionX);
              this.removeChest();
-             this.isHeroInRoom()
          },
          moveRight(){
              let futurePositionX = this.heroPosition.x + 1
@@ -260,7 +257,6 @@ export default{
              this.checkForMonster(this.heroPosition.y, futurePositionX);
              this.checkForStoryMessage(this.heroPosition.y, this.heroPosition.x);
              this.checkForChest(this.heroPosition.y, futurePositionX);
-             this.isHeroInRoom()
          },
          getMonsterPos(){
              let randIndex = Math.ciel(Math.random()* this.monsterPos.length)
@@ -286,6 +282,9 @@ export default{
 
         checkForChest(positionY, positionX){
              if (this.grid[positionY][positionX] === 'C'){
+                 if(this.isHeroInRoom()){
+                     isMonsterNearBy()
+                 }
                 this.$refs.hero.checkChest();
                 this.grid[positionY][positionX] === ' '
                 }
@@ -361,10 +360,12 @@ export default{
         },
         isHeroInRoom(){
             //console.log('test')
+            let match = 0; 
             for (let r of this.room1) {
                 if(this.heroPosition.x === r[0] && this.heroPosition.y === r[1]){
                     //checkForTreasure(this.room1)
                     console.log('in room 1')
+                    match++; 
                   
                 }
                 
@@ -373,6 +374,7 @@ export default{
                 if(this.heroPosition.x === r[0] && this.heroPosition.y === r[1]){
                     //checkForTreasure(this.room2)
                     console.log('in room 2')
+                    match++;
                   
                 }
                 
@@ -381,6 +383,7 @@ export default{
                 if(this.heroPosition.x === r[0] && this.heroPosition.y === r[1]){
                     //checkForTreasure(this.room3)
                     console.log('in room 3')
+                    match++;
                 }
                 
             }
@@ -388,6 +391,7 @@ export default{
                 if(this.heroPosition.x === r[0] && this.heroPosition.y === r[1]){
                     //checkForTreasure(this.room4)
                     console.log('in room 4')
+                    match++;
                   
                 }
                 
@@ -396,21 +400,29 @@ export default{
                 if(this.heroPosition.x === r[0] && this.heroPosition.y === r[1]){
                     //checkForTreasure(this.room5)
                     console.log('in room 5')
+                    match++;
                   
                 }
                 
             }
+            if(match>0){
+                return true
+            }
+            else{
+                return false
+            }
         },
-        //  checkForTreasure(room){
-        //      if (this.grid[] === 'C'){
-                
-        //    }
+         checkForTreasure(room){
+             for (let r of room) {
+                if (this.grid[r.x][r.y] === 'C'){
+                    
+                }
+             }
             
-        // },
-        grabTreasure(positionY, positionX){
+            
+        },
 
-        }
-    },
+     },
  
      created(){
         this.createMap(15,15)         //undefined = this.
