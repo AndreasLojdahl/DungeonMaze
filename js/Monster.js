@@ -3,7 +3,7 @@ import Character from './Character.js'
 
 export default{
 
-    props: ['monsterPosition'],
+    props: ['position'],
 
     template:/*html*/` 
     <div ref="monster" class="monster">               
@@ -33,6 +33,7 @@ export default{
     },
 
     mounted(){
-       
+        this.$refs.monster.style.setProperty('left', `calc(${this.position.x} * 6.6667%)`)
+        this.$refs.monster.style.setProperty('top', `calc(${this.position.y} * 6.6667%)`)
     }
 }

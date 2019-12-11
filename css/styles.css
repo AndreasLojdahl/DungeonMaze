@@ -2,39 +2,75 @@
   box-sizing: border-box;
 }
 
+body {
+  background-color: rgb(0, 0, 0);
+}
+
+.content {
+  display: flexbox;
+  bottom: 0;
+  color: rgb(206, 140, 87);
+  width: 100%;
+  background: rgba(0, 0, 0, 0);
+}
+
+#myVideo {
+  position: fixed;
+  padding-top: 200px;
+  width: 50%;
+  height: 50%;
+  object-fit: scale-down;
+}
+
+#myVideo2 {
+  transform: rotateY(180deg);
+  -webkit-transform:rotateY(180deg);
+  position: fixed;
+  padding-top: 200px;
+  padding-right: 65%;
+  width: 80%;
+  height: 80%;
+  object-fit: scale-down;
+}
+
+#app {
+  background-color: rgb(0, 0, 0);
+}
+
 h1{
   display: flex;
   justify-content: center;
   font-family: monospace;
   font-size: 550%;
-  margin-top: 2%;
-  margin-bottom: 3%;
+  color: rgb(161, 95, 41);
+  margin-top: 0%;
+  margin-bottom: 0%;
 }
-
 .grid-layout{  
   display: flex;              /* display flex*/
-  width: 40%;
+  width: 44%;
   height: 500px;
   padding: 0;
   flex-wrap: wrap;
-  margin-left: 30%;
+  margin-left: 28%;
   position: relative; 
-  background: url("/images/DungeonMap1.jpg"); 
+  background: url("/images/DungeonMap3.jpg"); 
   background-size: 100% 100%;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border: solid 7px  rgb(161, 95, 41);;
 
 }
 
 .tile{
+  
   width: 6.6667%;
   height: 6.6667%;
   margin: 0;
   padding: 0;
   /*background-color: rgb(189, 177, 139);*/
   background-size: contain;
-  border: 1px solid  black;
+  /*border: 1px solid  black;*/
 }
-
 .character{
   display: flex;
   width: 6.6667%;
@@ -46,29 +82,104 @@ h1{
   /*left: calc(0 * 6.6667%);   
   top: calc(7 * 6.6667%); */
   /*border: 1px solid black;*/
+
 }
 
-/*Wall Tile*/
+.monster{
+  display: flex;
+  width: 6.6667%;
+  height: 6.6667%;   
+  /*background-color: green;*/
+  position: absolute;
+  background: url("/images/fish.png");
+  background-size: 100% 100%;
+  left: calc(0 * 6.6667%);   
+  top: calc(7 * 6.6667%); 
+  border: 1px solid black;
+}
+
+.finalboss{
+  display: flex;
+  width: 6.6667%;
+  height: 6.6667%;   
+  /*background-color: green;*/
+  position: absolute;
+  background: url("/images/finalboss.png");
+  background-size: 100% 100%;
+  left: calc(0 * 6.6667%);   
+  top: calc(7 * 6.6667%); 
+  border: 1px solid black;
+}
+
+.chest1{
+  display: flex;
+  width: 6.6667%;
+  height: 6.6667%;   
+  /*background-color: green;*/
+  position: absolute;
+  background: url("/images/Normal Chest.png");
+  background-size: 100% 100%;
+  left: calc(0 * 6.6667%);   
+  top: calc(7 * 6.6667%); 
+  border: 1px solid black;
+}
+
+.chest2{
+  display: flex;
+  width: 6.6667%;
+  height: 6.6667%;   
+  /*background-color: green;*/
+  position: absolute;
+  background: url("/images/Normal Chest.png");
+  background-size: 100% 100%;
+  left: calc(0 * 6.6667%);   
+  top: calc(7 * 6.6667%); 
+  border: 1px solid black;
+
+}
+
+.finalboss{
+  display: flex;
+  width: 6.6667%;
+  height: 6.6667%;   
+  /*background-color: green;*/
+  position: absolute;
+  background: url("/images/finalboss.png");
+  background-size: 100% 100%;
+  left: calc(0 * 6.6667%);   
+  top: calc(7 * 6.6667%); 
+  border: 1px solid black;
+}
+
+.chest1{
+  display: flex;
+  width: 6.6667%;
+  height: 6.6667%;   
+  /*background-color: green;*/
+  position: absolute;
+  background: url("/images/Normal Chest.png");
+  background-size: 100% 100%;
+  left: calc(0 * 6.6667%);   
+  top: calc(7 * 6.6667%); 
+  border: 1px solid black;
+}
+
+.chest2{
+  display: flex;
+  width: 6.6667%;
+  height: 6.6667%;   
+  /*background-color: green;*/
+  position: absolute;
+  background: url("/images/Normal Chest.png");
+  background-size: 100% 100%;
+  left: calc(0 * 6.6667%);   
+  top: calc(7 * 6.6667%); 
+  border: 1px solid black;
+}
+
 .tile-type-W {
   background-color: rgba(80, 54, 37, 0.2); 
-}
-
-/*Monster Tile*/
-.tile-type-M{
-  background-image: url('/images/fish.png');
-  background-repeat: no-repeat;
-}
-
-/*Treasure Chest Tile*/
-.tile-type-C{
-  background-image: url('/images/NormalChest.png');
-  background-repeat: no-repeat;
-}
-
-/*Final Boss Tile*/
-.tile-type-B{
-  background-image: url('/images/werewolf.png');
-  background-repeat: no-repeat;
+  /*background-image: url('/img/DungeonMap1.jpg'); */
 }
 
 .char-info{
@@ -81,55 +192,3 @@ h1{
   font-family: monospace;
   font-size: 200%;
 }
-
-/*.tile-type-C{
-  background-color: rgb(42, 0, 141);  
-}
-
-button{
-  display: flex;
-  justify-content: center;
-  background-color: gray;
-  border-radius: 10px;
-  padding: 5%;
-  color: white;
-  font-family: monospace;
-}
-.buttons-div{
-  margin: 2%;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  
-  margin-left: 25%;
-  margin-right:25%;
-
-}
-
-
-* {
-  box-sizing: border-box;
-}
-
-
-* {
-    margin: 0;
-    padding: 0;
-    border: 0;
-}
-
-
-
-table {
-    border-collapse: collapse;
-    border-spacing: 0;
-}
-
-img {
-  position: relative;
-  display: block;
-  width: 50px;
-  height: 50px;
-
-}*/
-

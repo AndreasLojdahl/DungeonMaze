@@ -1,3 +1,8 @@
+import Monster from './Monster.js'
+import Hero from './Hero.js'
+import Finalboss from './Finalboss.js'
+
+
 export default{
 
     props:['position','backPack'],
@@ -48,13 +53,11 @@ export default{
         },
 
         checkChest() {
-        this.health++;
-        this.level++;
+        this.heroLevelsUp()
         },
 
         heroLevelsUp(){
-            level++,
-            this.attack++,
+            this.level++,
             this.health++
         },
 
@@ -63,7 +66,7 @@ export default{
                 monsterHealth--;
                 this.health--;
                 if (monsterHealth == 0){
-                    alert('You have defeated the monster!');
+                    alert("You defeated the monster!");  
                     return;
                 } 
                 if (this.health == 0){
@@ -75,16 +78,16 @@ export default{
        updateHealth(){
            console.log(this.health);
            this.$emit('changehealth', this.health);
-       }
-    },
-    updateLevel(){
+        
+        },
+        updateLevel(){
            console.log(this.level);
            this.$emit('changelevel', this.level);
-       },
-    
+        }, 
 
-    mounted(){
+        mounted(){
         this.updatePosition();
         this.updateHealth();
         this.updateLevel();
+    }
     }}
