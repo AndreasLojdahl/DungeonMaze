@@ -24,7 +24,7 @@ export default{
         
         <Character 
         ref="hero" 
-        @changelevel="changeherolevel"
+        @changemessage="changeheromessage"
         @changehealth="changeherohealth" 
         @changelevel="changeherolevel" 
         v-bind:position="heroPosition">
@@ -74,7 +74,7 @@ export default{
                 ['W','W','W',' ',' ',' ',' ',' ',' ',' ','W',' ',' ',' ','W'],
                 ['W','W',' ',' ',' ','W','W','W','W',' ',' ',' ',' ',' ','W'],
                 ['W',' ',' ',' ',' ','W',' ',' ','W',' ','W','W',' ',' ','W'],
-                ['W',' ','W','W',' ','W','W',' ',' ',' ',' ','W','C','W','W'],
+                ['W',' ','W','W',' ','W',' ',' ',' ',' ',' ','W',' ','W','W'],
                 ['W',' ',' ',' ',' ','W',' ',' ','W',' ','W','W','W','W','W'],
                 ['W','W',' ',' ',' ','W','W','W','W',' ',' ',' ',' ','W','W'],
                 [' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W','W',' ',' ','W'],
@@ -83,14 +83,14 @@ export default{
                 ['W',' ',' ',' ',' ',' ','W',' ',' ','W',' ',' ',' ','W','W'],
                 ['W',' ','W','W','W','W','W',' ','W','W','W','W',' ',' ','W'],
                 ['W',' ',' ','W','W',' ',' ',' ',' ','W','W','W',' ',' ','W'],
-                ['W','W','W','W','C',' ',' ',' ',' ','W',' ',' ',' ',' ','W'],
+                ['W','W','W','W',' ',' ',' ',' ',' ','W',' ',' ',' ',' ','W'],
                 ['W','W','W','W','W','W','W','W','W','W','W','W','W','W','W'],
             ],
             
             // W = Wall
             // M = Monster
             // B = Boss
-            // T = Treasure Chest
+            // C = Treasure Chest
             // K = Key?
 
             heroPosition:{
@@ -193,17 +193,8 @@ export default{
                 x:4,
                 y:13
             },
-                
-            
-                
-            
-
-            
-                
-
-            
-           
-        }
+             
+        
     },
 
     computed:{
@@ -213,11 +204,14 @@ export default{
     },
 
     methods:{
-        createMap (heigth,width){
+        createMap (){
+
+            this.spawnTreasureChests();
+            this.spawnMonsters();
      
-            for(let rows = 0; rows < heigth; rows++){
+            for(let rows = 0; rows < this.grid.length; rows++){
                 this.tiles[rows] = [];
-                for(let cols = 0; cols < width; cols++){
+                for(let cols = 0; cols < this.grid.length; cols++){
                     let properties = {
                         x: cols,
                         y: rows,
@@ -226,7 +220,10 @@ export default{
                     this.tiles[rows].push(properties)
                 }
             }
+            
+            
         },
+        
         moveUp(){ 
             let futurePositionY = this.heroPosition.y - 1
             if (this.grid[futurePositionY][this.heroPosition.x] !== 'W'){
@@ -250,7 +247,10 @@ export default{
             if (this.grid[this.heroPosition.y][futurePositionX] !== 'W'){
                 this.checkForMonster(this.heroPosition.y, futurePositionX);
                 this.checkForItem(this.heroPosition.y, futurePositionX)
-                this.heroPosition.x -= 1;
+                if(futurePositionX != -1){
+                    this.heroPosition.x -= 1;
+                }
+                
             }
         },
            
@@ -272,63 +272,51 @@ export default{
         },
 
         checkForMonster(positionY, positionX){
+            if (this.grid[positionY][positionX] === 'M'){
+                let state = this.$refs.hero.fightMonster(11,'M');
+                if(state == 'monsterIsDead'){
+                    this.changeTileType(positionY, positionX);
+                }
+                
+            }
+
+            else if(this.grid[positionY][positionX] === 'B'){
+                let state = this.$refs.hero.fightMonster(15,'B')
+               // setTimeout(function(){ window.location.reload();},1000);
+                if(state == 'monsterIsDead'){
+                    this.changeTileType(positionY, positionX);
+                }
+               // this.changeTileType(positionY, positionX);
+                //this.loadMap(15,15,this.grid2)
+                setTimeout(function(){ window.location.reload();},1000);
+            }
+            /*
              if (this.grid[positionY][positionX] === 'M'){
                 this.$refs.hero.fightMonster(11);
                 this.changeTileType(positionY, positionX);  
-            }
+            }*/
 
         },
         checkForItem(positionY, positionX){
-            if(this.grid[positionY][positionX] === 'I'){
+            if(this.grid[positionY][positionX] === 'C'){
                 this.$refs.hero.updateHeroLevel();
                 this.changeTileType(positionY, positionX);
             }
         },
-        changeherohealth(newhealth){
-            console.log(newhealth);
-            this.$emit('changehealth', newhealth);
+        spawnTreasureChests(){
+            for(let i = 0; i < 5; i++){
+               let generatedAmountOfGold = Math.floor((Math.random() * 150) + 50);
+               let generatedChestPosition = this.getRandomNumber(this.chestPositions);
+           
+                this.chests[i] = {
+                   y: generatedChestPosition.y,
+                   x: generatedChestPosition.x,  
+                   amountOfGold: generatedAmountOfGold
+                }
+                this.grid[generatedChestPosition.y][generatedChestPosition.x] = 'C'; //places Treasure Chest in the grid
+            }
         },
-        changeherolevel(newlevel){
-            this.$emit('changelevel', newlevel);
-        },
-        changeTileType(positionY, positionX){
-            let index = positionY*15+positionX;
-            this.grid[positionY][positionX] = ' ';
-            this.$refs.flatTiles[index].updateTileType();
-
-        }
-     },
-
-     methods:{
-         createMap (heigth,width){
-            this.spawnTreasureChests();
-            this.spawnMonsters();
-             for(let rows = 0; rows < heigth; rows++){
-                 this.tiles[rows] = [];
-                 for(let cols = 0; cols < width; cols++){
-                     let properties = {
-                         x: cols,
-                         y: rows,
-                         type: this.grid[rows][cols]
-                     }
-                     this.tiles[rows].push(properties)
-                 }
-             }
-         },
-         spawnTreasureChests(){
-             for(let i = 0; i < 5; i++){
-                let generatedAmountOfGold = Math.floor((Math.random() * 150) + 50);
-                let generatedChestPosition = this.getRandomNumber(this.chestPositions);
-            
-                 this.chests[i] = {
-                    y: generatedChestPosition.y,
-                    x: generatedChestPosition.x,  
-                    amountOfGold: generatedAmountOfGold
-                 }
-                 this.grid[generatedChestPosition.y][generatedChestPosition.x] = 'C'; //places Treasure Chest in the grid
-             }
-         },
-         spawnMonsters(){
+        spawnMonsters(){
             for(let i = 0; i < 2; i++){
                 let generatedAmountOfHealth = Math.floor((Math.random() * 20) + 10);
                 let generatedMonsterPosition = this.getRandomNumber(this.monsterPositions);
@@ -341,87 +329,32 @@ export default{
                  this.grid[generatedMonsterPosition.y][generatedMonsterPosition.x] = 'M'; //places a Monster in the grid
              }
          },
-         checkForStoryMessage(y,x){
-             if ((y === 7) && (x === 1) && (this.shownMessage1 == false)){
-                alert("What's this? You just woke up on a hard rocky floor, with a massive headache to boot. Looks like you had too much "+
-                "to drink last night... or did you? Close to you, hanging on the wall, you spot a note with a message scribbled on it. "+
-                "'If you want to get out alive, you better collect yourself enough gold. Good luck, old friend.' ... Old friend?... You can't help but wonder. "+
-                "Who on earth did this to you?"); 
-                this.shownMessage1 = true;
-            }
-         },
-         moveUp(){ 
-             let futurePositionY = this.heroPosition.y - 1
-             if (this.grid[futurePositionY][this.heroPosition.x] !== 'W'){
-             this.heroPosition.y -= 1;
-             }         
-             this.checkForMonster(futurePositionY, this.heroPosition.x);
-             this.checkForChest(this.heroPosition.y, futurePositionX);   
-         },
-         moveDown(){
-             let futurePositionY = this.heroPosition.y + 1
-             if (this.grid[futurePositionY][this.heroPosition.x] !== 'W'){
-                 this.heroPosition.y += 1;
-             }
-             this.checkForMonster(futurePositionY, this.heroPosition.x);
-             this.checkForChest(this.heroPosition.y, futurePositionX);
-         },
-         moveLeft(){
-             let futurePositionX = this.heroPosition.x - 1
-             if (this.grid[this.heroPosition.y][futurePositionX] !== 'W'){
-                 this.heroPosition.x -= 1;
-             }
-             this.checkForMonster(this.heroPosition.y, futurePositionX);
-             this.checkForChest(this.heroPosition.y, futurePositionX);
-             this.removeChest();
-         },
-         moveRight(){
-             let futurePositionX = this.heroPosition.x + 1
-             if (this.grid[this.heroPosition.y][futurePositionX] !== 'W'){
-             this.heroPosition.x += 1;
-             }
-             this.checkForMonster(this.heroPosition.y, futurePositionX);
-             this.checkForStoryMessage(this.heroPosition.y, this.heroPosition.x);
-             this.checkForChest(this.heroPosition.y, futurePositionX);
-         },
-         getMonsterPos(){
-             let randIndex = Math.ciel(Math.random()* this.monsterPos.length)
-             let position = monsterPos[randIndex]
-         },
-         checkForMonster(positionY, positionX){
-            if (this.grid[positionY][positionX] === 'M'){
-                 this.$refs.hero.fightMonster(11);
-                 this.grid[positionY][positionX] === ' '
-                 }
-                },
-        
-        
-        changeherohealth(newhealth){
-                    console.log(newhealth);
-                    this.$emit('changehealth', newhealth);
-                },
-        changeherolevel(newlevel){
-                    console.log(newlevel);
-                    this.$emit('changelevel', newlevel);
-                },
-         
-
-        checkForChest(positionY, positionX){
-             if (this.grid[positionY][positionX] === 'C'){
-                this.$refs.hero.checkChest();
-                this.grid[positionY][positionX] === ' '
-                }
-            },
-
-        removeChest(){
-            this.Chest1 = false;
-            this.Chest2 = false;
-            },
-        
         changeherohealth(newhealth){
             console.log(newhealth);
             this.$emit('changehealth', newhealth);
-        }, 
+        },
+        changeherolevel(newlevel){
+            this.$emit('changelevel', newlevel);
+        },
+        changeheromessage(newmessage){
+            this.$emit('changemessage', newmessage);
+        },
+        changeTileType(positionY, positionX){
+            console.log('inne i changetiletype')
+            let index = positionY*15+positionX;
+            this.grid[positionY][positionX] = ' ';
+            this.$refs.flatTiles[index].updateTileType();
+
+        },
+        checkForStoryMessage(y,x){
+            if ((y === 7) && (x === 1) && (this.shownMessage1 == false)){
+               alert("What's this? You just woke up on a hard rocky floor, with a massive headache to boot. Looks like you had too much "+
+               "to drink last night... or did you? Close to you, hanging on the wall, you spot a note with a message scribbled on it. "+
+               "'If you want to get out alive, you better collect yourself enough gold. Good luck, old friend.' ... Old friend?... You can't help but wonder. "+
+               "Who on earth did this to you?"); 
+               this.shownMessage1 = true;
+           }
+        },
         getRandomNumber(array) {
             // randomly pick one position from the array and remove it afterwards so it can't be chosen again
             for (let i = 0; i < array.length; i++) {
@@ -430,11 +363,11 @@ export default{
                 array.splice(randomNumber, 1);
                 return chosenPosition; 
             }
-        }
+        },
     },
- 
-     created(){
-        this.createMap(15,15)         //undefined = this.
+
+    created(){
+        this.createMap()         //undefined = this.
         console.log(this.tiles)
         console.log(this.flatTiles)
     },
@@ -452,6 +385,18 @@ export default{
                 }
                 if(e.keyCode === 40){
                     this.moveDown()
+                }
+                if (event.keyCode === 87) { //w
+                    this.moveUp()
+                }
+                else if (event.keyCode === 83) { //s
+                    this.moveDown();
+                }
+                else if (event.keyCode === 68) { //d
+                    this.moveRight();
+                }
+                else if (event.keyCode === 65) { //a
+                    this.moveLeft();
                 }
         })
     }

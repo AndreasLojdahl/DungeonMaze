@@ -20,7 +20,9 @@ export default {
         <video autoplay muted loop id="myVideo2">
         <source src="/images/Candle.mp4" type="video/mp4">
         </video>
-
+        <div :class="popup" ref="modal" class="my-modal" >
+            <span class="my-modal-span">{{ message }}</span>
+        </div>
         <h1>Dungeon Maze</h1>
         <div class="char-info">
         <h3 class="health">Health: 
@@ -35,15 +37,19 @@ export default {
         </h3>
 
         </div>
-        <grid @changehealth="changedhealth"></grid>
-        <!--<grid @changelevel="changedlevel"></grid>-->
+        <grid @changehealth="changedhealth" @changelevel="changedlevel" @changemessage="changedmessage"></grid>
+       
     </div>  
     `, 
 
     data() {
         return{
             healthPoints: 0,
-            levelNumber: 0
+            levelNumber: 0,
+
+            message: '',
+
+            popup: 'hide'
         }
     },
 
@@ -55,7 +61,20 @@ export default {
         changedlevel(newlevel){
             console.log(this.levelNumber, newlevel);
             this.levelNumber = newlevel;
-        }
+        },
+        changedmessage(newmessage){
+            this.message = newmessage;
+            //this.$refs.modal.style.setProperty('display', 'flex');
+            //this.showPopUp();
+            //this.removePopUp();
+            setTimeout((function(){
+                this.popup = 'show';
+            }).bind(this),);
+            setTimeout(() => {
+                this.popup = 'hide';
+            }, 1000);
+                      
+        },
     
     },
 
