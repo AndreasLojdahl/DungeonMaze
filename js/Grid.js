@@ -358,6 +358,19 @@ export default{
                 if(e.keyCode === 40){
                     this.moveDown()
                 }
+            
+            if (event.keyCode === 87) { //w
+                this.moveUp()
+            }
+            else if (event.keyCode === 83) { //s
+                this.moveDown();
+            }
+            else if (event.keyCode === 68) { //d
+                this.moveRight();
+            }
+            else if (event.keyCode === 65) { //a
+                this.moveLeft();
+            }
                        
             
         })
