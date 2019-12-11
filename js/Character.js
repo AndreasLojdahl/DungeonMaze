@@ -1,8 +1,3 @@
-import Monster from './Monster.js'
-import Hero from './Hero.js'
-import Finalboss from './Finalboss.js'
-
-
 export default{
 
     props:['position','backPack'],
@@ -18,8 +13,6 @@ export default{
             health: 15,
             attack: 10,
             level: 1,
-            money: 0,
-            
         }
         
     },
@@ -32,19 +25,11 @@ export default{
             }
         },
         health:{
-            deep: true,
             handler(){
                 this.updateHealth()
             }
         },
-        money:{
-            deep: true,
-            handler(){
-                this.updateMoney()
-            }
-        },
         level:{
-            deep: true,
             handler(){
                 this.updateLevel()
             }
@@ -67,15 +52,16 @@ export default{
             console.log(this.position.y)
         },
 
-        checkChest() {
-        this.heroLevelsUp()
-        },
+        /*checkChest() {
+        this.health++;
+        this.level++;
+        },*/
 
-        heroLevelsUp(){
-            this.level++,
-            this.health++,
-            this.money++
-        },
+       /* heroLevelsUp(){
+            level++,
+            this.attack++,
+            this.health++
+        },*/
 
         fightMonster(monsterHealth,type){
 
@@ -85,8 +71,9 @@ export default{
                 this.health--;
 
                 if (monsterHealth == 0){
-                    alert("You defeated the monster!");  
-                    return;
+                    this.updateMessage(type);
+                    //alert('You have defeated the monster!');
+                    return 'monsterIsDead';
                 } 
                 if (this.health == 0){
 
@@ -107,24 +94,47 @@ export default{
         updateHealth(){
            console.log(this.health);
            this.$emit('changehealth', this.health);
-       },
-       updateMoney(){
-        console.log(this.money);
-        this.$emit('changemoney', this.money);
-    },
-       updateLevel(){
-           console.log(this.level);
-           this.$emit('changelevel', this.level);
-        }
-    },
-    
-    mounted(){
-        this.updatePosition();
-        this.updateHealth();
-        this.updateLevel();
-        this.updateMoney();
+            
+        },
+
+        updateLevel(){
+            
+            console.log(this.level);
+            this.$emit('changelevel', this.level);
+        },
+
+        updateMessage(type){
+
+            switch(type){
+                 case 'M':
+                    this.message = 'You have defeated a monster!';
+                    this.$emit('changemessage', this.message);
+                    break;
+                 case 'B':
+                     this.message = 'You have defeated the boss, you have won the game!';
+                     this.$emit('changemessage', this.message);
+                     break;
+                 case 'dead':
+                     this.message = 'You have died GAME OVER!'
+                     this.$emit('changemessage', this.message);
+                     break;
+                case 'storyMessage1':
+                    this.message = "What's this? You just woke up on a hard rocky floor, with a massive headache to boot. Looks like you had too much "+
+                    "to drink last night... or did you? Close to you, hanging on the wall, you spot a note with a message scribbled on it. "+
+                    "'If you want to get out alive, you better collect yourself enough gold. Good luck, old friend.' ... Old friend?... You can't help but wonder. "+
+                    "Who on earth did this to you?"
+                    this.$emit('changemessage', this.message);
+                     break;
+            }
+        },
+        mounted(){
+            this.updatePosition();
+            this.updateHealth();
+            //this.updateLevel();
+        } 
+
+        
     }
-}
 
 }
 

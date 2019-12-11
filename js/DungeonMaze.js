@@ -6,8 +6,6 @@ export default {
 
     props:['level'],
 
-    props:['money'],
-
     components:{
         Grid,
     },
@@ -37,11 +35,7 @@ export default {
             >{{ levelNumber }}
         </span>
         </h3>
-        <h3 class="money">Money: 
-            <span class="money-amount" 
-            >{{ moneyAmount }}
-            </span>
-        </h3>
+
         </div>
         <grid @changehealth="changedhealth" @changelevel="changedlevel" @changemessage="changedmessage"></grid>
        
@@ -51,7 +45,6 @@ export default {
     data() {
         return{
             healthPoints: 0,
-            moneyAmount: 0,
             levelNumber: 0,
 
             message: '',
@@ -64,10 +57,6 @@ export default {
         changedhealth(newhealth){
             console.log(this.healthPoints, newhealth);
             this.healthPoints = newhealth;
-        },
-        changedmoney(newmoney){
-            console.log(this.moneyAmount, newmoney);
-            this.moneyAmount = newmoney;
         },
         changedlevel(newlevel){
             console.log(this.levelNumber, newlevel);

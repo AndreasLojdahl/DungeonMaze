@@ -1,63 +1,44 @@
 import Tile from './Tile.js'
 import Character from './Character.js'
-import Chest1 from './Chest.js'
-import Chest2 from './Chest.js'
 import Monster from './Monster.js'
-import Hero from './Hero.js'
 import Finalboss from './Finalboss.js'
-
-
-
-
 
 export default{
     components:{
         Tile,
         Character,
-        Chest1,
-        Chest2,
         Monster,
-        Finalboss,
-        Hero
-        
+        Finalboss
     },
 
     template:`
     <div class="grid-layout">
        
        <tile  
-       v-for="(tile, i) of flatTiles"
+        v-for="(tile, i) of flatTiles"
         v-bind:properties="tile"
         v-bind:key="'tile' + i + tile.x + tile.y"
         v-bind:class="'tile-type-' + tile.type"
         ref="flatTiles"
-      
         ></tile>
-        <Monster tileArray="flatTiles"></Monster>
-        
-        <Character ref="hero" v-bind:position="heroPosition"></Character>
-        <Chest1 v-bind:position="itemPosition1"></Chest1>
-        <Chest2 v-bind:position="itemPosition2"></Chest2>
-        <Hero v-bind:stats="heroStats"></Hero>
-        <Finalboss v-bind:position="finalBossData"></Finalboss>
-        <Monster v-bind:position="monsterPositions"></Monster>
         
         <Character 
         ref="hero" 
         @changemessage="changeheromessage"
         @changehealth="changeherohealth" 
         @changelevel="changeherolevel" 
-        @changemoney="changeheromoney" 
         v-bind:position="heroPosition">
         </Character>
 
+        <!--
+        <Monster tileArray="flatTiles"></Monster>
         <div class="buttons-div">
-
         <button v-on:click="moveLeft">Left</button>
         <button v-on:click="moveUp">Up</button>
         <button v-on:click="moveDown">Down</button>
         <button v-on:click="moveRight">Right</button></button>
-        </div> 
+        </div>
+        -->
     </div>
     `,
 
@@ -93,10 +74,10 @@ export default{
                 ['W','W','W',' ',' ',' ',' ',' ',' ',' ','W',' ',' ',' ','W'],
                 ['W','W',' ',' ',' ','W','W','W','W',' ',' ',' ',' ',' ','W'],
                 ['W',' ',' ',' ',' ','W',' ',' ','W',' ','W','W',' ',' ','W'],
-                ['W',' ','W','W',' ','W','F',' ',' ',' ',' ','W','C','W','W'],
+                ['W',' ','W','W',' ','W',' ',' ',' ',' ',' ','W',' ','W','W'],
                 ['W',' ',' ',' ',' ','W',' ',' ','W',' ','W','W','W','W','W'],
                 ['W','W',' ',' ',' ','W','W','W','W',' ',' ',' ',' ','W','W'],
-                ['W',' ','M',' ',' ',' ',' ',' ',' ',' ','W','W',' ',' ','W'],
+                [' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W','W',' ',' ','W'],
                 ['W',' ','W','W','W','W','W','W','W',' ','W','W',' ',' ','W'],
                 ['W',' ','W',' ',' ',' ','W','W',' ',' ',' ','W','W','W','W'],
                 ['W',' ',' ',' ',' ',' ','W',' ',' ','W',' ',' ',' ','W','W'],
@@ -113,7 +94,7 @@ export default{
             // K = Key?
 
             heroPosition:{
-                x:1,
+                x:0,
                 y:7
             },
 
@@ -177,7 +158,6 @@ export default{
             room5: [],
 
             backPack:{
-
                 ironSword:'',
                 shield:'',
                 helmet:'',
@@ -327,14 +307,6 @@ export default{
             this.$emit('changehealth', newhealth);
         },
         changeherolevel(newlevel){
-                    console.log(newlevel);
-                    this.$emit('changelevel', newlevel);
-                },
-        changeheromoney(newmoney){
-                    console.log(newmoney);
-                    this.$emit('changemoney', newmoney);
-                },
-         
             this.$emit('changelevel', newlevel);
         },
         changeheromessage(newmessage){
@@ -463,24 +435,20 @@ export default{
         grabTreasure(positionY, positionX){
 
         }
- 
-        
-       
     },
 
     created(){
         this.createMap()         //undefined = this.
         console.log(this.tiles)
-
         console.log(this.flatTiles)
         //this.spawnTreasureChests()
         this.createRooms()
         
     },
+
     mounted(){
         
         window.addEventListener('keyup', (e) => {
-            
                 if(e.keyCode === 37){                   
                    this.moveLeft()
                 }
@@ -506,9 +474,6 @@ export default{
                     this.moveLeft();
                 }
         })
-    
     }
-        
+}
 
-}
-}
