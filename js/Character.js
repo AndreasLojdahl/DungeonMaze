@@ -4,6 +4,8 @@ export default{
 
     template:`
     <div ref="hero" class="character"></div>
+    <div ref="monster" class="monster"></div>
+
     `,
     
     data() {

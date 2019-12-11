@@ -38,6 +38,7 @@ body {
 }
 
 h1{
+  height: 60px;
   display: flex;
   justify-content: center;
   font-family: monospace;
@@ -45,6 +46,11 @@ h1{
   color: rgb(161, 95, 41);
   margin-top: 0%;
   margin-bottom: 0%;
+}
+h3{
+  margin: 0%;
+  font-size: 80%;
+
 }
 
 .grid-layout{  
@@ -79,6 +85,18 @@ h1{
   /*background-color: green;*/
   position: absolute;
   background: url("/images/hero.png");
+  background-size: 100% 100%;
+  /*left: calc(0 * 6.6667%);   
+  top: calc(7 * 6.6667%); */
+  /*border: 1px solid black;*/
+}
+.monster{
+  display: flex;
+  width: 6.6667%;
+  height: 6.6667%;   
+  /*background-color: green;*/
+  position: absolute;
+  background: url("/images/monster.jpg");
   background-size: 100% 100%;
   /*left: calc(0 * 6.6667%);   
   top: calc(7 * 6.6667%); */
