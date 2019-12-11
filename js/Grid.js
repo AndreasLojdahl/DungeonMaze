@@ -154,6 +154,7 @@ export default{
                 chest:'',
             },
             shownMessage1: false,
+            shownMessage2: false,
         }
     },
 
@@ -193,6 +194,7 @@ export default{
         moveUp(){ 
             let futurePositionY = this.heroPosition.y - 1
             if (this.grid[futurePositionY][this.heroPosition.x] !== 'W'){
+                this.checkForStoryMessage(futurePositionY,this.heroPosition.x);
                 this.checkForMonster(futurePositionY, this.heroPosition.x); 
                 this.checkForItem(futurePositionY,this.heroPosition.x);
                 this.heroPosition.y -= 1;
@@ -201,15 +203,18 @@ export default{
         moveDown(){
             let futurePositionY = this.heroPosition.y + 1
             if (this.grid[futurePositionY][this.heroPosition.x] !== 'W'){
+                this.checkForStoryMessage(futurePositionY,this.heroPosition.x);
                 this.checkForMonster(futurePositionY,this.heroPosition.x);
                 this.checkForItem(futurePositionY,this.heroPosition.x);
                 this.heroPosition.y += 1;
             }
             //this.checkForMonster(futurePositionY, this.heroPosition.x);
+            console.log(futurePositionY, this.heroPosition.x)
         },
         moveLeft(){
             let futurePositionX = this.heroPosition.x - 1
             if (this.grid[this.heroPosition.y][futurePositionX] !== 'W'){
+                this.checkForStoryMessage(this.heroPosition.y,futurePositionX);
                 this.checkForMonster(this.heroPosition.y, futurePositionX);
                 this.checkForItem(this.heroPosition.y, futurePositionX);
                 this.$refs.hero.updateDirection('left');
@@ -316,6 +321,10 @@ export default{
             if ((y === 7) && (x === 1) && (this.shownMessage1 == false)){
                this.$refs.hero.updateMessage('storyMessage1'); 
                this.shownMessage1 = true;
+           }
+           if ((y === 9) && (x === 9) && (this.shownMessage2 == false)){
+               this.$refs.hero.updateMessage('storyMessage2');
+               this.shownMessage2 = true;
            }
         },
         getRandomNumber(array) {
