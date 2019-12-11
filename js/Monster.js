@@ -12,7 +12,9 @@ export default{
     
     data() {
           return {
-              position: 1,
+              x:0,
+              y:0
+              
     
         }
     },
@@ -22,6 +24,7 @@ export default{
     },
 
     created(){
+        
 
     },
 
@@ -30,10 +33,11 @@ export default{
             return true
             console.log(this.tileArray.type)
         },
+     
+
     },
 
     mounted(){
-        this.$refs.monster.style.setProperty('left', `calc(${this.position.x} * 6.6667%)`)
-        this.$refs.monster.style.setProperty('top', `calc(${this.position.y} * 6.6667%)`)
+        this.setMonsterPosition()
     }
 }
