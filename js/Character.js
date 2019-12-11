@@ -78,7 +78,7 @@ export default{
        updateHealth(){
            console.log(this.health);
            this.$emit('changehealth', this.health);
-            }
+        
         },
         updateLevel(){
            console.log(this.level);
@@ -90,4 +90,4 @@ export default{
         this.updateHealth();
         this.updateLevel();
     }
-}
+    }}
