@@ -428,7 +428,8 @@ export default{
         },
    
         grabTreasure(positionY, positionX){
-         isMonsterNearBy(room, positionY, positionX){
+        },
+        isMonsterNearBy(room, positionY, positionX){
            
             let monsterCount = 0; 
             this.room = room

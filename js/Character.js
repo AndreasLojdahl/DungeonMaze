@@ -3,9 +3,8 @@ export default{
     props:['position','backPack'],
 
     template:`
-    <div :class="rotate" ref="hero" class="character"></div>
     <div ref="shadow" id="shadow-overlay">
-        <div ref="hero" id="character"></div>
+        <div :class="rotate" ref="hero" id="character"></div>
     </div>
     `,
     
