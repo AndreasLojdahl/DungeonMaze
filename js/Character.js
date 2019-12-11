@@ -3,9 +3,7 @@ export default{
     props:['position','backPack'],
 
     template:`
-    <div ref="hero" class="character"></div>
-    <div ref="monster" class="monster"></div>
-
+    <div :class="rotate" ref="hero" class="character"></div>
     `,
     
     data() {
@@ -15,6 +13,7 @@ export default{
             health: 15,
             attack: 10,
             level: 1,
+            rotate: 'right'
         }
         
     },
@@ -83,6 +82,7 @@ export default{
 
                     this.$refs.hero.style.setProperty('background','none')
                     setTimeout(function(){ window.location.reload();},1000);
+                    
                     //alert("You have died. GAME OVER."); 
                     //window.location.reload();
                 }
@@ -105,6 +105,25 @@ export default{
             this.$emit('changelevel', this.level);
         },
 
+        updateDirection(newDirection){
+            console.log('inne i updateDirection')
+            if(newDirection !== this.direction){
+                this.rotate = newDirection;
+            }
+           
+
+            /*switch(newDirection){
+                case 'right':
+                    console.log('inne i rgiht direct')
+                        this.direction = 'right';
+                        break;
+                case 'left':
+                        this.direction = 'left';
+                        break;
+            }*/
+          
+        },
+
         updateMessage(type){
 
             switch(type){
@@ -122,16 +141,19 @@ export default{
                      break;
  
             }
-        },
-        mounted(){
-            this.updatePosition();
-            this.updateHealth();
-            //this.updateLevel();
-        } 
+        }
+    },
+    async mounted(){
 
-        
-    }
+        await sleep(10)  // 1000 = 1 second
+        this.updateDirection();
+        this.updatePosition();
+        this.updateHealth();
+        //this.updateLevel();
+    } 
 
 }
 
-   
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms))
+}

@@ -45,7 +45,7 @@ h1{
   font-size: 550%;
   color: rgb(161, 95, 41);
   margin-top: 0%;
-  margin-bottom: 0%;
+  margin-bottom: 3%;
 }
 h3{
   margin: 0%;
@@ -89,6 +89,9 @@ h3{
   /*left: calc(0 * 6.6667%);   
   top: calc(7 * 6.6667%); */
   /*border: 1px solid black;*/
+  transition: 170ms;
+  /*transform: rotateY(180deg);
+  -webkit-transform: rotateY(180deg);*/
 }
 .monster{
   display: flex;
@@ -173,4 +176,15 @@ h3{
 }
 .hide{
   display: none;
+}
+
+.left{
+  transform: scaleX(-1);
+  filter: FlipH;
+  transition: 200ms;
+}
+.right{
+  transform: scaleX(1);
+  filter: FlipH;
+  transition: 200ms;
 }
