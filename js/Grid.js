@@ -271,9 +271,17 @@ export default{
         },
         checkForItem(positionY, positionX){
             if(this.grid[positionY][positionX] === 'C'){
-                this.$refs.hero.updateHeroLevel();
-                this.changeTileType(positionY, positionX);
-            }
+                this.isHeroInRoom(positionY, positionX)
+               
+                
+            } 
+            // else{
+            //     this.grabTreasureChest(positionY, positionX)
+            // }
+        },
+        grabTreasureChest(positionY, positionX){
+            this.$refs.hero.updateHeroLevel();          
+            this.changeTileType(positionY, positionX);
         },
 
         spawnTreasureChests(){
@@ -384,12 +392,14 @@ export default{
             
 
         },
-        isHeroInRoom(){
-            //console.log('test')
+        isHeroInRoom(positionY, positionX){
+            
+            let match = 0
             for (let r of this.room1) {
                 if(this.heroPosition.x === r[0] && this.heroPosition.y === r[1]){
-                    //checkForTreasure(this.room1)
                     console.log('in room 1')
+                    this.isMonsterNearBy(this.room1, positionY, positionX)
+                    match++
                   
                 }
                 
@@ -398,6 +408,8 @@ export default{
                 if(this.heroPosition.x === r[0] && this.heroPosition.y === r[1]){
                     //checkForTreasure(this.room2)
                     console.log('in room 2')
+                    this.isMonsterNearBy(this.room2, positionY, positionX)
+                    match++
                   
                 }
                 
@@ -406,6 +418,8 @@ export default{
                 if(this.heroPosition.x === r[0] && this.heroPosition.y === r[1]){
                     //checkForTreasure(this.room3)
                     console.log('in room 3')
+                    this.isMonsterNearBy(this.room3, positionY, positionX)
+                    match++
                 }
                 
             }
@@ -413,6 +427,8 @@ export default{
                 if(this.heroPosition.x === r[0] && this.heroPosition.y === r[1]){
                     //checkForTreasure(this.room4)
                     console.log('in room 4')
+                    this.isMonsterNearBy(this.room4, positionY, positionX)
+                    match++
                   
                 }
                 
@@ -421,20 +437,41 @@ export default{
                 if(this.heroPosition.x === r[0] && this.heroPosition.y === r[1]){
                     //checkForTreasure(this.room5)
                     console.log('in room 5')
+                    this.isMonsterNearBy(this.room5, positionY, positionX)
+                    match++
+                    
                   
                 }
                 
             }
+             if(match===0){
+                 this.grabTreasureChest(positionY, positionX)
+             }
         },
-        //  checkForTreasure(room){
-        //      if (this.grid[] === 'C'){
-                
-        //    }
-            
-        // },
-        grabTreasure(positionY, positionX){
+         isMonsterNearBy(room, positionY, positionX){
+           
+            let monsterCount = 0; 
+            this.room = room
+            this.positionY = positionY
+            this.positionX = positionX
+            for (let r of this.room) {
+                if(this.grid[r[0]][r[1]]==='M'){
+                    monsterCount++                
 
-        }
+                }
+
+            }
+            if(monsterCount>0){
+                console.log('You can not grab treasure, there is a monster in the room!') 
+            }
+            else{
+                this.grabTreasureChest(positionY, positionX)
+            }
+            
+         },
+         
+
+        
     },
 
     created(){
