@@ -49,13 +49,13 @@ export default{
         v-bind:position="heroPosition">
         </Character>
 
-        <!-- <div class="buttons-div">
+        <div class="buttons-div">
 
         <button v-on:click="moveLeft">Left</button>
         <button v-on:click="moveUp">Up</button>
         <button v-on:click="moveDown">Down</button>
         <button v-on:click="moveRight">Right</button></button>
-        </div> -->
+        </div> 
     </div>
     `,
 
