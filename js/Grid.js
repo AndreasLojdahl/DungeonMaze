@@ -117,6 +117,7 @@ export default{
                 attack: 3,
                 level: 1
             },
+
             monsterPos: [
                [12, 2],
                [6, 4],
@@ -124,6 +125,8 @@ export default{
                [13, 8],
                [7, 13],
                [12, 12],
+            ],
+
             monsterPositions: [
                 {x: 12, y: 2},
                 {x: 6, y: 4},
@@ -282,13 +285,9 @@ export default{
         removeChest(){
             this.Chest1 = false;
             this.Chest2 = false;
-        }
- 
+            },
         
-       
-            }
-         },
-         changeherohealth(newhealth){
+        changeherohealth(newhealth){
             console.log(newhealth);
             this.$emit('changehealth', newhealth);
         }, 
