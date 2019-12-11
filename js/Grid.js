@@ -181,10 +181,8 @@ export default{
 
     methods:{
         createMap (){
-
             this.spawnTreasureChests();
             this.spawnMonsters();
-     
             for(let rows = 0; rows < this.grid.length; rows++){
                 this.tiles[rows] = [];
                 for(let cols = 0; cols < this.grid.length; cols++){
@@ -195,15 +193,8 @@ export default{
                     }
                     this.tiles[rows].push(properties)
                 }
-             this.$refs.flatTiles.updateTileVisibility(7*15+0);
-             this.$refs.tile.updateTileVisibility(1,7);
-             this.$refs.tile.updateTileVisibility(2,7);
-             this.$refs.tile.updateTileVisibility(0,5);
-             this.$refs.tile.updateTileVisibility(0,6);
-             this.$refs.tile.updateTileVisibility(0,8);
-             this.$refs.tile.updateTileVisibility(0,9);
-        }
-    },
+            }
+        },
         moveUp(){ 
             let futurePositionY = this.heroPosition.y - 1
             if (this.grid[futurePositionY][this.heroPosition.x] !== 'W'){
@@ -237,8 +228,9 @@ export default{
         moveRight(){
             let futurePositionX = this.heroPosition.x + 1
             if (this.grid[this.heroPosition.y][futurePositionX] !== 'W'){
+                this.checkForStoryMessage(this.heroPosition.y,futurePositionX);
                 this.checkForMonster(this.heroPosition.y, futurePositionX);
-                this.checkForItem(this.heroPosition.y, futurePositionX)
+                this.checkForItem(this.heroPosition.y, futurePositionX);
                 this.heroPosition.x += 1;
             }
             
@@ -250,6 +242,40 @@ export default{
             let randIndex = Math.ciel(Math.random()* this.monsterPos.length)
             let position = monsterPos[randIndex]
         },
+
+        checkForMonster(positionY, positionX){
+            if (this.grid[positionY][positionX] === 'M'){
+                let state = this.$refs.hero.fightMonster(11,'M');
+                if(state == 'monsterIsDead'){
+                    this.changeTileType(positionY, positionX);
+                }
+                
+            }
+
+            else if(this.grid[positionY][positionX] === 'B'){
+                let state = this.$refs.hero.fightMonster(15,'B')
+               // setTimeout(function(){ window.location.reload();},1000);
+                if(state == 'monsterIsDead'){
+                    this.changeTileType(positionY, positionX);
+                }
+               // this.changeTileType(positionY, positionX);
+                //this.loadMap(15,15,this.grid2)
+                setTimeout(function(){ window.location.reload();},1000);
+            }
+            /*
+             if (this.grid[positionY][positionX] === 'M'){
+                this.$refs.hero.fightMonster(11);
+                this.changeTileType(positionY, positionX);  
+            }*/
+
+        },
+        checkForItem(positionY, positionX){
+            if(this.grid[positionY][positionX] === 'C'){
+                this.$refs.hero.updateHeroLevel();
+                this.changeTileType(positionY, positionX);
+            }
+        },
+
         spawnTreasureChests(){
                 let generatedAmountOfGold = Math.floor((Math.random() * 150) + 50);
              for(let i = 0; i < 5; i++){
@@ -295,10 +321,7 @@ export default{
         },
         checkForStoryMessage(y,x){
             if ((y === 7) && (x === 1) && (this.shownMessage1 == false)){
-               alert("What's this? You just woke up on a hard rocky floor, with a massive headache to boot. Looks like you had too much "+
-               "to drink last night... or did you? Close to you, hanging on the wall, you spot a note with a message scribbled on it. "+
-               "'If you want to get out alive, you better collect yourself enough gold. Good luck, old friend.' ... Old friend?... You can't help but wonder. "+
-               "Who on earth did this to you?"); 
+               this.$refs.hero.updateMessage('storyMessage1'); 
                this.shownMessage1 = true;
            }
         },

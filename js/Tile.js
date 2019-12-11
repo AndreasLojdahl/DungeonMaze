@@ -3,13 +3,13 @@ export default{
     props: ['properties'],
     template:`
        <!-- <button v-on:click="logPosition" class="tile"></button>     v-on:click = @click-->
-        <div ref="tile" class="tile visible hidden" v-on:click="logPosition"> </div>
+        <div ref="tile" class="tile" v-on:click="logPosition"> </div>
     `,
 
     data(){
         return{
             type: ' ',
-            visible: false,
+            visible: true,
             hidden: true,
         }
       
