@@ -129,7 +129,6 @@ export default{
 
             monsterPositions: [
                 {x: 12, y: 2},
-                {x: 6, y: 4},
                 {x: 4, y: 10},
                 {x: 13, y: 8},
                 {x: 7, y: 13},
@@ -151,6 +150,11 @@ export default{
 
             chests: [],
             monsters: [],
+            room1: [],
+            room2: [],
+            room3: [],
+            room4: [],
+            room5: [],
 
             backPack:{
                 ironSword:'',
@@ -231,6 +235,8 @@ export default{
              if (this.grid[futurePositionY][this.heroPosition.x] !== 'W'){
              this.heroPosition.y -= 1;
              }         
+             this.checkForMonster(futurePositionY, this.heroPosition.x);   
+             this.isHeroInRoom()
              this.checkForMonster(futurePositionY, this.heroPosition.x);
              this.checkForChest(futurePositionY, this.heroPosition.x);   
         },
@@ -241,8 +247,9 @@ export default{
              }
              this.checkForMonster(futurePositionY, this.heroPosition.x);
              this.checkForChest(futurePositionY, this.heroPosition.x);
-        },
-        moveLeft(){
+             this.isHeroInRoom()
+         },
+         moveLeft(){
              let futurePositionX = this.heroPosition.x - 1
              if (this.grid[this.heroPosition.y][futurePositionX] !== 'W'){
                  this.heroPosition.x -= 1;
@@ -250,8 +257,9 @@ export default{
              this.checkForMonster(this.heroPosition.y, futurePositionX);
              this.checkForChest(this.heroPosition.y, futurePositionX);
              this.removeChest();
-        },
-        moveRight(){
+             this.isHeroInRoom()
+         },
+         moveRight(){
              let futurePositionX = this.heroPosition.x + 1
              if (this.grid[this.heroPosition.y][futurePositionX] !== 'W'){
              this.heroPosition.x += 1;
@@ -259,8 +267,9 @@ export default{
              this.checkForMonster(this.heroPosition.y, futurePositionX);
              this.checkForStoryMessage(this.heroPosition.y, this.heroPosition.x);
              this.checkForChest(this.heroPosition.y, futurePositionX);
-        },
-        getMonsterPos(){
+             this.isHeroInRoom()
+         },
+         getMonsterPos(){
              let randIndex = Math.ciel(Math.random()* this.monsterPos.length)
              let position = monsterPos[randIndex]
         },
@@ -305,6 +314,107 @@ export default{
                 array.splice(randomNumber, 1);
                 return chosenPosition; 
             }
+        },
+        createRooms(){
+
+            let i= 0; 
+            for(let row = 1; row< 5; row++){
+                for(let col = 11; col <14; col++){
+                    this.room1[i] = [col, row]
+                    console.log('Room1 ' + this.room1[i])
+                    i++; 
+                }
+                        
+            }
+                
+            let i2 = 0;
+            for(let row = 3; row< 6; row++){
+                for(let col = 6; col <8; col++){
+                   this.room2[i2]=[col, row];
+                   console.log('Room2 ' + this.room2[i2])
+                   i2++; 
+                }
+            }
+           
+            let i3=0;
+            for(let row = 9; row< 11; row++){
+                for(let col = 3; col <6; col++){
+                    this.room3[i3]=[col, row];
+                    console.log('Room3 ' + this.room3[i3])
+                    i3++; 
+                }
+            }
+            
+            let i4=0;
+            for(let row =12; row<14; row++){
+                for(let col = 3; col <9; col++){
+                    this.room4[i4]=[col, row];
+                    console.log('Room4 ' + this.room4[i4])
+                    i4++; 
+                }
+            }
+            
+            let i5=0;
+            for(let row = 11; row< 14; row++){
+                for(let col = 10; col <14; col++){
+                    this.room5[i5]=[col, row];
+                    console.log('Room5 ' + this.room5[i5])
+                    i5++; 
+                }
+            }
+            
+
+        },
+        isHeroInRoom(){
+            //console.log('test')
+            for (let r of this.room1) {
+                if(this.heroPosition.x === r[0] && this.heroPosition.y === r[1]){
+                    //checkForTreasure(this.room1)
+                    console.log('in room 1')
+                  
+                }
+                
+            }
+            for (let r of this.room2) {
+                if(this.heroPosition.x === r[0] && this.heroPosition.y === r[1]){
+                    //checkForTreasure(this.room2)
+                    console.log('in room 2')
+                  
+                }
+                
+            }
+            for (let r of this.room3) {
+                if(this.heroPosition.x === r[0] && this.heroPosition.y === r[1]){
+                    //checkForTreasure(this.room3)
+                    console.log('in room 3')
+                }
+                
+            }
+            for (let r of this.room4) {
+                if(this.heroPosition.x === r[0] && this.heroPosition.y === r[1]){
+                    //checkForTreasure(this.room4)
+                    console.log('in room 4')
+                  
+                }
+                
+            }
+            for (let r of this.room5) {
+                if(this.heroPosition.x === r[0] && this.heroPosition.y === r[1]){
+                    //checkForTreasure(this.room5)
+                    console.log('in room 5')
+                  
+                }
+                
+            }
+        },
+        //  checkForTreasure(room){
+        //      if (this.grid[] === 'C'){
+                
+        //    }
+            
+        // },
+        grabTreasure(positionY, positionX){
+
         }
     },
  
@@ -312,14 +422,18 @@ export default{
         this.createMap(15,15)         //undefined = this.
         console.log(this.tiles)
         console.log(this.flatTiles)
+        //this.spawnTreasureChests()
+        this.createRooms()
+        
     },
 
     mounted(){
+        
         window.addEventListener('keyup', (e) => {
                 if(e.keyCode === 37){                   
                    this.moveLeft()
                 }
-                if(e.keyCode === 38){
+                if(e.keyCode === 38){  
                     this.moveUp()
                 }
                 if(e.keyCode === 39){   
