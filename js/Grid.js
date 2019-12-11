@@ -166,9 +166,9 @@ export default{
         flatTiles(){
             return this.tiles.flat()
         }
-     },
+    },
 
-     methods:{
+    methods:{
          createMap (heigth,width){
             this.spawnTreasureChests();
             this.spawnMonsters();
@@ -183,8 +183,15 @@ export default{
                      this.tiles[rows].push(properties)
                  }
              }
-         },
-         spawnTreasureChests(){
+             this.$refs.flatTiles.updateTileVisibility(7*15+0);
+             this.$refs.tile.updateTileVisibility(1,7);
+             this.$refs.tile.updateTileVisibility(2,7);
+             this.$refs.tile.updateTileVisibility(0,5);
+             this.$refs.tile.updateTileVisibility(0,6);
+             this.$refs.tile.updateTileVisibility(0,8);
+             this.$refs.tile.updateTileVisibility(0,9);
+        },
+        spawnTreasureChests(){
              for(let i = 0; i < 5; i++){
                 let generatedAmountOfGold = Math.floor((Math.random() * 150) + 50);
                 let generatedChestPosition = this.getRandomNumber(this.chestPositions);
@@ -196,8 +203,8 @@ export default{
                  }
                  this.grid[generatedChestPosition.y][generatedChestPosition.x] = 'C'; //places Treasure Chest in the grid
              }
-         },
-         spawnMonsters(){
+        },
+        spawnMonsters(){
             for(let i = 0; i < 2; i++){
                 let generatedAmountOfHealth = Math.floor((Math.random() * 20) + 10);
                 let generatedMonsterPosition = this.getRandomNumber(this.monsterPositions);
@@ -209,8 +216,8 @@ export default{
                  }
                  this.grid[generatedMonsterPosition.y][generatedMonsterPosition.x] = 'M'; //places a Monster in the grid
              }
-         },
-         checkForStoryMessage(y,x){
+        },
+        checkForStoryMessage(y,x){
              if ((y === 7) && (x === 1) && (this.shownMessage1 == false)){
                 alert("What's this? You just woke up on a hard rocky floor, with a massive headache to boot. Looks like you had too much "+
                 "to drink last night... or did you? Close to you, hanging on the wall, you spot a note with a message scribbled on it. "+
@@ -218,24 +225,24 @@ export default{
                 "Who on earth did this to you?"); 
                 this.shownMessage1 = true;
             }
-         },
-         moveUp(){ 
+        },
+        moveUp(){ 
              let futurePositionY = this.heroPosition.y - 1
              if (this.grid[futurePositionY][this.heroPosition.x] !== 'W'){
              this.heroPosition.y -= 1;
              }         
              this.checkForMonster(futurePositionY, this.heroPosition.x);
              this.checkForChest(futurePositionY, this.heroPosition.x);   
-         },
-         moveDown(){
+        },
+        moveDown(){
              let futurePositionY = this.heroPosition.y + 1
              if (this.grid[futurePositionY][this.heroPosition.x] !== 'W'){
                  this.heroPosition.y += 1;
              }
              this.checkForMonster(futurePositionY, this.heroPosition.x);
              this.checkForChest(futurePositionY, this.heroPosition.x);
-         },
-         moveLeft(){
+        },
+        moveLeft(){
              let futurePositionX = this.heroPosition.x - 1
              if (this.grid[this.heroPosition.y][futurePositionX] !== 'W'){
                  this.heroPosition.x -= 1;
@@ -243,8 +250,8 @@ export default{
              this.checkForMonster(this.heroPosition.y, futurePositionX);
              this.checkForChest(this.heroPosition.y, futurePositionX);
              this.removeChest();
-         },
-         moveRight(){
+        },
+        moveRight(){
              let futurePositionX = this.heroPosition.x + 1
              if (this.grid[this.heroPosition.y][futurePositionX] !== 'W'){
              this.heroPosition.x += 1;
@@ -252,29 +259,27 @@ export default{
              this.checkForMonster(this.heroPosition.y, futurePositionX);
              this.checkForStoryMessage(this.heroPosition.y, this.heroPosition.x);
              this.checkForChest(this.heroPosition.y, futurePositionX);
-         },
-         getMonsterPos(){
+        },
+        getMonsterPos(){
              let randIndex = Math.ciel(Math.random()* this.monsterPos.length)
              let position = monsterPos[randIndex]
-         },
-         checkForMonster(positionY, positionX){
+        },
+        checkForMonster(positionY, positionX){
             if (this.grid[positionY][positionX] === 'M'){
                  this.$refs.hero.fightMonster(11);
                  this.grid[positionY][positionX] === ' '
                  }
-                },
-        
+        },
         
         changeherohealth(newhealth){
                     console.log(newhealth);
                     this.$emit('changehealth', newhealth);
-                },
+        },
         changeherolevel(newlevel){
                     console.log(newlevel);
                     this.$emit('changelevel', newlevel);
-                },
+        },
          
-
         checkForChest(positionY, positionX){
              if (this.grid[positionY][positionX] === 'C'){
                 this.$refs.hero.checkChest();
@@ -285,12 +290,13 @@ export default{
         removeChest(){
             this.Chest1 = false;
             this.Chest2 = false;
-            },
+        },
         
         changeherohealth(newhealth){
             console.log(newhealth);
             this.$emit('changehealth', newhealth);
         }, 
+
         getRandomNumber(array) {
             // randomly pick one position from the array and remove it afterwards so it can't be chosen again
             for (let i = 0; i < array.length; i++) {

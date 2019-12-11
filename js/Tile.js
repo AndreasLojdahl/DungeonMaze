@@ -3,12 +3,14 @@ export default{
     props: ['properties'],
     template:`
        <!-- <button v-on:click="logPosition" class="tile"></button>     v-on:click = @click-->
-        <div ref="tile" class="tile" v-on:click="logPosition"> </div>
+        <div ref="tile" class="tile visible hidden" v-on:click="logPosition"> </div>
     `,
 
     data(){
         return{
-            type: ' '
+            type: ' ',
+            visible: false,
+            hidden: true,
         }
       
     },
@@ -27,7 +29,6 @@ export default{
         },
 
         updateTileType(){
-            
             if(this.properties.type === 'I'){
                 this.$refs.tile.style.setProperty('background', 'none')
                 this.properties.type = ' ';
@@ -36,13 +37,12 @@ export default{
                 this.$refs.tile.style.setProperty('background', 'none')
                 this.properties.type = ' ';
             }
+        },
 
-            
+        updateTileVisibility(tileIndex){
+                this.tileIndex.hidden = false;
+                this.tileIndex.visible = true;
         }
-
-       
-
-      
     }, 
 
     mounted(){
