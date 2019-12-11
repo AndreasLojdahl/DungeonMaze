@@ -225,7 +225,7 @@ export default{
              this.heroPosition.y -= 1;
              }         
              this.checkForMonster(futurePositionY, this.heroPosition.x);
-             this.checkForChest(this.heroPosition.y, futurePositionX);   
+             this.checkForChest(futurePositionY, this.heroPosition.x);   
          },
          moveDown(){
              let futurePositionY = this.heroPosition.y + 1
@@ -233,7 +233,7 @@ export default{
                  this.heroPosition.y += 1;
              }
              this.checkForMonster(futurePositionY, this.heroPosition.x);
-             this.checkForChest(this.heroPosition.y, futurePositionX);
+             this.checkForChest(futurePositionY, this.heroPosition.x);
          },
          moveLeft(){
              let futurePositionX = this.heroPosition.x - 1
