@@ -124,6 +124,7 @@ export default{
                [13, 8],
                [7, 13],
                [12, 12],
+            ],
             monsterPositions: [
                 {x: 12, y: 2},
                 {x: 6, y: 4},
@@ -275,7 +276,7 @@ export default{
  
         
        
-            }
+            
          },
          changeherohealth(newhealth){
             console.log(newhealth);
@@ -289,8 +290,7 @@ export default{
                 array.splice(randomNumber, 1);
                 return chosenPosition; 
             }
-        }
-    },
+        },
  
      created(){
         this.createMap(15,15)         //undefined = this.
