@@ -44,7 +44,6 @@ export default{
 
     data(){
         return{
-
             tiles: [],
            /* grid : [      20x20 map
                 ['W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W'],
@@ -119,15 +118,6 @@ export default{
                 level: 1
             },
 
-            monsterPos: [
-               [12, 2],
-               [6, 4],
-               [4, 10],
-               [13, 8],
-               [7, 13],
-               [12, 12],
-            ],
-
             monsterPositions: [
                 {x: 12, y: 2},
                 {x: 4, y: 10},
@@ -195,14 +185,18 @@ export default{
                 }
             }
         },
+        createFogOfWar(){
+            let index = 7*15 + 0
+            console.log(this.flatTiles);
+            this.$refs.flatTiles[index].updateTileVisibility();
+        },
         moveUp(){ 
             let futurePositionY = this.heroPosition.y - 1
             if (this.grid[futurePositionY][this.heroPosition.x] !== 'W'){
                 this.checkForMonster(futurePositionY, this.heroPosition.x); 
                 this.checkForItem(futurePositionY,this.heroPosition.x);
                 this.heroPosition.y -= 1;
-            }         
-              
+            }           
         },
         moveDown(){
             let futurePositionY = this.heroPosition.y + 1
@@ -225,7 +219,6 @@ export default{
                 
             }
         },
-           
         moveRight(){
             let futurePositionX = this.heroPosition.x + 1
             if (this.grid[this.heroPosition.y][futurePositionX] !== 'W'){
@@ -235,14 +228,6 @@ export default{
                 this.$refs.hero.updateDirection('right');
                 this.heroPosition.x += 1;
             }
-            
-            console.log(this.heroPosition.x)
-            console.log('Inne i moveRight')
-        },
-
-        getMonsterPos(){
-            let randIndex = Math.ciel(Math.random()* this.monsterPos.length)
-            let position = monsterPos[randIndex]
         },
 
         checkForMonster(positionY, positionX){
@@ -251,7 +236,6 @@ export default{
                 if(state == 'monsterIsDead'){
                     this.changeTileType(positionY, positionX);
                 }
-                
             }
 
             else if(this.grid[positionY][positionX] === 'B'){
@@ -327,7 +311,6 @@ export default{
             let index = positionY*15+positionX;
             this.grid[positionY][positionX] = ' ';
             this.$refs.flatTiles[index].updateTileType();
-
         },
         checkForStoryMessage(y,x){
             if ((y === 7) && (x === 1) && (this.shownMessage1 == false)){
@@ -391,8 +374,6 @@ export default{
                     i5++; 
                 }
             }
-            
-
         },
         isHeroInRoom(positionY, positionX){
             
@@ -404,7 +385,6 @@ export default{
                     match++
                   
                 }
-                
             }
             for (let r of this.room2) {
                 if(this.heroPosition.x === r[0] && this.heroPosition.y === r[1]){
@@ -414,7 +394,6 @@ export default{
                     match++
                   
                 }
-                
             }
             for (let r of this.room3) {
                 if(this.heroPosition.x === r[0] && this.heroPosition.y === r[1]){
@@ -423,7 +402,6 @@ export default{
                     this.isMonsterNearBy(this.room3, positionY, positionX)
                     match++
                 }
-                
             }
             for (let r of this.room4) {
                 if(this.heroPosition.x === r[0] && this.heroPosition.y === r[1]){
@@ -433,7 +411,6 @@ export default{
                     match++
                   
                 }
-                
             }
             for (let r of this.room5) {
                 if(this.heroPosition.x === r[0] && this.heroPosition.y === r[1]){
@@ -444,13 +421,15 @@ export default{
                     
                   
                 }
-                
             }
              if(match===0){
                  this.grabTreasureChest(positionY, positionX)
              }
         },
-         isMonsterNearBy(room, positionY, positionX){
+   
+        grabTreasure(positionY, positionX){
+        },
+        isMonsterNearBy(room, positionY, positionX){
            
             let monsterCount = 0; 
             this.room = room
@@ -480,13 +459,11 @@ export default{
         this.createMap()         //undefined = this.
         console.log(this.tiles)
         console.log(this.flatTiles)
-        //this.spawnTreasureChests()
         this.createRooms()
-        
+        //this.createFogOfWar();
     },
 
     mounted(){
-        
         window.addEventListener('keyup', (e) => {
                 if(e.keyCode === 37){                   
                    this.moveLeft()
