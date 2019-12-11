@@ -78,7 +78,7 @@ export default{
                 ['W',' ',' ',' ',' ','W',' ',' ','W',' ','W','W','W','W','W'],
                 ['W','W',' ',' ',' ','W','W','W','W',' ',' ',' ',' ','W','W'],
                 [' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W','W',' ',' ','W'],
-                ['W',' ','W','W','W','W','W','W','W',' ','W','W',' ',' ','W'],
+                ['W',' ','W','W','W','W','W','W','W',' ','W','W',' ','B','W'],
                 ['W',' ','W',' ',' ',' ','W','W',' ',' ',' ','W','W','W','W'],
                 ['W',' ',' ',' ',' ',' ','W',' ',' ','W',' ',' ',' ','W','W'],
                 ['W',' ','W','W','W','W','W',' ','W','W','W','W',' ',' ','W'],
@@ -217,7 +217,8 @@ export default{
             let futurePositionX = this.heroPosition.x - 1
             if (this.grid[this.heroPosition.y][futurePositionX] !== 'W'){
                 this.checkForMonster(this.heroPosition.y, futurePositionX);
-                this.checkForItem(this.heroPosition.y, futurePositionX)
+                this.checkForItem(this.heroPosition.y, futurePositionX);
+                this.$refs.hero.updateDirection('left');
                 if(futurePositionX != -1){
                     this.heroPosition.x -= 1;
                 }
@@ -230,7 +231,8 @@ export default{
             if (this.grid[this.heroPosition.y][futurePositionX] !== 'W'){
                 this.checkForStoryMessage(this.heroPosition.y,futurePositionX);
                 this.checkForMonster(this.heroPosition.y, futurePositionX);
-                this.checkForItem(this.heroPosition.y, futurePositionX);
+                this.checkForItem(this.heroPosition.y, futurePositionX)
+                this.$refs.hero.updateDirection('right');
                 this.heroPosition.x += 1;
             }
             
