@@ -126,7 +126,8 @@ export default{
                 shield:'',
                 helmet:'',
                 chest:'',
-            }
+            },
+            shownMessage1: false,
         }
     },
 
@@ -151,7 +152,6 @@ export default{
                      this.tiles[rows].push(properties)
                  }
              }
-             //this.showFirstStoryMessage()
          },
          spawnTreasureChests(){
              for(let i = 0; i < 5; i++){
@@ -179,10 +179,14 @@ export default{
                  this.grid[generatedMonsterPosition.y][generatedMonsterPosition.x] = 'M'; //places a Monster in the grid
              }
          },
-         showFirstStoryMessage(){
-            alert("Whats's this? You just woke up on a hard rocky floor, with a massive headache to boot. Looks like you had too much "+
-            "to drink last night, eh? Do you recall what your mom told you about alcohol? Hanging on the wall close to you there's a note that reads: 'Welcome to my Dungeon Maze, I wanna see how you play. "+
-            "If you want to get out alive, you better collect yourself enough gold. Good luck, friend.'"); 
+         checkForStoryMessage(y,x){
+             if ((y === 7) && (x === 1) && (this.shownMessage1 == false)){
+                alert("What's this? You just woke up on a hard rocky floor, with a massive headache to boot. Looks like you had too much "+
+                "to drink last night... or did you? Close to you, hanging on the wall, you spot a note with a message scribbled on it. "+
+                "'If you want to get out alive, you better collect yourself enough gold. Good luck, old friend.' ... Old friend?... You can't help but wonder. "+
+                "Who on earth did this to you?"); 
+                this.shownMessage1 = true;
+            }
          },
          moveUp(){ 
              let futurePositionY = this.heroPosition.y - 1
@@ -211,6 +215,7 @@ export default{
              this.heroPosition.x += 1;
              }
              this.checkForMonster(this.heroPosition.y, futurePositionX);
+             this.checkForStoryMessage(this.heroPosition.y, this.heroPosition.x);
          },
          getMonsterPos(){
              let randIndex = Math.ciel(Math.random()* this.monsterPos.length)
