@@ -129,6 +129,13 @@ export default{
                 attack: 3,
                 level: 1
             },
+            monsterPos: [
+               [12, 2],
+               [6, 4],
+               [4, 10],
+               [13, 8],
+               [7, 13],
+               [12, 12],
             monsterPositions: [
                 {x: 12, y: 2},
                 {x: 6, y: 4},
@@ -311,6 +318,14 @@ export default{
         removeChest(){
             this.Chest1 = false;
             this.Chest2 = false;
+        getRandomNumber(array) {
+            // randomly pick one position from the array and remove it afterwards so it can't be chosen again
+            for (let i = 0; i < array.length; i++) {
+                let randomNumber = Math.floor(Math.random() * array.length);
+                let chosenPosition = array[randomNumber];
+                array.splice(randomNumber, 1);
+                return chosenPosition; 
+            }
         }
  
         

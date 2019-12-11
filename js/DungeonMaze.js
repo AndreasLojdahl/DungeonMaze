@@ -36,7 +36,7 @@ export default {
 
         </div>
         <grid @changehealth="changedhealth"></grid>
-        <grid @changelevel="changedlevel"></grid>  
+        <grid @changelevel="changedlevel"></grid>
     </div>  
     `, 
 

@@ -84,7 +84,12 @@ export default{
            this.$emit('changelevel', this.level);
         }
     },
+    updateLevel(){
+           console.log(this.level);
+           this.$emit('changelevel', this.level);
+       },
     
+
     mounted(){
         this.updatePosition();
         this.updateHealth();
