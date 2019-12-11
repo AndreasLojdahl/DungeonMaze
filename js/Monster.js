@@ -12,7 +12,9 @@ export default{
     
     data() {
           return {
-              position: 1,
+              x:0,
+              y:0
+              
     
         }
     },
@@ -22,6 +24,7 @@ export default{
     },
 
     created(){
+        
 
     },
 
@@ -30,9 +33,11 @@ export default{
             return true
             console.log(this.tileArray.type)
         },
+     
+
     },
 
     mounted(){
-       
+        this.setMonsterPosition()
     }
 }

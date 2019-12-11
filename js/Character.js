@@ -4,6 +4,8 @@ export default{
 
     template:`
     <div ref="hero" class="character"></div>
+    <div ref="monster" class="monster"></div>
+
     `,
     
     data() {
@@ -13,7 +15,6 @@ export default{
             health: 15,
             attack: 10,
             level: 1,
-            
         }
         
     },
@@ -26,13 +27,11 @@ export default{
             }
         },
         health:{
-            deep: true,
             handler(){
                 this.updateHealth()
             }
         },
         level:{
-            deep: true,
             handler(){
                 this.updateLevel()
             }
