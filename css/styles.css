@@ -78,18 +78,15 @@ h3{
   /*border: 1px solid  black;*/
 }
 
-.character{
+#character{
   display: flex;
   width: 6.6667%;
   height: 6.6667%;   
-  /*background-color: green;*/
   position: absolute;
   background: url("/images/hero.png");
   background-size: 100% 100%;
-  /*left: calc(0 * 6.6667%);   
-  top: calc(7 * 6.6667%); */
-  /*border: 1px solid black;*/
 }
+
 .monster{
   display: flex;
   width: 6.6667%;
@@ -140,16 +137,7 @@ h3{
   font-size: 200%;
 }
 
-.hidden {
-  background-color: black;
-}
-
-.visible {
-  background-color: none;
-}
-
 .my-modal{
-  
   display: flex;
   justify-content: center;
   background-color: rgba(5, 5, 5, 0.4);
@@ -160,10 +148,6 @@ h3{
   margin-top: 17%;
   margin-left: 10%;
   border-radius: 28px;
-  
-  
-  
-  
 }
 
 .my-modal-span{
@@ -181,4 +165,12 @@ h3{
 }
 .hide{
   display: none;
+}
+
+#shadow-overlay{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at calc(10 * 6.6667%) calc(10 * 6.6667%), transparent, black, black, black, black);
+  transition: 200ms;
 }

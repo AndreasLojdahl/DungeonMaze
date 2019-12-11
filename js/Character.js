@@ -3,7 +3,9 @@ export default{
     props:['position','backPack'],
 
     template:`
-    <div ref="hero" class="character"></div>
+    <div ref="shadow" id="shadow-overlay">
+        <div ref="hero" id="character"></div>
+    </div>
     `,
     
     data() {
@@ -45,11 +47,14 @@ export default{
     methods:{
 
         updatePosition(){
-            this.$refs.hero.style.setProperty('left', `calc(${this.position.x} * 6.6667%)`)
-            console.log(this.position.x)
+            this.$refs.hero.style.setProperty('left', `calc(${this.position.x} * 6.6667%)`);
+            console.log(this.position.x);
        
-            this.$refs.hero.style.setProperty('top', `calc(${this.position.y} * 6.6667%)`)
-            console.log(this.position.y)
+            this.$refs.hero.style.setProperty('top', `calc(${this.position.y} * 6.6667%)`);
+            console.log(this.position.y);
+
+            this.$refs.shadow.style.setProperty('background', `radial-gradient(circle at calc(${this.position.x} * 6.6667%) calc(${this.position.y} * 6.6667%), transparent, black, black, black, black)`)
+            console.log(this.$refs.shadow);
         },
 
         /*checkChest() {
@@ -126,16 +131,13 @@ export default{
                     this.$emit('changemessage', this.message);
                      break;
             }
+            }
         },
         mounted(){
             this.updatePosition();
             this.updateHealth();
             //this.updateLevel();
         } 
-
-        
-    }
-
 }
 
    
