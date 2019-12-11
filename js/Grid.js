@@ -170,49 +170,19 @@ export default{
     computed:{
         flatTiles(){
             return this.tiles.flat()
-
-
-            },
-
-            finalBossData:{
-                x:6,
-                y:4
-            },
-
-            heroStats:{
-                hp: 10,
-                attack: 3,
-                level: 1
-            },
-           
-            monsterPos: [
-                [12, 2],
-                [6, 4],
-                [4, 10],
-                [13, 8],
-                [7, 13],
-                [12, 12],
-             ],
-             itemPosition2:{
-                x:4,
-                y:13
-            },
-             
-        
+        }
     },
 
     computed:{
         flatTiles(){
             return this.tiles.flat()
-        },
+        }
     },
 
     methods:{
         createMap (){
-
             this.spawnTreasureChests();
             this.spawnMonsters();
-     
             for(let rows = 0; rows < this.grid.length; rows++){
                 this.tiles[rows] = [];
                 for(let cols = 0; cols < this.grid.length; cols++){
@@ -224,10 +194,7 @@ export default{
                     this.tiles[rows].push(properties)
                 }
             }
-            
-            
         },
-        
         moveUp(){ 
             let futurePositionY = this.heroPosition.y - 1
             if (this.grid[futurePositionY][this.heroPosition.x] !== 'W'){
@@ -262,6 +229,7 @@ export default{
         moveRight(){
             let futurePositionX = this.heroPosition.x + 1
             if (this.grid[this.heroPosition.y][futurePositionX] !== 'W'){
+                this.checkForStoryMessage(this.heroPosition.y,futurePositionX);
                 this.checkForMonster(this.heroPosition.y, futurePositionX);
                 this.checkForItem(this.heroPosition.y, futurePositionX)
                 this.$refs.hero.updateDirection('right');
@@ -305,22 +273,31 @@ export default{
         },
         checkForItem(positionY, positionX){
             if(this.grid[positionY][positionX] === 'C'){
-                this.$refs.hero.updateHeroLevel();
-                this.changeTileType(positionY, positionX);
-            }
+                this.isHeroInRoom(positionY, positionX)
+               
+                
+            } 
+            // else{
+            //     this.grabTreasureChest(positionY, positionX)
+            // }
         },
+        grabTreasureChest(positionY, positionX){
+            this.$refs.hero.updateHeroLevel();          
+            this.changeTileType(positionY, positionX);
+        },
+
         spawnTreasureChests(){
-            for(let i = 0; i < 5; i++){
-               let generatedAmountOfGold = Math.floor((Math.random() * 150) + 50);
-               let generatedChestPosition = this.getRandomNumber(this.chestPositions);
-           
-                this.chests[i] = {
-                   y: generatedChestPosition.y,
-                   x: generatedChestPosition.x,  
-                   amountOfGold: generatedAmountOfGold
-                }
-                this.grid[generatedChestPosition.y][generatedChestPosition.x] = 'C'; //places Treasure Chest in the grid
-            }
+                let generatedAmountOfGold = Math.floor((Math.random() * 150) + 50);
+             for(let i = 0; i < 5; i++){
+                let generatedChestPosition = this.getRandomNumber(this.chestPositions);
+            
+                 this.chests[i] = {
+                    y: generatedChestPosition.y,
+                    x: generatedChestPosition.x,  
+                    amountOfGold: generatedAmountOfGold
+                 }
+                 this.grid[generatedChestPosition.y][generatedChestPosition.x] = 'C'; //places Treasure Chest in the grid
+             }
         },
         spawnMonsters(){
             for(let i = 0; i < 2; i++){
@@ -354,10 +331,7 @@ export default{
         },
         checkForStoryMessage(y,x){
             if ((y === 7) && (x === 1) && (this.shownMessage1 == false)){
-               alert("What's this? You just woke up on a hard rocky floor, with a massive headache to boot. Looks like you had too much "+
-               "to drink last night... or did you? Close to you, hanging on the wall, you spot a note with a message scribbled on it. "+
-               "'If you want to get out alive, you better collect yourself enough gold. Good luck, old friend.' ... Old friend?... You can't help but wonder. "+
-               "Who on earth did this to you?"); 
+               this.$refs.hero.updateMessage('storyMessage1'); 
                this.shownMessage1 = true;
            }
         },
@@ -420,12 +394,14 @@ export default{
             
 
         },
-        isHeroInRoom(){
-            //console.log('test')
+        isHeroInRoom(positionY, positionX){
+            
+            let match = 0
             for (let r of this.room1) {
                 if(this.heroPosition.x === r[0] && this.heroPosition.y === r[1]){
-                    //checkForTreasure(this.room1)
                     console.log('in room 1')
+                    this.isMonsterNearBy(this.room1, positionY, positionX)
+                    match++
                   
                 }
                 
@@ -434,6 +410,8 @@ export default{
                 if(this.heroPosition.x === r[0] && this.heroPosition.y === r[1]){
                     //checkForTreasure(this.room2)
                     console.log('in room 2')
+                    this.isMonsterNearBy(this.room2, positionY, positionX)
+                    match++
                   
                 }
                 
@@ -442,6 +420,8 @@ export default{
                 if(this.heroPosition.x === r[0] && this.heroPosition.y === r[1]){
                     //checkForTreasure(this.room3)
                     console.log('in room 3')
+                    this.isMonsterNearBy(this.room3, positionY, positionX)
+                    match++
                 }
                 
             }
@@ -449,6 +429,8 @@ export default{
                 if(this.heroPosition.x === r[0] && this.heroPosition.y === r[1]){
                     //checkForTreasure(this.room4)
                     console.log('in room 4')
+                    this.isMonsterNearBy(this.room4, positionY, positionX)
+                    match++
                   
                 }
                 
@@ -457,20 +439,41 @@ export default{
                 if(this.heroPosition.x === r[0] && this.heroPosition.y === r[1]){
                     //checkForTreasure(this.room5)
                     console.log('in room 5')
+                    this.isMonsterNearBy(this.room5, positionY, positionX)
+                    match++
+                    
                   
                 }
                 
             }
+             if(match===0){
+                 this.grabTreasureChest(positionY, positionX)
+             }
         },
-        //  checkForTreasure(room){
-        //      if (this.grid[] === 'C'){
-                
-        //    }
-            
-        // },
-        grabTreasure(positionY, positionX){
+         isMonsterNearBy(room, positionY, positionX){
+           
+            let monsterCount = 0; 
+            this.room = room
+            this.positionY = positionY
+            this.positionX = positionX
+            for (let r of this.room) {
+                if(this.grid[r[0]][r[1]]==='M'){
+                    monsterCount++                
 
-        }
+                }
+
+            }
+            if(monsterCount>0){
+                console.log('You can not grab treasure, there is a monster in the room!') 
+            }
+            else{
+                this.grabTreasureChest(positionY, positionX)
+            }
+            
+         },
+         
+
+        
     },
 
     created(){

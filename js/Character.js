@@ -139,7 +139,13 @@ export default{
                      this.message = 'You have died GAME OVER!'
                      this.$emit('changemessage', this.message);
                      break;
- 
+                case 'storyMessage1':
+                    this.message = "What's this? You just woke up on a hard rocky floor, with a massive headache to boot. Looks like you had too much "+
+                    "to drink last night... or did you? Close to you, hanging on the wall, you spot a note with a message scribbled on it. "+
+                    "'If you want to get out alive, you better collect yourself enough gold. Good luck, old friend.' ... Old friend?... You can't help but wonder. "+
+                    "Who on earth did this to you?"
+                    this.$emit('changemessage', this.message);
+                     break;
             }
         }
     },
