@@ -3,6 +3,7 @@ export default{
     props:['position','backPack'],
 
     template:`
+    <div :class="rotate" ref="hero" class="character"></div>
     <div ref="shadow" id="shadow-overlay">
         <div ref="hero" id="character"></div>
     </div>
@@ -15,6 +16,7 @@ export default{
             health: 15,
             attack: 10,
             level: 1,
+            rotate: 'right'
         }
         
     },
@@ -86,6 +88,7 @@ export default{
 
                     this.$refs.hero.style.setProperty('background','none')
                     setTimeout(function(){ window.location.reload();},1000);
+                    
                     //alert("You have died. GAME OVER."); 
                     //window.location.reload();
                 }
@@ -106,6 +109,25 @@ export default{
             
             console.log(this.level);
             this.$emit('changelevel', this.level);
+        },
+
+        updateDirection(newDirection){
+            console.log('inne i updateDirection')
+            if(newDirection !== this.direction){
+                this.rotate = newDirection;
+            }
+           
+
+            /*switch(newDirection){
+                case 'right':
+                    console.log('inne i rgiht direct')
+                        this.direction = 'right';
+                        break;
+                case 'left':
+                        this.direction = 'left';
+                        break;
+            }*/
+          
         },
 
         updateMessage(type){
@@ -131,13 +153,19 @@ export default{
                     this.$emit('changemessage', this.message);
                      break;
             }
-            }
-        },
-        mounted(){
-            this.updatePosition();
-            this.updateHealth();
-            //this.updateLevel();
-        } 
+        }
+    },
+    async mounted(){
+
+        await sleep(10)  // 1000 = 1 second
+        this.updateDirection();
+        this.updatePosition();
+        this.updateHealth();
+        //this.updateLevel();
+    } 
+
 }
 
-   
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms))
+}
