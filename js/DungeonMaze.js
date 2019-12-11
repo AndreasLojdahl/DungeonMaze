@@ -35,8 +35,7 @@ export default {
         </h3>
 
         </div>
-        <grid @changehealth="changedhealth"></grid>
-        <!--<grid @changelevel="changedlevel"></grid>-->
+        <grid @changehealth="changedhealth"  @changelevel="changedlevel"></grid>
     </div>  
     `, 
 

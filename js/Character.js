@@ -13,7 +13,6 @@ export default{
             health: 15,
             attack: 10,
             level: 1,
-            
         }
     },
 
@@ -25,13 +24,11 @@ export default{
             }
         },
         health:{
-            deep: true,
             handler(){
                 this.updateHealth()
             }
         },
         level:{
-            deep: true,
             handler(){
                 this.updateLevel()
             }
@@ -75,16 +72,15 @@ export default{
        updateHealth(){
            console.log(this.health);
            this.$emit('changehealth', this.health);
-            }
         },
         updateLevel(){
-           console.log(this.level);
-           this.$emit('changelevel', this.level);
+            console.log(this.level);
+            this.$emit('changelevel', this.level);
         }, 
-
-        mounted(){
+    },
+    mounted(){
         this.updatePosition();
         this.updateHealth();
-        //this.updateLevel();
+        this.updateLevel();
         }
     }
