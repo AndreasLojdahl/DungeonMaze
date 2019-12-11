@@ -25,6 +25,7 @@ export default{
         <Character 
         ref="hero" 
         @changehealth="changeherohealth" 
+        @changelevel="changeherolevel" 
         v-bind:position="heroPosition">
         </Character>
 
@@ -72,7 +73,7 @@ export default{
                 ['W','W','W',' ',' ',' ',' ',' ',' ',' ','W',' ',' ',' ','W'],
                 ['W','W',' ',' ',' ','W','W','W','W',' ',' ',' ',' ',' ','W'],
                 ['W',' ',' ',' ',' ','W',' ',' ','W',' ','W','W',' ',' ','W'],
-                ['W',' ','W','W',' ','W','B',' ',' ',' ',' ','W',' ','W','W'],
+                ['W',' ','W','W',' ','W','W',' ',' ',' ',' ','W','C','W','W'],
                 ['W',' ',' ',' ',' ','W',' ',' ','W',' ','W','W','W','W','W'],
                 ['W','W',' ',' ',' ','W','W','W','W',' ',' ',' ',' ','W','W'],
                 [' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W','W',' ',' ','W'],
@@ -81,7 +82,7 @@ export default{
                 ['W',' ',' ',' ',' ',' ','W',' ',' ','W',' ',' ',' ','W','W'],
                 ['W',' ','W','W','W','W','W',' ','W','W','W','W',' ',' ','W'],
                 ['W',' ',' ','W','W',' ',' ',' ',' ','W','W','W',' ',' ','W'],
-                ['W','W','W','W',' ',' ',' ',' ',' ','W',' ',' ',' ',' ','W'],
+                ['W','W','W','W','C',' ',' ',' ',' ','W',' ',' ',' ',' ','W'],
                 ['W','W','W','W','W','W','W','W','W','W','W','W','W','W','W'],
             ],
             
@@ -95,6 +96,36 @@ export default{
                 x:0,
                 y:7
             },
+
+            itemPosition1:{
+                x:12,
+                y:4
+            },
+
+            itemPosition2:{
+                x:4,
+                y:13
+            },
+
+            finalBossData:{
+                x:6,
+                y:4
+            },
+
+            heroStats:{
+                hp: 10,
+                attack: 3,
+                level: 1
+            },
+
+            monsterPos: [
+               [12, 2],
+               [6, 4],
+               [4, 10],
+               [13, 8],
+               [7, 13],
+               [12, 12],
+            ],
 
             monsterPositions: [
                 {x: 12, y: 2},
@@ -130,7 +161,8 @@ export default{
                 shield:'',
                 helmet:'',
                 chest:'',
-            }
+            },
+            shownMessage1: false,
         }
     },
 
@@ -182,6 +214,15 @@ export default{
                  this.grid[generatedMonsterPosition.y][generatedMonsterPosition.x] = 'M'; //places a Monster in the grid
              }
          },
+         checkForStoryMessage(y,x){
+             if ((y === 7) && (x === 1) && (this.shownMessage1 == false)){
+                alert("What's this? You just woke up on a hard rocky floor, with a massive headache to boot. Looks like you had too much "+
+                "to drink last night... or did you? Close to you, hanging on the wall, you spot a note with a message scribbled on it. "+
+                "'If you want to get out alive, you better collect yourself enough gold. Good luck, old friend.' ... Old friend?... You can't help but wonder. "+
+                "Who on earth did this to you?"); 
+                this.shownMessage1 = true;
+            }
+         },
          moveUp(){ 
              let futurePositionY = this.heroPosition.y - 1
              if (this.grid[futurePositionY][this.heroPosition.x] !== 'W'){
@@ -189,6 +230,8 @@ export default{
              }         
              this.checkForMonster(futurePositionY, this.heroPosition.x);   
              this.isHeroInRoom()
+             this.checkForMonster(futurePositionY, this.heroPosition.x);
+             this.checkForChest(futurePositionY, this.heroPosition.x);   
          },
          moveDown(){
              let futurePositionY = this.heroPosition.y + 1
@@ -196,6 +239,7 @@ export default{
                  this.heroPosition.y += 1;
              }
              this.checkForMonster(futurePositionY, this.heroPosition.x);
+             this.checkForChest(futurePositionY, this.heroPosition.x);
              this.isHeroInRoom()
          },
          moveLeft(){
@@ -204,6 +248,8 @@ export default{
                  this.heroPosition.x -= 1;
              }
              this.checkForMonster(this.heroPosition.y, futurePositionX);
+             this.checkForChest(this.heroPosition.y, futurePositionX);
+             this.removeChest();
              this.isHeroInRoom()
          },
          moveRight(){
@@ -212,6 +258,8 @@ export default{
              this.heroPosition.x += 1;
              }
              this.checkForMonster(this.heroPosition.y, futurePositionX);
+             this.checkForStoryMessage(this.heroPosition.y, this.heroPosition.x);
+             this.checkForChest(this.heroPosition.y, futurePositionX);
              this.isHeroInRoom()
          },
          getMonsterPos(){
@@ -222,9 +270,33 @@ export default{
             if (this.grid[positionY][positionX] === 'M'){
                  this.$refs.hero.fightMonster(11);
                  this.grid[positionY][positionX] === ' '
-            }
-         },
-         changeherohealth(newhealth){
+                 }
+                },
+        
+        
+        changeherohealth(newhealth){
+                    console.log(newhealth);
+                    this.$emit('changehealth', newhealth);
+                },
+        changeherolevel(newlevel){
+                    console.log(newlevel);
+                    this.$emit('changelevel', newlevel);
+                },
+         
+
+        checkForChest(positionY, positionX){
+             if (this.grid[positionY][positionX] === 'C'){
+                this.$refs.hero.checkChest();
+                this.grid[positionY][positionX] === ' '
+                }
+            },
+
+        removeChest(){
+            this.Chest1 = false;
+            this.Chest2 = false;
+            },
+        
+        changeherohealth(newhealth){
             console.log(newhealth);
             this.$emit('changehealth', newhealth);
         }, 
@@ -367,3 +439,4 @@ export default{
         })
     }
 }
+
