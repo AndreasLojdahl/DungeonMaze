@@ -18,6 +18,7 @@ export default{
             health: 15,
             attack: 10,
             level: 1,
+            money: 0,
             
         }
     },
@@ -33,6 +34,12 @@ export default{
             deep: true,
             handler(){
                 this.updateHealth()
+            }
+        },
+        money:{
+            deep: true,
+            handler(){
+                this.updateMoney()
             }
         },
         level:{
@@ -58,7 +65,8 @@ export default{
 
         heroLevelsUp(){
             this.level++,
-            this.health++
+            this.health++,
+            this.money++
         },
 
         fightMonster(monsterHealth){
@@ -79,6 +87,10 @@ export default{
            console.log(this.health);
            this.$emit('changehealth', this.health);
        },
+       updateMoney(){
+        console.log(this.money);
+        this.$emit('changemoney', this.money);
+    },
        updateLevel(){
            console.log(this.level);
            this.$emit('changelevel', this.level);
@@ -89,5 +101,6 @@ export default{
         this.updatePosition();
         this.updateHealth();
         this.updateLevel();
+        this.updateMoney();
     }
 }

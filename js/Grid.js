@@ -46,6 +46,7 @@ export default{
         ref="hero" 
         @changehealth="changeherohealth" 
         @changelevel="changeherolevel" 
+        @changemoney="changeheromoney" 
         v-bind:position="heroPosition">
         </Character>
 
@@ -301,6 +302,10 @@ export default{
         changeherolevel(newlevel){
                     console.log(newlevel);
                     this.$emit('changelevel', newlevel);
+                },
+        changeheromoney(newmoney){
+                    console.log(newmoney);
+                    this.$emit('changemoney', newmoney);
                 },
          
 
