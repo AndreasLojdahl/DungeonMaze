@@ -4,12 +4,23 @@ export default {
 
     props:['health'],
 
+    props:['level'],
+
     components:{
         Grid,
     },
     
     template: ` 
-    <div id="app">
+    <div id="app" class="content">
+
+        <video autoplay muted loop id="myVideo">
+        <source src="/images/Candle.mp4" type="video/mp4">
+        </video>
+
+        <video autoplay muted loop id="myVideo2">
+        <source src="/images/Candle.mp4" type="video/mp4">
+        </video>
+
         <h1>Dungeon Maze</h1>
         <div class="char-info">
         <h3 class="health">Health: 
@@ -18,17 +29,21 @@ export default {
             </span>
         </h3>
         <h3 class="level">Level: 
-            <span class="level-number">{{ level }}</span>
+            <span class="level-number"
+            >{{ levelNumber }}
+        </span>
         </h3>
+
         </div>
-        <grid @changehealth="changedhealth" @changelevel="changedLevel"></grid>
+        <grid @changehealth="changedhealth"></grid>
+        <!--<grid @changelevel="changedlevel"></grid>-->
     </div>  
     `, 
 
     data() {
         return{
             healthPoints: 0,
-            level: 0,
+            levelNumber: 0
         }
     },
 
@@ -37,8 +52,9 @@ export default {
             console.log(this.healthPoints, newhealth);
             this.healthPoints = newhealth;
         },
-        changedLevel(newlevel){
-            this.level = newlevel;
+        changedlevel(newlevel){
+            console.log(this.levelNumber, newlevel);
+            this.levelNumber = newlevel;
         }
     
     },
