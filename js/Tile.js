@@ -8,7 +8,9 @@ export default{
 
     data(){
         return{
-            type: ' '
+            type: ' ',
+            visible: true,
+            hidden: true,
         }
       
     },
@@ -27,7 +29,6 @@ export default{
         },
 
         updateTileType(){
-            
             if(this.properties.type === 'I'){
                 this.$refs.tile.style.setProperty('background', 'none')
                 this.properties.type = ' ';
@@ -40,13 +41,12 @@ export default{
                 this.$refs.tile.style.setProperty('background', 'none')
                 this.properties.type = ' ';
             }
+        },
 
-            
+        updateTileVisibility(tileIndex){
+                this.tileIndex.hidden = false;
+                this.tileIndex.visible = true;
         }
-
-       
-
-      
     }, 
 
     mounted(){

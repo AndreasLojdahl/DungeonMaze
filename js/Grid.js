@@ -170,49 +170,19 @@ export default{
     computed:{
         flatTiles(){
             return this.tiles.flat()
-
-
-            },
-
-            finalBossData:{
-                x:6,
-                y:4
-            },
-
-            heroStats:{
-                hp: 10,
-                attack: 3,
-                level: 1
-            },
-           
-            monsterPos: [
-                [12, 2],
-                [6, 4],
-                [4, 10],
-                [13, 8],
-                [7, 13],
-                [12, 12],
-             ],
-             itemPosition2:{
-                x:4,
-                y:13
-            },
-             
-        
+        }
     },
 
     computed:{
         flatTiles(){
             return this.tiles.flat()
-        },
+        }
     },
 
     methods:{
         createMap (){
-
             this.spawnTreasureChests();
             this.spawnMonsters();
-     
             for(let rows = 0; rows < this.grid.length; rows++){
                 this.tiles[rows] = [];
                 for(let cols = 0; cols < this.grid.length; cols++){
@@ -224,10 +194,7 @@ export default{
                     this.tiles[rows].push(properties)
                 }
             }
-            
-            
         },
-        
         moveUp(){ 
             let futurePositionY = this.heroPosition.y - 1
             if (this.grid[futurePositionY][this.heroPosition.x] !== 'W'){
@@ -261,8 +228,9 @@ export default{
         moveRight(){
             let futurePositionX = this.heroPosition.x + 1
             if (this.grid[this.heroPosition.y][futurePositionX] !== 'W'){
+                this.checkForStoryMessage(this.heroPosition.y,futurePositionX);
                 this.checkForMonster(this.heroPosition.y, futurePositionX);
-                this.checkForItem(this.heroPosition.y, futurePositionX)
+                this.checkForItem(this.heroPosition.y, futurePositionX);
                 this.heroPosition.x += 1;
             }
             
@@ -315,18 +283,19 @@ export default{
             this.$refs.hero.updateHeroLevel();          
             this.changeTileType(positionY, positionX);
         },
+
         spawnTreasureChests(){
-            for(let i = 0; i < 5; i++){
-               let generatedAmountOfGold = Math.floor((Math.random() * 150) + 50);
-               let generatedChestPosition = this.getRandomNumber(this.chestPositions);
-           
-                this.chests[i] = {
-                   y: generatedChestPosition.y,
-                   x: generatedChestPosition.x,  
-                   amountOfGold: generatedAmountOfGold
-                }
-                this.grid[generatedChestPosition.y][generatedChestPosition.x] = 'C'; //places Treasure Chest in the grid
-            }
+                let generatedAmountOfGold = Math.floor((Math.random() * 150) + 50);
+             for(let i = 0; i < 5; i++){
+                let generatedChestPosition = this.getRandomNumber(this.chestPositions);
+            
+                 this.chests[i] = {
+                    y: generatedChestPosition.y,
+                    x: generatedChestPosition.x,  
+                    amountOfGold: generatedAmountOfGold
+                 }
+                 this.grid[generatedChestPosition.y][generatedChestPosition.x] = 'C'; //places Treasure Chest in the grid
+             }
         },
         spawnMonsters(){
             for(let i = 0; i < 2; i++){
@@ -360,10 +329,7 @@ export default{
         },
         checkForStoryMessage(y,x){
             if ((y === 7) && (x === 1) && (this.shownMessage1 == false)){
-               alert("What's this? You just woke up on a hard rocky floor, with a massive headache to boot. Looks like you had too much "+
-               "to drink last night... or did you? Close to you, hanging on the wall, you spot a note with a message scribbled on it. "+
-               "'If you want to get out alive, you better collect yourself enough gold. Good luck, old friend.' ... Old friend?... You can't help but wonder. "+
-               "Who on earth did this to you?"); 
+               this.$refs.hero.updateMessage('storyMessage1'); 
                this.shownMessage1 = true;
            }
         },

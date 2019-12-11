@@ -140,6 +140,14 @@ h3{
   font-size: 200%;
 }
 
+.hidden {
+  background-color: black;
+}
+
+.visible {
+  background-color: none;
+}
+
 .my-modal{
   
   display: flex;
