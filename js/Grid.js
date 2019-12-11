@@ -151,6 +151,7 @@ export default{
                      this.tiles[rows].push(properties)
                  }
              }
+             //this.showFirstStoryMessage()
          },
          spawnTreasureChests(){
              for(let i = 0; i < 5; i++){
@@ -177,6 +178,11 @@ export default{
                  }
                  this.grid[generatedMonsterPosition.y][generatedMonsterPosition.x] = 'M'; //places a Monster in the grid
              }
+         },
+         showFirstStoryMessage(){
+            alert("Whats's this? You just woke up on a hard rocky floor, with a massive headache to boot. Looks like you had too much "+
+            "to drink last night, eh? Do you recall what your mom told you about alcohol? Hanging on the wall close to you there's a note that reads: 'Welcome to my Dungeon Maze, I wanna see how you play. "+
+            "If you want to get out alive, you better collect yourself enough gold. Good luck, friend.'"); 
          },
          moveUp(){ 
              let futurePositionY = this.heroPosition.y - 1
@@ -235,7 +241,6 @@ export default{
         this.createMap(15,15)         //undefined = this.
         console.log(this.tiles)
         console.log(this.flatTiles)
-        //this.spawnTreasureChests()
     },
 
     mounted(){
