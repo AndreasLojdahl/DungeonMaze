@@ -25,6 +25,7 @@ export default{
         <Character 
         ref="hero" 
         @changehealth="changeherohealth" 
+        @changelevel="changeherolevel" 
         v-bind:position="heroPosition">
         </Character>
 
@@ -72,7 +73,7 @@ export default{
                 ['W','W','W',' ',' ',' ',' ',' ',' ',' ','W',' ',' ',' ','W'],
                 ['W','W',' ',' ',' ','W','W','W','W',' ',' ',' ',' ',' ','W'],
                 ['W',' ',' ',' ',' ','W',' ',' ','W',' ','W','W',' ',' ','W'],
-                ['W',' ','W','W',' ','W','B',' ',' ',' ',' ','W',' ','W','W'],
+                ['W',' ','W','W',' ','W','W',' ',' ',' ',' ','W','C','W','W'],
                 ['W',' ',' ',' ',' ','W',' ',' ','W',' ','W','W','W','W','W'],
                 ['W','W',' ',' ',' ','W','W','W','W',' ',' ',' ',' ','W','W'],
                 [' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W','W',' ',' ','W'],
@@ -81,7 +82,7 @@ export default{
                 ['W',' ',' ',' ',' ',' ','W',' ',' ','W',' ',' ',' ','W','W'],
                 ['W',' ','W','W','W','W','W',' ','W','W','W','W',' ',' ','W'],
                 ['W',' ',' ','W','W',' ',' ',' ',' ','W','W','W',' ',' ','W'],
-                ['W','W','W','W',' ',' ',' ',' ',' ','W',' ',' ',' ',' ','W'],
+                ['W','W','W','W','C',' ',' ',' ',' ','W',' ',' ',' ',' ','W'],
                 ['W','W','W','W','W','W','W','W','W','W','W','W','W','W','W'],
             ],
             
@@ -96,6 +97,33 @@ export default{
                 y:7
             },
 
+            itemPosition1:{
+                x:12,
+                y:4
+            },
+
+            itemPosition2:{
+                x:4,
+                y:13
+            },
+
+            finalBossData:{
+                x:6,
+                y:4
+            },
+
+            heroStats:{
+                hp: 10,
+                attack: 3,
+                level: 1
+            },
+            monsterPos: [
+               [12, 2],
+               [6, 4],
+               [4, 10],
+               [13, 8],
+               [7, 13],
+               [12, 12],
             monsterPositions: [
                 {x: 12, y: 2},
                 {x: 6, y: 4},
@@ -189,7 +217,8 @@ export default{
              if (this.grid[futurePositionY][this.heroPosition.x] !== 'W'){
              this.heroPosition.y -= 1;
              }         
-             this.checkForMonster(futurePositionY, this.heroPosition.x);   
+             this.checkForMonster(futurePositionY, this.heroPosition.x);
+             this.checkForChest(this.heroPosition.y, futurePositionX);   
          },
          moveDown(){
              let futurePositionY = this.heroPosition.y + 1
@@ -197,6 +226,7 @@ export default{
                  this.heroPosition.y += 1;
              }
              this.checkForMonster(futurePositionY, this.heroPosition.x);
+             this.checkForChest(this.heroPosition.y, futurePositionX);
          },
          moveLeft(){
              let futurePositionX = this.heroPosition.x - 1
@@ -204,6 +234,8 @@ export default{
                  this.heroPosition.x -= 1;
              }
              this.checkForMonster(this.heroPosition.y, futurePositionX);
+             this.checkForChest(this.heroPosition.y, futurePositionX);
+             this.removeChest();
          },
          moveRight(){
              let futurePositionX = this.heroPosition.x + 1
@@ -211,6 +243,7 @@ export default{
              this.heroPosition.x += 1;
              }
              this.checkForMonster(this.heroPosition.y, futurePositionX);
+             this.checkForChest(this.heroPosition.y, futurePositionX);
          },
          getMonsterPos(){
              let randIndex = Math.ciel(Math.random()* this.monsterPos.length)
@@ -220,6 +253,34 @@ export default{
             if (this.grid[positionY][positionX] === 'M'){
                  this.$refs.hero.fightMonster(11);
                  this.grid[positionY][positionX] === ' '
+                 }
+                },
+        
+        
+        changeherohealth(newhealth){
+                    console.log(newhealth);
+                    this.$emit('changehealth', newhealth);
+                },
+        changeherolevel(newlevel){
+                    console.log(newlevel);
+                    this.$emit('changelevel', newlevel);
+                },
+         
+
+        checkForChest(positionY, positionX){
+             if (this.grid[positionY][positionX] === 'C'){
+                this.$refs.hero.checkChest();
+                this.grid[positionY][positionX] === ' '
+                }
+            },
+
+        removeChest(){
+            this.Chest1 = false;
+            this.Chest2 = false;
+        }
+ 
+        
+       
             }
          },
          changeherohealth(newhealth){
@@ -260,3 +321,4 @@ export default{
         })
     }
 }
+
