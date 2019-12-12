@@ -13,6 +13,7 @@ export default{
             health: 15,
             attack: 10,
             level: 1,
+            money: 0,
         }
         
     },
@@ -27,6 +28,12 @@ export default{
         health:{
             handler(){
                 this.updateHealth()
+            }
+        },
+        money:{
+            deep: true,
+            handler(){
+                this.updateMoney()
             }
         },
         level:{
@@ -89,6 +96,7 @@ export default{
         updateHeroLevel(){
             this.level += 1;
             this.health += 10;
+            this.money += 1000;
         },
 
         updateHealth(){
@@ -102,6 +110,13 @@ export default{
             console.log(this.level);
             this.$emit('changelevel', this.level);
         },
+        
+        updateMoney(){
+            console.log(this.money);
+            this.$emit('changemoney', this.money);
+         }
+     },
+     
 
         updateMessage(type){
 
@@ -130,12 +145,13 @@ export default{
         mounted(){
             this.updatePosition();
             this.updateHealth();
-            //this.updateLevel();
+            this.updateLevel();
+            this.updateMoney();
         } 
 
         
     }
 
-}
+
 
    

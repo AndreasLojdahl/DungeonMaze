@@ -8,7 +8,8 @@ export default{
         Tile,
         Character,
         Monster,
-        Finalboss
+        Finalboss,
+        
     },
 
     template:`
@@ -21,24 +22,29 @@ export default{
         v-bind:class="'tile-type-' + tile.type"
         ref="flatTiles"
         ></tile>
+
+        <Character ref="hero" v-bind:position="heroPosition"></Character>
         
         <Character 
         ref="hero" 
         @changemessage="changeheromessage"
         @changehealth="changeherohealth" 
         @changelevel="changeherolevel" 
+        @changemoney="changeheromoney" 
         v-bind:position="heroPosition">
         </Character>
 
-        <!--
-        <Monster tileArray="flatTiles"></Monster>
+
+        <Finalboss v-bind:position="finalBossData"></Finalboss>
+
+        <!-- <Monster tileArray="flatTiles"></Monster>
         <div class="buttons-div">
         <button v-on:click="moveLeft">Left</button>
         <button v-on:click="moveUp">Up</button>
         <button v-on:click="moveDown">Down</button>
         <button v-on:click="moveRight">Right</button></button>
-        </div>
-        -->
+        </div> -->
+        
     </div>
     `,
 
@@ -74,7 +80,7 @@ export default{
                 ['W','W','W',' ',' ',' ',' ',' ',' ',' ','W',' ',' ',' ','W'],
                 ['W','W',' ',' ',' ','W','W','W','W',' ',' ',' ',' ',' ','W'],
                 ['W',' ',' ',' ',' ','W',' ',' ','W',' ','W','W',' ',' ','W'],
-                ['W',' ','W','W',' ','W',' ',' ',' ',' ',' ','W',' ','W','W'],
+                ['W',' ','W','W',' ','W','F',' ',' ',' ',' ','W',' ','W','W'],
                 ['W',' ',' ',' ',' ','W',' ',' ','W',' ','W','W','W','W','W'],
                 ['W','W',' ',' ',' ','W','W','W','W',' ',' ',' ',' ','W','W'],
                 [' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W','W',' ',' ','W'],
@@ -199,6 +205,7 @@ export default{
             let futurePositionY = this.heroPosition.y - 1
             if (this.grid[futurePositionY][this.heroPosition.x] !== 'W'){
                 this.checkForMonster(futurePositionY, this.heroPosition.x); 
+                this.checkForFinalBoss(futurePositionY, this.heroPosition.x); 
                 this.checkForItem(futurePositionY,this.heroPosition.x);
                 this.heroPosition.y -= 1;
             }         
@@ -208,6 +215,7 @@ export default{
             let futurePositionY = this.heroPosition.y + 1
             if (this.grid[futurePositionY][this.heroPosition.x] !== 'W'){
                 this.checkForMonster(futurePositionY,this.heroPosition.x);
+                this.checkForFinalBoss(futurePositionY,this.heroPosition.x);
                 this.checkForItem(futurePositionY,this.heroPosition.x);
                 this.heroPosition.y += 1;
             }
@@ -217,6 +225,7 @@ export default{
             let futurePositionX = this.heroPosition.x - 1
             if (this.grid[this.heroPosition.y][futurePositionX] !== 'W'){
                 this.checkForMonster(this.heroPosition.y, futurePositionX);
+                this.checkForFinalBoss(this.heroPosition.y, futurePositionX);
                 this.checkForItem(this.heroPosition.y, futurePositionX)
                 if(futurePositionX != -1){
                     this.heroPosition.x -= 1;
@@ -228,8 +237,9 @@ export default{
         moveRight(){
             let futurePositionX = this.heroPosition.x + 1
             if (this.grid[this.heroPosition.y][futurePositionX] !== 'W'){
-                this.checkForStoryMessage(this.heroPosition.y,futurePositionX);
+                // this.checkForStoryMessage(this.heroPosition.y,futurePositionX);
                 this.checkForMonster(this.heroPosition.y, futurePositionX);
+                this.checkForFinalBoss(this.heroPosition.y, futurePositionX);
                 this.checkForItem(this.heroPosition.y, futurePositionX);
                 this.heroPosition.x += 1;
             }
@@ -276,6 +286,13 @@ export default{
             }
         },
 
+        checkForFinalBoss(positionY, positionX){
+            if (this.grid[positionY][positionX] === 'F'){
+              this.$refs.hero.fightMonster(40);
+              this.grid[positionY][positionX] === ' '
+                     }
+                    },
+
         spawnTreasureChests(){
                 let generatedAmountOfGold = Math.floor((Math.random() * 150) + 50);
              for(let i = 0; i < 5; i++){
@@ -309,6 +326,9 @@ export default{
         changeherolevel(newlevel){
             this.$emit('changelevel', newlevel);
         },
+        changeheromoney(newmoney){
+            this.$emit('changemoney', newmoney);
+        },
         changeheromessage(newmessage){
             this.$emit('changemessage', newmessage);
         },
@@ -319,12 +339,12 @@ export default{
             this.$refs.flatTiles[index].updateTileType();
 
         },
-        checkForStoryMessage(y,x){
-            if ((y === 7) && (x === 1) && (this.shownMessage1 == false)){
-               this.$refs.hero.updateMessage('storyMessage1'); 
-               this.shownMessage1 = true;
-           }
-        },
+        // checkForStoryMessage(y,x){
+        //     if ((y === 7) && (x === 1) && (this.shownMessage1 == false)){
+        //        this.$refs.hero.updateMessage('storyMessage1'); 
+        //        this.shownMessage1 = true;
+        //    }
+        // },
         getRandomNumber(array) {
             // randomly pick one position from the array and remove it afterwards so it can't be chosen again
             for (let i = 0; i < array.length; i++) {
