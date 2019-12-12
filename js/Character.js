@@ -3,7 +3,9 @@ export default{
     props:['position','backPack'],
 
     template:`
-    <div ref="hero" class="character"></div>
+    <div ref="shadow" id="shadow-overlay">
+        <div :class="rotate" ref="hero" id="character"></div>
+    </div>
     `,
     
     data() {
@@ -13,6 +15,7 @@ export default{
             health: 15,
             attack: 10,
             level: 1,
+            rotate: 'right'
         }
         
     },
@@ -81,6 +84,7 @@ export default{
 
                     this.$refs.hero.style.setProperty('background','none')
                     setTimeout(function(){ window.location.reload();},1000);
+                    
                     //alert("You have died. GAME OVER."); 
                     //window.location.reload();
                 }
@@ -103,6 +107,25 @@ export default{
             this.$emit('changelevel', this.level);
         },
 
+        updateDirection(newDirection){
+            console.log('inne i updateDirection')
+            if(newDirection !== this.direction){
+                this.rotate = newDirection;
+            }
+           
+
+            /*switch(newDirection){
+                case 'right':
+                    console.log('inne i rgiht direct')
+                        this.direction = 'right';
+                        break;
+                case 'left':
+                        this.direction = 'left';
+                        break;
+            }*/
+          
+        },
+
         updateMessage(type){
 
             switch(type){
@@ -115,7 +138,7 @@ export default{
                      this.$emit('changemessage', this.message);
                      break;
                  case 'dead':
-                     this.message = 'You have died GAME OVER!'
+                     this.message = 'You have died. GAME OVER!'
                      this.$emit('changemessage', this.message);
                      break;
                 case 'mustDefeatMonster':
@@ -128,18 +151,27 @@ export default{
                     "'If you want to get out alive, you better collect yourself enough gold. Good luck, old friend.' ... Old friend?... You can't help but wonder. "+
                     "Who on earth did this to you?"
                     this.$emit('changemessage', this.message);
-                     break;
+                    break;
+                case 'storyMessage2':
+                    this.message = "You find yourself at a crossroads. Left or right? But before you make the decision, you spot another note on the wall right in "+
+                    "front of you. 'DO NOT GO RIGHT. RIGHT IS NEVER THE RIGHT PATH. WHATEVER YOU DO, DO NOT GO RIGHT.' At the bottom of the note, a tiny scribble: "+
+                    "If you do go right... don't touch the snake."
+                    this.$emit('changemessage', this.message);
+                    break;
             }
-        },
-        mounted(){
-            this.updatePosition();
-            this.updateHealth();
-            //this.updateLevel();
-        } 
+        }
+    },
+    async mounted(){
 
-        
-    }
+        await sleep(10)  // 1000 = 1 second
+        this.updateDirection();
+        this.updatePosition();
+        this.updateHealth();
+        //this.updateLevel();
+    } 
 
 }
 
-   
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms))
+}

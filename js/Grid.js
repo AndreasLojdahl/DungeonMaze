@@ -42,56 +42,55 @@
         </div>
         `,
 
-        data(){
-            return{
+    data(){
+        return{
+            tiles: [],
+           /* grid : [      20x20 map
+                ['W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W'],
+                ['W',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W'],
+                ['W',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W'],
+                ['W',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W'],
+                ['W',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W'],
+                ['W',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W'],
+                ['W',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W'],
+                ['W',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W'],
+                ['W',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W'],
+                ['W',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W'],
+                ['W',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W'],
+                ['W',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W'],
+                ['W',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W'],
+                ['W',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W'],
+                ['W',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W'],
+                ['W',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W'],
+                ['W',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W'],
+                ['W',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W'],
+                ['W',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W'],
+                ['W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W'],     
+              ],*/
 
-                tiles: [],
-            /* grid : [      20x20 map
-                    ['W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W'],
-                    ['W',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W'],
-                    ['W',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W'],
-                    ['W',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W'],
-                    ['W',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W'],
-                    ['W',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W'],
-                    ['W',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W'],
-                    ['W',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W'],
-                    ['W',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W'],
-                    ['W',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W'],
-                    ['W',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W'],
-                    ['W',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W'],
-                    ['W',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W'],
-                    ['W',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W'],
-                    ['W',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W'],
-                    ['W',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W'],
-                    ['W',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W'],
-                    ['W',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W'],
-                    ['W',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W'],
-                    ['W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W'],     
-                ],*/
-
-                grid :[
-                    ['W','W','W','W','W','W','W','W','W','W','W','W','W','W','W'],
-                    ['W','W','W',' ',' ',' ',' ',' ',' ',' ','W',' ',' ',' ','W'],
-                    ['W','W',' ',' ',' ','W','W','W','W',' ',' ',' ',' ',' ','W'],
-                    ['W',' ',' ',' ',' ','W',' ',' ','W',' ','W','W',' ',' ','W'],
-                    ['W',' ','W','W',' ','W',' ',' ',' ',' ',' ','W',' ','W','W'],
-                    ['W',' ',' ',' ',' ','W',' ',' ','W',' ','W','W','W','W','W'],
-                    ['W','W',' ',' ',' ','W','W','W','W',' ',' ',' ',' ','W','W'],
-                    [' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W','W',' ',' ','W'],
-                    ['W',' ','W','W','W','W','W','W','W',' ','W','W',' ',' ','W'],
-                    ['W',' ','W',' ',' ',' ','W','W',' ',' ',' ','W','W','W','W'],
-                    ['W',' ',' ',' ',' ',' ','W',' ',' ','W',' ',' ',' ','W','W'],
-                    ['W',' ','W','W','W','W','W',' ','W','W','W','W',' ',' ','W'],
-                    ['W',' ',' ','W','W',' ',' ',' ',' ','W','W','W',' ',' ','W'],
-                    ['W','W','W','W',' ',' ',' ',' ',' ','W',' ',' ',' ',' ','W'],
-                    ['W','W','W','W','W','W','W','W','W','W','W','W','W','W','W'],
-                ],
-                
-                // W = Wall
-                // M = Monster
-                // B = Boss
-                // C = Treasure Chest
-                // K = Key?
+            grid :[
+                ['W','W','W','W','W','W','W','W','W','W','W','W','W','W','W'],
+                ['W','W','W',' ',' ',' ',' ',' ',' ',' ','W',' ',' ',' ','W'],
+                ['W','W',' ',' ',' ','W','W','W','W',' ',' ',' ',' ',' ','W'],
+                ['W',' ',' ',' ',' ','W',' ',' ','W',' ','W','W',' ',' ','W'],
+                ['W',' ','W','W',' ','W',' ',' ',' ',' ',' ','W',' ','W','W'],
+                ['W',' ',' ',' ',' ','W',' ',' ','W',' ','W','W','W','W','W'],
+                ['W','W',' ',' ',' ','W','W','W','W',' ',' ',' ',' ','W','W'],
+                [' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W','W',' ',' ','W'],
+                ['W',' ','W','W','W','W','W','W','W',' ','W','W',' ','B','W'],
+                ['W',' ','W',' ',' ',' ','W','W',' ',' ',' ','W','W','W','W'],
+                ['W',' ',' ',' ',' ',' ','W',' ',' ','W',' ',' ',' ','W','W'],
+                ['W',' ','W','W','W','W','W',' ','W','W','W','W',' ',' ','W'],
+                ['W',' ',' ','W','W',' ',' ',' ',' ','W','W','W',' ',' ','W'],
+                ['W','W','W','W',' ',' ',' ',' ',' ','W',' ',' ',' ',' ','W'],
+                ['W','W','W','W','W','W','W','W','W','W','W','W','W','W','W'],
+            ],
+            
+            // W = Wall
+            // M = Monster
+            // B = Boss
+            // C = Treasure Chest
+            // K = Key?
 
                 heroPosition:{
                     x:0,
@@ -119,22 +118,13 @@
                     level: 1
                 },
 
-                monsterPos: [
-                [12, 2],
-                [6, 4],
-                [4, 10],
-                [13, 8],
-                [7, 13],
-                [12, 12],
-                ],
-
-                monsterPositions: [
-                    {x: 12, y: 2},
-                    {x: 4, y: 10},
-                    {x: 13, y: 8},
-                    {x: 7, y: 13},
-                    {x: 12, y: 12},
-                ],
+            monsterPositions: [
+                {x: 12, y: 2},
+                {x: 4, y: 10},
+                {x: 13, y: 8},
+                {x: 7, y: 13},
+                {x: 12, y: 12},
+            ],
 
                 chestPositions: [
                     {x: 2, y: 12},
@@ -157,27 +147,56 @@
                 room4: [],
                 room5: [],
 
-                backPack:{
-                    ironSword:'',
-                    shield:'',
-                    helmet:'',
-                    chest:'',
-                },
-                shownMessage1: false,
-            }
-        },
+            backPack:{
+                ironSword:'',
+                shield:'',
+                helmet:'',
+                chest:'',
+            },
+            shownMessage1: false,
+            shownMessage2: false,
+        }
+    },
 
         computed:{
             flatTiles(){
                 return this.tiles.flat()
             }
         },
-
-        computed:{
-            flatTiles(){
-                return this.tiles.flat()
-            }
+        createFogOfWar(){
+            let index = 7*15 + 0
+            console.log(this.flatTiles);
+            this.$refs.flatTiles[index].updateTileVisibility();
         },
+        moveUp(){ 
+            let futurePositionY = this.heroPosition.y - 1
+            if (this.grid[futurePositionY][this.heroPosition.x] !== 'W'){
+                this.checkForStoryMessage(futurePositionY,this.heroPosition.x);
+                this.checkForMonster(futurePositionY, this.heroPosition.x); 
+                this.checkForItem(futurePositionY,this.heroPosition.x);
+                this.heroPosition.y -= 1;
+            }           
+        },
+        moveDown(){
+            let futurePositionY = this.heroPosition.y + 1
+            if (this.grid[futurePositionY][this.heroPosition.x] !== 'W'){
+                this.checkForStoryMessage(futurePositionY,this.heroPosition.x);
+                this.checkForMonster(futurePositionY,this.heroPosition.x);
+                this.checkForItem(futurePositionY,this.heroPosition.x);
+                this.heroPosition.y += 1;
+            }
+            //this.checkForMonster(futurePositionY, this.heroPosition.x);
+            console.log(futurePositionY, this.heroPosition.x)
+        },
+        moveLeft(){
+            let futurePositionX = this.heroPosition.x - 1
+            if (this.grid[this.heroPosition.y][futurePositionX] !== 'W'){
+                this.checkForStoryMessage(this.heroPosition.y,futurePositionX);
+                this.checkForMonster(this.heroPosition.y, futurePositionX);
+                this.checkForItem(this.heroPosition.y, futurePositionX);
+                this.$refs.hero.updateDirection('left');
+                if(futurePositionX != -1){
+                    this.heroPosition.x -= 1;
 
         methods:{
             createMap (){
@@ -203,37 +222,26 @@
                     this.heroPosition.y -= 1;
                 }         
                 
-            },
-            moveDown(){
-                let futurePositionY = this.heroPosition.y + 1
-                if (this.grid[futurePositionY][this.heroPosition.x] !== 'W'){
-                    this.checkForMonster(futurePositionY,this.heroPosition.x);
-                    this.checkForItem(futurePositionY,this.heroPosition.x);
-                    this.heroPosition.y += 1;
+            }
+        },
+        moveRight(){
+            let futurePositionX = this.heroPosition.x + 1
+            if (this.grid[this.heroPosition.y][futurePositionX] !== 'W'){
+                this.checkForStoryMessage(this.heroPosition.y,futurePositionX);
+                this.checkForMonster(this.heroPosition.y, futurePositionX);
+                this.checkForItem(this.heroPosition.y, futurePositionX)
+                this.$refs.hero.updateDirection('right');
+                this.heroPosition.x += 1;
+            }
+        },
+
+        checkForMonster(positionY, positionX){
+            if (this.grid[positionY][positionX] === 'M'){
+                let state = this.$refs.hero.fightMonster(11,'M');
+                if(state == 'monsterIsDead'){
+                    this.changeTileType(positionY, positionX);
                 }
-            },
-            moveLeft(){
-                let futurePositionX = this.heroPosition.x - 1
-                if (this.grid[this.heroPosition.y][futurePositionX] !== 'W'){
-                    this.checkForMonster(this.heroPosition.y, futurePositionX);
-                    this.checkForItem(this.heroPosition.y, futurePositionX)
-                    if(futurePositionX != -1){
-                        this.heroPosition.x -= 1;
-                    }
-                    
-                }
-            },
-            
-            moveRight(){
-                let futurePositionX = this.heroPosition.x + 1
-                if (this.grid[this.heroPosition.y][futurePositionX] !== 'W'){
-                    this.checkForStoryMessage(this.heroPosition.y,futurePositionX);
-                    this.checkForMonster(this.heroPosition.y, futurePositionX);
-                    this.checkForItem(this.heroPosition.y, futurePositionX);
-                    this.heroPosition.x += 1;
-                }
-                
-            },
+            }
 
             checkForMonster(positionY, positionX){
                 if (this.grid[positionY][positionX] === 'M'){
