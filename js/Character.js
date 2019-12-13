@@ -146,7 +146,7 @@ export default{
                      this.$emit('changemessage', this.message);
                      break;
                 case 'mustDefeatMonster':
-                     this.message = 'There is a monster nearby! \n Defeat it to get to the treasure.'
+                     this.message = 'There is a monster nearby! Defeat it to get to the treasure.'
                      this.$emit('changemessage', this.message);
                      break;
                 case 'storyMessage1':

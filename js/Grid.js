@@ -5,10 +5,10 @@ import Finalboss from './Finalboss.js'
 
 export default{
     components:{
-        Tile,
-        Character,
-        Monster,
-        Finalboss
+         Tile,
+         Character,
+         Monster,
+         Finalboss
     },
 
     template:`
@@ -30,15 +30,6 @@ export default{
         v-bind:position="heroPosition">
         </Character>
 
-        <!--
-        <Monster tileArray="flatTiles"></Monster>
-        <div class="buttons-div">
-        <button v-on:click="moveLeft">Left</button>
-        <button v-on:click="moveUp">Up</button>
-        <button v-on:click="moveDown">Down</button>
-        <button v-on:click="moveRight">Right</button></button>
-        </div>
-        -->
     </div>
     `,
 
@@ -68,29 +59,29 @@ export default{
                 ['W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W'],     
             ],*/
 
-            grid :[
-                ['W','W','W','W','W','W','W','W','W','W','W','W','W','W','W'],
-                ['W','W','W',' ',' ',' ',' ',' ',' ',' ','W',' ',' ',' ','W'],
-                ['W','W',' ',' ',' ','W','W','W','W',' ',' ',' ',' ',' ','W'],
-                ['W',' ',' ',' ',' ','W',' ',' ','W',' ','W','W',' ',' ','W'],
-                ['W',' ','W','W',' ','W',' ',' ',' ',' ',' ','W',' ','W','W'],
-                ['W',' ',' ',' ',' ','W',' ',' ','W',' ','W','W','W','W','W'],
-                ['W','W',' ',' ',' ','W','W','W','W',' ',' ',' ',' ','W','W'],
-                [' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W','W',' ',' ','W'],
-                ['W',' ','W','W','W','W','W','W','W',' ','W','W',' ','B','W'],
-                ['W',' ','W',' ',' ',' ','W','W',' ',' ',' ','W','W','W','W'],
-                ['W',' ',' ',' ',' ',' ','W',' ',' ','W',' ',' ',' ','W','W'],
-                ['W',' ','W','W','W','W','W',' ','W','W','W','W',' ',' ','W'],
-                ['W',' ',' ','W','W',' ',' ',' ',' ','W','W','W',' ',' ','W'],
-                ['W','W','W','W',' ',' ',' ',' ',' ','W',' ',' ',' ',' ','W'],
-                ['W','W','W','W','W','W','W','W','W','W','W','W','W','W','W'],
-            ],
-            
-            // W = Wall
-            // M = Monster
-            // B = Boss
-            // C = Treasure Chest
-            // K = Key?
+                    grid :[
+                        ['W','W','W','W','W','W','W','W','W','W','W','W','W','W','W'],
+                        ['W','W','W',' ',' ',' ',' ',' ',' ',' ','W',' ',' ',' ','W'],
+                        ['W','W',' ',' ',' ','W','W','W','W',' ',' ',' ',' ',' ','W'],
+                        ['W',' ',' ',' ',' ','W',' ',' ','W',' ','W','W',' ',' ','W'],
+                        ['W',' ','W','W',' ','W',' ',' ',' ',' ',' ','W',' ','W','W'],
+                        ['W',' ',' ',' ',' ','W',' ',' ','W',' ','W','W','W','W','W'],
+                        ['W','W',' ',' ',' ','W','W','W','W',' ',' ',' ',' ','W','W'],
+                        [' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W','W',' ',' ','W'],
+                        ['W',' ','W','W','W','W','W','W','W',' ','W','W',' ','B','W'],
+                        ['W',' ','W',' ',' ',' ','W','W',' ',' ',' ','W','W','W','W'],
+                        ['W',' ',' ',' ',' ',' ','W',' ',' ','W',' ',' ',' ','W','W'],
+                        ['W',' ','W','W','W','W','W',' ','W','W','W','W',' ',' ','W'],
+                        ['W',' ',' ','W','W',' ',' ',' ',' ','W','W','W',' ',' ','W'],
+                        ['W','W','W','W',' ',' ',' ',' ',' ','W',' ',' ',' ',' ','W'],
+                        ['W','W','W','W','W','W','W','W','W','W','W','W','W','W','W'],
+                    ],
+                    
+                    // W = Wall
+                    // M = Monster
+                    // B = Boss
+                    // C = Treasure Chest
+                    // K = Key?
 
                 heroPosition:{
                     x:0,
@@ -147,11 +138,15 @@ export default{
                 room4: [],
                 room5: [],
 
-            backPack:{
-                ironSword:'',
-                shield:'',
-                helmet:'',
-                chest:'',
+                backPack:{
+                        ironSword:'',
+                        shield:'',
+                        helmet:'',
+                        chest:'',
+                },
+                shownMessage1: false,
+                shownMessage2: false,
+                }
             },
             shownMessage1: false,
             shownMessage2: false,
@@ -505,5 +500,3 @@ export default{
             })
         }
     }
-
-
