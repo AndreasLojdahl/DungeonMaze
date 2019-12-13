@@ -155,7 +155,7 @@ export default{
                 case 'storyMessage2':
                     this.message = "You find yourself at a crossroads. Left or right? But before you make the decision, you spot another note on the wall right in "+
                     "front of you. 'DO NOT GO RIGHT. RIGHT IS NEVER THE RIGHT PATH. WHATEVER YOU DO, DO NOT GO RIGHT.' At the bottom of the note, a tiny scribble: "+
-                    "If you do go right... don't touch the snake."
+                    "If you do go right... don't touch the diamond."
                     this.$emit('changemessage', this.message);
                     break;
             }
