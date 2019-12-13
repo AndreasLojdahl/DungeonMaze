@@ -230,7 +230,7 @@
                     moveRight(){
                         let futurePositionX = this.heroPosition.x + 1
                         if (this.grid[this.heroPosition.y][futurePositionX] !== 'W'){
-                    //        this.checkForStoryMessage(this.heroPosition.y,futurePositionX);
+                            this.checkForStoryMessage(this.heroPosition.y,futurePositionX);
                             this.checkForMonster(this.heroPosition.y, futurePositionX);
                             this.checkForItem(this.heroPosition.y, futurePositionX)
                             this.$refs.hero.updateDirection('right');
@@ -240,7 +240,7 @@
                     moveDown(){
                         let futurePositionY = this.heroPosition.y + 1
                         if (this.grid[futurePositionY][this.heroPosition.x] !== 'W'){
-                   //         this.checkForStoryMessage(futurePositionY,this.heroPosition.x);
+                            this.checkForStoryMessage(futurePositionY,this.heroPosition.x);
                             this.checkForMonster(futurePositionY,this.heroPosition.x);
                             this.checkForItem(futurePositionY,this.heroPosition.x);
                             this.heroPosition.y += 1;
@@ -251,7 +251,7 @@
                     moveLeft(){
                         let futurePositionX = this.heroPosition.x - 1
                         if (this.grid[this.heroPosition.y][futurePositionX] !== 'W'){
-                        //    this.checkForStoryMessage(this.heroPosition.y,futurePositionX);
+                            this.checkForStoryMessage(this.heroPosition.y,futurePositionX);
                             this.checkForMonster(this.heroPosition.y, futurePositionX);
                             this.checkForItem(this.heroPosition.y, futurePositionX);
                             this.$refs.hero.updateDirection('left');
@@ -342,12 +342,12 @@
                         this.$refs.flatTiles[index].updateTileType();
 
                     },
-                    // checkForStoryMessage(y,x){
-                    //     if ((y === 7) && (x === 1) && (this.shownMessage1 == false)){
-                    //     this.$refs.hero.updateMessage('storyMessage1'); 
-                    //     this.shownMessage1 = true;
-                    // }
-                    // },
+                    checkForStoryMessage(y,x){
+                        if ((y === 7) && (x === 1) && (this.shownMessage1 == false)){
+                        this.$refs.hero.updateMessage('storyMessage1'); 
+                        this.shownMessage1 = true;
+                    }
+                    },
                     getRandomNumber(array) {
                         // randomly pick one position from the array and remove it afterwards so it can't be chosen again
                         for (let i = 0; i < array.length; i++) {
