@@ -53,6 +53,10 @@ export default{
        
             this.$refs.hero.style.setProperty('top', `calc(${this.position.y} * 6.6667%)`)
            // console.log(this.position.y)
+
+           this.$refs.shadow.style.setProperty('background', 
+            `radial-gradient(circle at calc(${this.position.x} * 6.6667%) calc(${this.position.y} * 6.6667%), 
+            transparent, black 40%, black 90%, black, black)`)
         },
 
         /*checkChest() {
@@ -142,7 +146,7 @@ export default{
                      this.$emit('changemessage', this.message);
                      break;
                 case 'mustDefeatMonster':
-                     this.message = 'There is a monster nearby! Defeat it to get to the treasure.'
+                     this.message = 'There is a monster nearby! \n Defeat it to get to the treasure.'
                      this.$emit('changemessage', this.message);
                      break;
                 case 'storyMessage1':

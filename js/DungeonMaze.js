@@ -20,13 +20,14 @@ export default {
         <source src="/images/Candle.mp4" type="video/mp4">
         </video>
 
-        <div :class="{popup, mymodal: isVisible, storypopup: isActive}" ref="modal">
-            <span ref="modalspan" @click="hideDiv"
-            :class="{mymodalspan: isVisible, storypopupspan: isActive}"
+        <div :class="{popup, mymodal: isVisible, storypopup: isActive}"
+        tabindex="0" 
+        ref="modal">
+            <span ref="modalspan" @click="hideDiv()" :class="{mymodalspan: isVisible, storypopupspan: isActive}"
             >{{ message }}
-                <button :class="popup">{{choice1}}</button>
-                <button :class="popup">{{choice1}}</button>
-                <button id="buttonOK">OK</button>
+            <span ref="pressenter" class="pressentertext"> 
+            press enter to continue
+            </span>
             </span>
         </div>
 
@@ -61,9 +62,6 @@ export default {
             popup: 'hide',
             isActive: false,
             isVisible: false,
-            choice1: 'Touch the diamond',
-            choice2: 'Ignore the diamond',
-            buttonOK: '',
         }
     },
 
@@ -88,21 +86,20 @@ export default {
             if (newmessage.length > 100){
                 this.isVisible = false;
                 this.isActive = true;
+                this.$refs.pressenter.style.setProperty('display', 'flex')
 
                 if (firstWord == "What'sss"){
                     this.popup = 'show';
                 }
-                
                 setTimeout((function(){
                     this.$refs.modal.style.setProperty('display', 'flex');
                     //this.popup = 'show';
                 }).bind(this),);
-    
                 setTimeout(() => {
                     this.$refs.modal.style.setProperty('display', 'none');
+                    this.$refs.pressenter.style.setProperty('display', 'none')
                     //this.popup = 'hide';
-                }, 15000);
-
+                }, 150000);
             } else {
                 this.isActive = false,
                 this.isVisible = true,
@@ -115,19 +112,24 @@ export default {
             setTimeout(() => {
                 this.$refs.modal.style.setProperty('display', 'none');
                 //this.popup = 'hide';
-                }, 1500);
+                }, 200000);
             }          
         },
         hideDiv(){
-            if (this.$refs.modal.style.display === "block") {
-                this.$refs.modal.style.setProperty('display', 'none');
-            }
+            this.$refs.modal.style.setProperty('display', 'none');
+            this.$refs.pressenter.style.setProperty('display', 'none')
         } 
     },
 
     computed: {
         
     },
-
+    mounted(){
+        window.addEventListener('keyup', (e) => {
+                if(e.keyCode === 13){                
+                    this.hideDiv();
+                }
+        })
+    }
 
 }

@@ -162,7 +162,7 @@ h3{
   font-size: 300%;
   justify-content: center;
   align-items: center;
-  padding: 0%;
+  padding: 5%;
 }
 
 .storypopup{
@@ -184,12 +184,13 @@ h3{
 
 .storypopupspan{
   display: flex;
-  color: black;
-  font-family: Mansalva;
-  font-size: 150%;
   justify-content: center;
   align-items: center;
-  padding: 10%;
+  font-display: center;
+  color: black;
+  font-family: Mansalva;
+  font-size: 125%;
+  width: 70%;
 }
 
 .show{
@@ -203,8 +204,8 @@ h3{
   position: absolute;
   width: 100%;
   height: 100%;
-  background: radial-gradient(circle at calc(10 * 6.6667%) calc(10 * 6.6667%), transparent, black, black, black, black);
-  transition: 200ms;
+  background: radial-gradient(circle at calc(10 * 6.6667%) calc(10 * 6.6667%), transparent, black 80%, black 80%, black, black);
+  transition: 100ms;
 } 
 
 .left{
@@ -218,15 +219,15 @@ h3{
   transition: 200ms;
 }
 
-#buttonOK{
-  display: block;
-  background-color: rgb(167, 117, 71);
-  border: none;
-  color: white;
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  border-radius: 25px;
+.pressentertext{
+  display: none;
+  position: absolute;
+  font-family: monospace;
+  font-size: 12px;
+  color: rgb(121, 80, 20);
+  height: 250px;
+  align-items: flex-end;
+  justify-content: space-evenly;
+  
+
 }
