@@ -48,15 +48,11 @@ export default{
     methods:{
 
         updatePosition(){
-            this.$refs.hero.style.setProperty('left', `calc(${this.position.x} * 6.6667%)`);
-            console.log(this.position.x);
+            this.$refs.hero.style.setProperty('left', `calc(${this.position.x} * 6.6667%)`)
+            //console.log(this.position.x)
        
-            this.$refs.hero.style.setProperty('top', `calc(${this.position.y} * 6.6667%)`);
-            console.log(this.position.y);
-
-            this.$refs.shadow.style.setProperty('background', 
-            `radial-gradient(circle at calc(${this.position.x} * 6.6667%) calc(${this.position.y} * 6.6667%), 
-            transparent, black 40%, black 90%, black, black)`)
+            this.$refs.hero.style.setProperty('top', `calc(${this.position.y} * 6.6667%)`)
+           // console.log(this.position.y)
         },
 
         /*checkChest() {
@@ -100,14 +96,14 @@ export default{
         },
 
         updateHealth(){
-           console.log(this.health);
+          // console.log(this.health);
            this.$emit('changehealth', this.health);
             
         },
 
         updateLevel(){
             
-            console.log(this.level);
+            //console.log(this.level);
             this.$emit('changelevel', this.level);
         },
 
@@ -143,6 +139,10 @@ export default{
                      break;
                  case 'dead':
                      this.message = 'You have died. GAME OVER!'
+                     this.$emit('changemessage', this.message);
+                     break;
+                case 'mustDefeatMonster':
+                     this.message = 'There is a monster nearby! Defeat it to get to the treasure.'
                      this.$emit('changemessage', this.message);
                      break;
                 case 'storyMessage1':

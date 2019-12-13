@@ -199,14 +199,13 @@ h3{
   display: none;
 }
 
-#shadow-overlay{
+ #shadow-overlay{
   position: absolute;
   width: 100%;
   height: 100%;
   background: radial-gradient(circle at calc(10 * 6.6667%) calc(10 * 6.6667%), transparent, black, black, black, black);
   transition: 200ms;
-  
-}
+} 
 
 .left{
   transform: scaleX(-1);
