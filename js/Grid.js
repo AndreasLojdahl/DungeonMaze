@@ -224,14 +224,21 @@ export default{
             },
         
             checkForMonster(positionY, positionX){
-                if (this.grid[positionY][positionX] === 'M'){
-                    let state = this.$refs.hero.fightMonster(11,'M');
+                let state = ''
+                if (this.grid[positionY][positionX] === 'M'){ //check for M first to avoid going through monsters array each time
+                    for (let monster of this.monsters){ //get specific monsterHealth
+                        if ((monster.y == positionY) && (monster.x == positionX)){
+                            console.log ('monsterHealth = '+monster.monsterHealth);
+                            state = this.$refs.hero.fightMonster(monster.monsterHealth,'M');
+                        }
+                    }
+                    
                     if(state == 'monsterIsDead'){
                         this.changeTileType(positionY, positionX);
                     }
                 }
                 else if(this.grid[positionY][positionX] === 'B'){
-                    let state = this.$refs.hero.fightMonster(15,'B')
+                    let state = this.$refs.hero.fightMonster(50,'B')
                     if(state == 'monsterIsDead'){
                         this.changeTileType(positionY, positionX);
                     }
@@ -251,7 +258,7 @@ export default{
             },
 
             spawnTreasureChests(){
-                    let generatedAmountOfGold = Math.floor((Math.random() * 150) + 50);
+                let generatedAmountOfGold = Math.floor((Math.random() * 150) + 50);
                 for(let i = 0; i < 5; i++){
                     let generatedChestPosition = this.getRandomNumber(this.chestPositions);
                 
@@ -275,7 +282,6 @@ export default{
                         monsterHealth: generatedAmountOfHealth
                     }
                     this.grid[generatedMonsterPosition.y][generatedMonsterPosition.x] = 'M'; //places a Monster in the grid
-                    
                 }
             },
 
