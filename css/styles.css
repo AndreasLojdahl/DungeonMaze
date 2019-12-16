@@ -63,7 +63,7 @@ h3{
   position: relative; 
   background: url("/images/DungeonMap3.jpg"); 
   background-size: 100% 100%;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  
   border: solid 7px  rgb(161, 95, 41);;
 
 }
@@ -154,6 +154,15 @@ h3{
 }
 
 .mainmenuspan{
+.health-points{
+  font-size: 200%;
+}
+
+.level-number{
+  font-size: 200%;
+}
+
+.my-modal{
   display: flex;
   flex: 0 0 70%;
   color:  rgb(236, 205, 178);
@@ -253,5 +262,303 @@ h3{
   height: 250px;
   align-items: flex-end;
   justify-content: space-evenly;
+}
+
+
+
+.hideShop{
+  display: none;
+}
+
+.showShop{
+  display: flex;
+}
+
+.showPack{
+  display:flex;
+}
+
+.hidePack{
+  display: none;
+}
+
+.item-shop{
+  position: fixed;
+  
+ /* z-index: 2;*/
+  background-color: rgba(0, 0, 0, 0.6);
+ 
+  width: 50%;
+  height: 50%;
+  border-radius: 5px;
+  font-size:100%;
+  text-align: center;
+  /*justify-content: center;*/
+  /*margin-top: 5%;*/
+  border: solid 5px   rgb(161, 95, 41);
+ /* margin-left: 24.5%; */
+  margin-top: -28%;
+  margin-left: -21%;
+  flex-flow: wrap;
+
+  
+}
+.shop-header{
+  justify-content: center;
+  display: flex;
+  padding: 3%;
+  font-family: monospace;
+  font-size: 200%; 
+  width: 100vW;
+  height: 20%;
+   
+}
+
+.item-section{
+  display: flex;
+  justify-content: space-evenly;
+  height: 60%;
+  width: 90%;
+  flex-flow: wrap;
+}
+
+.health-potion{
+  
+  flex-flow: wrap;
+  height: 50%;
+  width: 100%;
+  background-size: 100% 100%;
+  background-image: url('/images/potion.jpg');
+}
+
+.health-option{
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  width: 20%;
+  align-items: center;
+}
+
+.health-text{
+  display: flex;
+  font-family: monospace;
+  font-size: 120%;
+}
+
+.sword{
+  flex-flow: wrap;
+  height: 50%;
+  width: 100%;
+  background-size: 100% 100%;
+  background-image: url('/images/sword.jpg');
+}
+
+.sword-option{
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  width: 20%;
+  align-items: center;
+}
+
+.sword-text{
+  display: flex;
+  font-family: monospace;
+  font-size: 120%;
+}
+
+.torch{
+  flex-flow: wrap;
+  height: 50%;
+  width: 100%;
+  background-size: 100% 100%;
+  background-image: url('/images/torch.png');
+}
+.torch-option{
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  width: 20%;
+  align-items: center;
+}
+.torch-text{
+  display: flex;
+  font-family: monospace;
+  font-size: 120%;
+}
+
+.shield{
+  
+  height: 50%;
+  width: 100%;
+  /*background-color: white;*/
+  background-image: url('/images/shield.png');
+  background-size: 100% 100%;
+}
+.shield-option{
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  width: 20%;
+  align-items: center;
+}
+.shield-text{
+  display: flex;
+  font-family: monospace;
+  font-size: 120%;
+}
+
+.shop-button{
+  /*z-index: 3;
+  position: fixed;
+  margin-left: 80%;*/
+  margin-top: -140%;
+  background-color: rgb(161, 95, 41);
+  border: none;
+  font-family: monospace;
+  color: white;
+  width: 12%;
+  height: 5%;
+  border-radius: 10px;
+  font-size: 150%;
+  position: fixed;
+  margin-top: -32%;
+  margin-left: 17%;
+  
+}
+
+.buttons{
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  /*z-index: 3;*/
+  position: fixed;
+  /*margin-left: 16%;
+  margin-top: -25%;*/
+  width: 12%;
+  height: 20%;
+}
+
+.backpack-button{
+  background-color: rgb(161, 95, 41);
+  border: none;
+  font-family: monospace;
+  color: white;
+  width: 12%;
+  height: 5%;
+  border-radius: 10px;
+  font-size: 150%;
+  margin-top: 5%;
+  margin-left:51%;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+}
+
+
+.item-shop-window{
+  z-index: 3;
+  display: flex;
+  justify-content: center;
+  margin-left: 40%;
+  margin-top: 30%;
+  margin-bottom: 50%;
+  position: fixed;
+  width: 0%;
+  height: 100%;
+  
+}
+
+.backpack-pic-sword{
+  display: flex;
+  width: 15%;
+  height: 100%;
+  background-size: 100% 100%;
+  background-image: url('/images/sword.jpg');
+  justify-content: center;
+  margin-left: 10%;
+}
+
+.backpack-pic-torch{
+  display: flex;
+  width: 15%;
+  height: 100%;
+  background-size: 100% 100%;
+  background-image: url('/images/torch.png');
+  justify-content: center;
+  margin-left: 10%;
+
+}
+.backpack-pic-shield{
+  display: flex;
+  width: 15%;
+  height: 100%;
+  background-size: 100% 100%;
+  background-image: url('/images/shield.png');
+  justify-content: center;
+  margin-left: 10%;
+
+}
+.backpack-pic-potion{
+  display: flex;
+  width: 15%;
+  height: 100%;
+  background-size: 100% 100%;
+  background-image: url('/images/potion.jpg');
+  justify-content: center;
+  margin-left: 10%;
+
+}
+
+.backpack-pic-gold{
+  display: flex;
+  width: 15%;
+  height: 100%;
+  background-size: 100% 100%;
+  background-image: url('/images/goldenCoin.png');
+  justify-content: center;
+  margin-left: 10%;
+
+}
+
+.backpack-window{
+  
+  z-index: 2;
+  
+  justify-content: space-around;
+  position: fixed;
+  width: 20%;
+  height: 45%;
+  margin-left: 47%;
+  margin-top: 10%;
+  flex-direction: column;
+  border: solid 5px   rgb(161, 95, 41);
+  background-color: black;
+  border-radius: 28px;
+  font-family: monospace;
+  font-size: 180%;
+}
+
+.items-backpack{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.backpack-item-text{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+}
+
+.shop-gold-text{
+  font-family: monospace;
+  font-size: 180%;
+}
+
+.span-pack{
+  font-size: 150%;
 }
 
