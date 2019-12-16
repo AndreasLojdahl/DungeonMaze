@@ -21,7 +21,7 @@ export default {
         <source src="/images/Candle.mp4" type="video/mp4">
         </video>
         <div :class="popup" ref="modal" class="my-modal" >
-            <span class="my-modal-span">{{ message }}</span>
+            <span ref="modalspan" class="my-modal-span">{{ message }}</span>
         </div>
         <h1>Dungeon Maze</h1>
         <div class="char-info">
@@ -40,8 +40,6 @@ export default {
             >{{ moneyAmount }}
             </span>
         </h3>
-        
-
         </div>
         <grid @changehealth="changedhealth" @changelevel="changedlevel" @changemoney="changedmoney" @changemessage="changedmessage"></grid>
        
@@ -51,11 +49,9 @@ export default {
     data() {
         return{
             healthPoints: 0,
-            moneyAmount: 0,
             levelNumber: 0,
-
+            moneyAmount: 0,
             message: '',
-
             popup: 'hide'
         }
     },
@@ -75,16 +71,44 @@ export default {
         },
         changedmessage(newmessage){
             this.message = newmessage;
-            this.$refs.modal.style.setProperty('display', 'flex');
-            this.showPopUp();
-            this.removePopUp();
+            //this.$refs.modal.style.setProperty('display', 'flex');
+            //this.showPopUp();
+            //this.removePopUp();
+            
+            if (newmessage.length > 100){
+                this.$refs.modal.style.setProperty('background-image', 'url(/images/scroll.png)');
+                this.$refs.modal.style.setProperty('height', '65%');
+                this.$refs.modalspan.style.setProperty('font-family', 'Mansalva');
+                this.$refs.modalspan.style.setProperty('font-size', '150%');
+                this.$refs.modalspan.style.setProperty('color', 'black');
+
+                setTimeout((function(){
+                    this.popup = 'show';
+                }).bind(this),);
+    
+                setTimeout(() => {
+                    this.popup = 'hide';
+                }, 10000);
+
+            } else {
+                this.$refs.modal.style.setProperty('background-image', 'none');
+                this.$refs.modal.style.setProperty('height', '20%');
+                this.$refs.modal.style.setProperty('background-color', 'rgba(187, 114, 49, 0.336)');
+                this.$refs.modal.style.setProperty('margin-top', '17%');
+                this.$refs.modalspan.style.setProperty('font-family', 'monospace');
+                this.$refs.modalspan.style.setProperty('font-size', '300%');
+                this.$refs.modalspan.style.setProperty('color', 'rgb(236, 205, 178)');
+                this.$refs.modalspan.style.setProperty('padding', '0%');
+
+                
             setTimeout((function(){
                 this.popup = 'show';
             }).bind(this),);
+
             setTimeout(() => {
                 this.popup = 'hide';
-            }, 1000);
-                      
+            }, 1500);
+            }          
         },
     
     },

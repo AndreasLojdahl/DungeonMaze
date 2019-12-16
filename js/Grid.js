@@ -1,5 +1,6 @@
 import Tile from './Tile.js'
 import Character from './Character.js'
+import Chest1 from './Chest.js'
 import Monster from './Monster.js'
 import Finalboss from './Finalboss.js'
 
@@ -7,9 +8,9 @@ export default{
     components:{
         Tile,
         Character,
+        // Chest1,
         Monster,
-        Finalboss,
-        
+        Finalboss
     },
 
     template:`
@@ -22,8 +23,6 @@ export default{
         v-bind:class="'tile-type-' + tile.type"
         ref="flatTiles"
         ></tile>
-
-        <Character ref="hero" v-bind:position="heroPosition"></Character>
         
         <Character 
         ref="hero" 
@@ -34,23 +33,24 @@ export default{
         v-bind:position="heroPosition">
         </Character>
 
-
         <Finalboss v-bind:position="finalBossData"></Finalboss>
-
-        <!-- <Monster tileArray="flatTiles"></Monster>
+        <!-- <Chest1 v-bind:position="itemPosition1"></Chest1> -->
+        
+        <!--
+        <Monster tileArray="flatTiles"></Monster>
         <div class="buttons-div">
         <button v-on:click="moveLeft">Left</button>
         <button v-on:click="moveUp">Up</button>
         <button v-on:click="moveDown">Down</button>
         <button v-on:click="moveRight">Right</button></button>
-        </div> -->
-        
+        </div>
+        -->
+
     </div>
     `,
 
     data(){
         return{
-
             tiles: [],
            /* grid : [      20x20 map
                 ['W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W'],
@@ -79,12 +79,12 @@ export default{
                 ['W','W','W','W','W','W','W','W','W','W','W','W','W','W','W'],
                 ['W','W','W',' ',' ',' ',' ',' ',' ',' ','W',' ',' ',' ','W'],
                 ['W','W',' ',' ',' ','W','W','W','W',' ',' ',' ',' ',' ','W'],
-                ['W',' ',' ',' ',' ','W',' ',' ','W',' ','W','W',' ',' ','W'],
-                ['W',' ','W','W',' ','W','F',' ',' ',' ',' ','W',' ','W','W'],
+                ['W',' ',' ',' ',' ','W',' ',' ','W',' ','W','W','M',' ','W'],
+                ['W',' ','W','W',' ','W','F',' ',' ',' ',' ','W','C','W','W'],
                 ['W',' ',' ',' ',' ','W',' ',' ','W',' ','W','W','W','W','W'],
                 ['W','W',' ',' ',' ','W','W','W','W',' ',' ',' ',' ','W','W'],
                 [' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W','W',' ',' ','W'],
-                ['W',' ','W','W','W','W','W','W','W',' ','W','W',' ',' ','W'],
+                ['W',' ','W','W','W','W','W','W','W',' ','W','W',' ','B','W'],
                 ['W',' ','W',' ',' ',' ','W','W',' ',' ',' ','W','W','W','W'],
                 ['W',' ',' ',' ',' ',' ','W',' ',' ','W',' ',' ',' ','W','W'],
                 ['W',' ','W','W','W','W','W',' ','W','W','W','W',' ',' ','W'],
@@ -104,15 +104,15 @@ export default{
                 y:7
             },
 
-            itemPosition1:{
-                x:12,
-                y:4
-            },
+            // itemPosition1:{
+            //     x:12,
+            //     y:4
+            // },
 
-            itemPosition2:{
-                x:4,
-                y:13
-            },
+            // itemPosition2:{
+            //     x:4,
+            //     y:13
+            // },
 
             finalBossData:{
                 x:6,
@@ -125,14 +125,7 @@ export default{
                 level: 1
             },
 
-            monsterPos: [
-               [12, 2],
-               [6, 4],
-               [4, 10],
-               [13, 8],
-               [7, 13],
-               [12, 12],
-            ],
+           
 
             monsterPositions: [
                 {x: 12, y: 2},
@@ -157,6 +150,7 @@ export default{
 
             chests: [],
             monsters: [],
+            backPack: [],
             room1: [],
             room2: [],
             room3: [],
@@ -170,6 +164,11 @@ export default{
                 chest:'',
             },
             shownMessage1: false,
+            shownMessage2: true,
+            shownMessage3: false,
+            shownMessage4: false,
+            shownMessage5: false,
+            
         }
     },
 
@@ -201,56 +200,58 @@ export default{
                 }
             }
         },
+        createFogOfWar(){
+            let index = 7*15 + 0
+            console.log(this.flatTiles);
+            this.$refs.flatTiles[index].updateTileVisibility();
+        },
         moveUp(){ 
             let futurePositionY = this.heroPosition.y - 1
             if (this.grid[futurePositionY][this.heroPosition.x] !== 'W'){
+                this.checkForStoryMessage(futurePositionY,this.heroPosition.x);
                 this.checkForMonster(futurePositionY, this.heroPosition.x); 
                 this.checkForFinalBoss(futurePositionY, this.heroPosition.x); 
                 this.checkForItem(futurePositionY,this.heroPosition.x);
                 this.heroPosition.y -= 1;
-            }         
-              
+            }           
         },
         moveDown(){
             let futurePositionY = this.heroPosition.y + 1
             if (this.grid[futurePositionY][this.heroPosition.x] !== 'W'){
+                this.checkForStoryMessage(futurePositionY,this.heroPosition.x);
                 this.checkForMonster(futurePositionY,this.heroPosition.x);
                 this.checkForFinalBoss(futurePositionY,this.heroPosition.x);
                 this.checkForItem(futurePositionY,this.heroPosition.x);
                 this.heroPosition.y += 1;
             }
             //this.checkForMonster(futurePositionY, this.heroPosition.x);
+            console.log(futurePositionY, this.heroPosition.x)
         },
         moveLeft(){
             let futurePositionX = this.heroPosition.x - 1
             if (this.grid[this.heroPosition.y][futurePositionX] !== 'W'){
+                this.checkForStoryMessage(this.heroPosition.y,futurePositionX);
                 this.checkForMonster(this.heroPosition.y, futurePositionX);
                 this.checkForFinalBoss(this.heroPosition.y, futurePositionX);
-                this.checkForItem(this.heroPosition.y, futurePositionX)
+                //  this.checkForStoryMessage5(this.heroPosition.y, futurePositionX)
+                this.checkForItem(this.heroPosition.y, futurePositionX);
+                this.$refs.hero.updateDirection('left');
                 if(futurePositionX != -1){
                     this.heroPosition.x -= 1;
                 }
                 
             }
         },
-           
         moveRight(){
             let futurePositionX = this.heroPosition.x + 1
             if (this.grid[this.heroPosition.y][futurePositionX] !== 'W'){
                 this.checkForStoryMessage(this.heroPosition.y,futurePositionX);
                 this.checkForMonster(this.heroPosition.y, futurePositionX);
                 this.checkForFinalBoss(this.heroPosition.y, futurePositionX);
-                this.checkForItem(this.heroPosition.y, futurePositionX);
+                this.checkForItem(this.heroPosition.y, futurePositionX)
+                this.$refs.hero.updateDirection('right');
                 this.heroPosition.x += 1;
             }
-            
-            console.log(this.heroPosition.x)
-            console.log('Inne i moveRight')
-        },
-
-        getMonsterPos(){
-            let randIndex = Math.ciel(Math.random()* this.monsterPos.length)
-            let position = monsterPos[randIndex]
         },
 
         checkForMonster(positionY, positionX){
@@ -259,7 +260,6 @@ export default{
                 if(state == 'monsterIsDead'){
                     this.changeTileType(positionY, positionX);
                 }
-                
             }
 
             else if(this.grid[positionY][positionX] === 'B'){
@@ -279,19 +279,31 @@ export default{
             }*/
 
         },
-        checkForItem(positionY, positionX){
-            if(this.grid[positionY][positionX] === 'C'){
-                this.$refs.hero.updateHeroLevel();
-                this.changeTileType(positionY, positionX);
-            }
-        },
-
         checkForFinalBoss(positionY, positionX){
             if (this.grid[positionY][positionX] === 'F'){
-              this.$refs.hero.fightMonster(40);
+              this.$refs.hero.fightFinalBoss(40,shownMessage2);
               this.grid[positionY][positionX] === ' '
+              if ((shownMessage2 == true) && (this.shownMessage5 == false)){
+                this.$refs.hero.updateMessage('storyMessage5'); 
+                this.shownMessage5 = true;
+            }
                      }
                     },
+        checkForItem(positionY, positionX){
+            if(this.grid[positionY][positionX] === 'C'){
+                this.isHeroInRoom(positionY, positionX)
+            
+                
+            } 
+            // else{
+            //     this.grabTreasureChest(positionY, positionX)
+            // }
+        },
+        
+        grabTreasureChest(positionY, positionX){
+            this.$refs.hero.updateHeroLevel();          
+            this.changeTileType(positionY, positionX);
+        },
 
         spawnTreasureChests(){
                 let generatedAmountOfGold = Math.floor((Math.random() * 150) + 50);
@@ -337,7 +349,27 @@ export default{
             let index = positionY*15+positionX;
             this.grid[positionY][positionX] = ' ';
             this.$refs.flatTiles[index].updateTileType();
+        },
 
+        //  checkForStoryMessage5(shownMessage2){
+        //      if ((shownMessage2 == true) && (this.shownMessage5 == false)){
+        //          this.$refs.hero.updateMessage('storyMessage5'); 
+        //          this.shownMessage5 = true;
+        //      }
+        //  },
+        checkForStoryMessage(y,x){
+            if ((y === 7) && (x === 1) && (this.shownMessage1 == false)){
+               this.$refs.hero.updateMessage('storyMessage1'); 
+               this.shownMessage1 = true;
+           }
+           if ((y === 4) && (x === 8) && (this.shownMessage3 == false)){
+               this.$refs.hero.updateMessage('storyMessage3');
+               this.shownMessage3 = true;
+           }
+            if ((y === 4) && (x === 12) && (this.shownMessage2 == false)){
+                this.$refs.hero.updateMessage('storyMessage2');
+                this.shownMessage2 = true;
+            }
         },
         getRandomNumber(array) {
             // randomly pick one position from the array and remove it afterwards so it can't be chosen again
@@ -346,12 +378,6 @@ export default{
                 let chosenPosition = array[randomNumber];
                 array.splice(randomNumber, 1);
                 return chosenPosition; 
-            }
-        },
-        checkForStoryMessage(y,x){
-            if ((y === 7) && (x === 1) && (this.shownMessage1 == false)){
-                this.$refs.hero.updateMessage('storyMessage1'); 
-                this.shownMessage1 = true;
             }
         },
         createRooms(){
@@ -401,73 +427,96 @@ export default{
                     i5++; 
                 }
             }
-            
-
         },
-        isHeroInRoom(){
-            //console.log('test')
+        isHeroInRoom(positionY, positionX){
+            
+            let match = 0
             for (let r of this.room1) {
                 if(this.heroPosition.x === r[0] && this.heroPosition.y === r[1]){
-                    //checkForTreasure(this.room1)
                     console.log('in room 1')
+                    this.isMonsterNearBy(this.room1, positionY, positionX)
+                    match++
                   
                 }
-                
             }
             for (let r of this.room2) {
                 if(this.heroPosition.x === r[0] && this.heroPosition.y === r[1]){
                     //checkForTreasure(this.room2)
                     console.log('in room 2')
+                    this.isMonsterNearBy(this.room2, positionY, positionX)
+                    match++
                   
                 }
-                
             }
             for (let r of this.room3) {
                 if(this.heroPosition.x === r[0] && this.heroPosition.y === r[1]){
                     //checkForTreasure(this.room3)
                     console.log('in room 3')
+                    this.isMonsterNearBy(this.room3, positionY, positionX)
+                    match++
                 }
-                
             }
             for (let r of this.room4) {
                 if(this.heroPosition.x === r[0] && this.heroPosition.y === r[1]){
                     //checkForTreasure(this.room4)
                     console.log('in room 4')
+                    this.isMonsterNearBy(this.room4, positionY, positionX)
+                    match++
                   
                 }
-                
             }
             for (let r of this.room5) {
                 if(this.heroPosition.x === r[0] && this.heroPosition.y === r[1]){
                     //checkForTreasure(this.room5)
                     console.log('in room 5')
+                    this.isMonsterNearBy(this.room5, positionY, positionX)
+                    match++
+                    
                   
                 }
-                
             }
+             if(match===0){
+                 this.grabTreasureChest(positionY, positionX)
+             }
         },
-        //  checkForTreasure(room){
-        //      if (this.grid[] === 'C'){
-                
-        //    }
-            
-        // },
+   
         grabTreasure(positionY, positionX){
+        },
+        isMonsterNearBy(room, positionY, positionX){
+           
+            let monsterCount = 0; 
+            this.room = room
+            this.positionY = positionY
+            this.positionX = positionX
+            for (let r of this.room) {
+                if(this.grid[r[0]][r[1]]==='M'){
+                    monsterCount++                
 
-        }
+                }
+
+            }
+            if(monsterCount>0){
+                console.log('You can not grab treasure, there is a monster in the room!') 
+            }
+            else{
+                this.grabTreasureChest(positionY, positionX)
+            }
+            
+         },
+         
+
+        
     },
 
     created(){
         this.createMap()         //undefined = this.
         console.log(this.tiles)
         console.log(this.flatTiles)
-        //this.spawnTreasureChests()
         this.createRooms()
-        
+        //this.createFogOfWar();
     },
 
     mounted(){
-        
         window.addEventListener('keyup', (e) => {
                 if(e.keyCode === 37){                   
                    this.moveLeft()
