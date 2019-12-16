@@ -73,11 +73,11 @@
                         ['W','W','W',' ',' ',' ',' ',' ',' ',' ','W',' ',' ',' ','W'],
                         ['W','W',' ',' ',' ','W','W','W','W',' ',' ',' ',' ',' ','W'],
                         ['W',' ',' ',' ',' ','W',' ',' ','W',' ','W','W',' ',' ','W'],
-                        ['W',' ','W','W',' ','W',' ',' ',' ',' ',' ','W',' ','W','W'],
+                        ['W',' ','W','W',' ','W','B',' ',' ',' ',' ','W',' ','W','W'],
                         ['W',' ',' ',' ',' ','W',' ',' ','W',' ','W','W','W','W','W'],
                         ['W','W',' ',' ',' ','W','W','W','W',' ',' ',' ',' ','W','W'],
                         [' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W','W',' ',' ','W'],
-                        ['W',' ','W','W','W','W','W','W','W',' ','W','W',' ','B','W'],
+                        ['W',' ','W','W','W','W','W','W','W',' ','W','W',' ',' ','W'],
                         ['W',' ','W',' ',' ',' ','W','W',' ',' ',' ','W','W','W','W'],
                         ['W',' ',' ',' ',' ',' ','W',' ',' ','W',' ',' ',' ','W','W'],
                         ['W',' ','W','W','W','W','W',' ','W','W','W','W',' ',' ','W'],
@@ -262,6 +262,7 @@
                             }else{
                                 this.heroPosition.y = this.heroPosition.y
                             }
+                            console.log(this.heroPosition.y, this.heroPosition.x)
                         }
 
                     },
@@ -341,6 +342,7 @@
                                 monsterHealth: generatedAmountOfHealth
                             }
                             this.grid[generatedMonsterPosition.y][generatedMonsterPosition.x] = 'M'; //places a Monster in the grid
+                            console.log(this.monsters);
                             
                         }
                     },
