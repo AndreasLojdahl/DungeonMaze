@@ -176,7 +176,6 @@ export default{
                     }
                 }
             },
-
             moveUp(){ 
                 let futurePositionY = this.heroPosition.y - 1
                 if (this.grid[futurePositionY][this.heroPosition.x] !== 'W'){
@@ -470,7 +469,6 @@ export default{
             this.createMap()         //undefined = this.
             console.log(this.tiles)
             console.log(this.flatTiles)
-            //this.spawnTreasureChests()
             this.createRooms()
         },
 

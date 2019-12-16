@@ -138,6 +138,28 @@ h3{
   font-size: 200%;
 }
 
+.mainmenu{
+  display: none;
+  justify-content: center;
+  background-color: rgba(199, 118, 48, 0.719);
+  width: 80%;
+  height: 50%;
+  position: fixed;
+  margin-top: 17%;
+  margin-left: 10%;
+  border-radius: 28px;
+  flex-wrap: wrap;
+  padding: 10%;
+}
+
+.mainmenuspan{
+  display: flex;
+  flex: 0 0 70%;
+  color:  rgb(236, 205, 178);
+  font-family: monospace;
+  justify-content: center;
+}
+
 .mymodal{
   display: flex;
   justify-content: center;
@@ -228,6 +250,5 @@ h3{
   height: 250px;
   align-items: flex-end;
   justify-content: space-evenly;
-  
-
 }
+
