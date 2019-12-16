@@ -73,11 +73,11 @@
                         ['W','W','W',' ',' ',' ',' ',' ',' ',' ','W',' ',' ',' ','W'],
                         ['W','W',' ',' ',' ','W','W','W','W',' ',' ',' ',' ',' ','W'],
                         ['W',' ',' ',' ',' ','W',' ',' ','W',' ','W','W',' ',' ','W'],
-                        ['W',' ','W','W',' ','W',' ',' ',' ',' ',' ','W',' ','W','W'],
+                        ['W',' ','W','W',' ','W','B',' ',' ',' ',' ','W',' ','W','W'],
                         ['W',' ',' ',' ',' ','W',' ',' ','W',' ','W','W','W','W','W'],
                         ['W','W',' ',' ',' ','W','W','W','W',' ',' ',' ',' ','W','W'],
                         [' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W','W',' ',' ','W'],
-                        ['W',' ','W','W','W','W','W','W','W',' ','W','W',' ','B','W'],
+                        ['W',' ','W','W','W','W','W','W','W',' ','W','W',' ',' ','W'],
                         ['W',' ','W',' ',' ',' ','W','W',' ',' ',' ','W','W','W','W'],
                         ['W',' ',' ',' ',' ',' ','W',' ',' ','W',' ',' ',' ','W','W'],
                         ['W',' ','W','W','W','W','W',' ','W','W','W','W',' ',' ','W'],
@@ -263,6 +263,7 @@
                             else if(this.monsterInRoom && this.grid[futurePositionY][this.heroPosition.x] !== 'C'){
                                 this.heroPosition.y += 1;
                             }
+                            console.log(this.heroPosition.y, this.heroPosition.x)
                         }
 
                     },
@@ -345,6 +346,7 @@
                                 monsterHealth: generatedAmountOfHealth
                             }
                             this.grid[generatedMonsterPosition.y][generatedMonsterPosition.x] = 'M'; //places a Monster in the grid
+                            console.log(this.monsters);
                             
                         }
                     },

@@ -118,7 +118,7 @@ export default{
         },
 
         updateDirection(newDirection){
-            console.log('inne i updateDirection')
+            //console.log('inne i updateDirection')
             if(newDirection !== this.direction){
                 this.rotate = newDirection;
             }
