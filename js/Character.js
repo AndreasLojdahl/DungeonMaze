@@ -1,11 +1,23 @@
+import ItemShop from './ItemShop.js'
+import BackPack from './BackPack.js'
 export default{
 
-    props:['position','backPack'],
+    props:['position'],
+    components:{
+        ItemShop,
+        BackPack
+    },
 
     template:`
-    <div ref="shadow" id="shadow-overlay">
+    <div>
+        <BackPack v-bind="backPack" ref="backpack"></BackPack>
+        <ItemShop v-bind="backPack" @addItem="updateBackPack" ref="itemshop"></ItemShop>
         <div :class="rotate" ref="hero" id="character"></div>
     </div>
+    
+    <!--<div ref="shadow" id="shadow-overlay">-->
+       <!-- <div :class="rotate" ref="hero" id="character"></div>-->
+    <!--</div>-->
     `,
     
     data() {
@@ -15,7 +27,21 @@ export default{
             health: 15,
             attack: 10,
             level: 1,
-            rotate: 'right'
+            rotate: 'right',
+
+            
+
+            backPack:{
+                
+                sword: 0,
+                shield: 0,
+                torch: 0,
+                healtpotion: 0,
+                gold: 0,
+
+            }
+
+         
         }
         
     },
@@ -42,7 +68,14 @@ export default{
             handler(){
                 this.updateMessage()
             }
+        },
+        backPack:{
+            deep: true,
+            handler(){
+                this.updateBackPack()
+            }
         }
+
     },
 
     methods:{
@@ -54,8 +87,54 @@ export default{
             this.$refs.hero.style.setProperty('top', `calc(${this.position.y} * 6.6667%)`);
             console.log(this.position.y);
 
-            this.$refs.shadow.style.setProperty('background', `radial-gradient(circle at calc(${this.position.x} * 6.6667%) calc(${this.position.y} * 6.6667%), transparent, black, black, black, black)`)
+            //this.$refs.shadow.style.setProperty('background', `radial-gradient(circle at calc(${this.position.x} * 6.6667%) calc(${this.position.y} * 6.6667%), transparent, black 40%, black, black, black)`)
             console.log(this.$refs.shadow);
+        },
+
+        updateGold(goldAmount){
+            this.gold = this.gold + goldAmount;
+        },
+
+        updateBackPack(typeOfItem,costOfItem){
+
+            switch(typeOfItem){
+                case 'sword':
+                    console.log('inne i sword')
+                    this.backPack.sword += 1;
+                    this.$refs.backpack.updateBackpack('sword',costOfItem);
+                    this.backPack.gold = this.backPack.gold - costOfItem;
+                    
+                    
+                    console.log(this.backPack.sword)
+                    //this.backpack.push(item)
+                    break;
+                case 'shield':
+                    this.backPack.shield += 1;
+                    this.$refs.backpack.updateBackpack('shield',costOfItem);
+                    this.backPack.gold = this.backPack.gold - costOfItem;
+                    
+                    //this.backpack.push(item)
+                    break;
+                case 'torch':
+                    this.backPack.torch += 1;
+                    this.$refs.backpack.updateBackpack('torch',costOfItem);
+                    this.backPack.gold = this.backPack.gold - costOfItem;
+                    
+
+                    //this.backpack.push(item)
+                    break;
+                case 'potion':
+                    console.log('inne i potion')
+                    this.backPack.potion += 1;
+                    this.$refs.backpack.updateBackpack('potion',costOfItem);
+                    this.backPack.gold = this.backPack.gold - costOfItem;
+                    
+                    //this.backpack.push(item)
+                    this.health += 5;
+                    break;
+            }
+            
+
         },
 
         /*checkChest() {
@@ -73,7 +152,12 @@ export default{
 
             while (this.health > 0){
 
-                monsterHealth--;
+                if(this.backPack.sword == 1){
+                    monsterHealth = monsterHealth -2;
+                }else{
+                    monsterHealth--;
+                }
+                
                 this.health--;
 
                 if (monsterHealth == 0){
@@ -96,6 +180,10 @@ export default{
         updateHeroLevel(){
             this.level += 1;
             this.health += 10;
+            this.backPack.gold += 20;
+            this.$refs.backpack.updateBackpack('gold',20);
+            this.$refs.itemshop.updateHeroGold(20,'add');
+            
         },
 
         updateHealth(){
@@ -108,6 +196,9 @@ export default{
             
             console.log(this.level);
             this.$emit('changelevel', this.level);
+        },
+        updateShopVisability(){
+            this.$refs.itemshop.updateShopVis();
         },
 
         updateDirection(newDirection){

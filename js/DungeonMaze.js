@@ -1,5 +1,5 @@
 import Grid from './Grid.js'
-
+//import ItemShop from './ItemShop.js'
 export default {
 
     props:['health'],
@@ -8,6 +8,7 @@ export default {
 
     components:{
         Grid,
+        //ItemShop
     },
     
     template: ` 
@@ -20,10 +21,18 @@ export default {
         <video autoplay muted loop id="myVideo2">
         <source src="/images/Candle.mp4" type="video/mp4">
         </video>
+        <h1>Dungeon Maze</h1>
+        <!--<div class="buttons">
+            <button class="shop-button" @click="updateShopVisability">Item Shop</button>
+            <button class="backpack-button">Backpack</button>
+            
+        </div>
+        
+        <ItemShop ref="itemshop" v-bind="{backpack,heroGold}" @addedSword="addItemToBackPack"></ItemShop>-->
         <div :class="popup" ref="modal" class="my-modal" >
             <span class="my-modal-span">{{ message }}</span>
         </div>
-        <h1>Dungeon Maze</h1>
+        
         <div class="char-info">
         <h3 class="health">Health: 
             <span class="health-points" 
@@ -37,7 +46,7 @@ export default {
         </h3>
 
         </div>
-        <grid @changehealth="changedhealth" @changelevel="changedlevel" @changemessage="changedmessage"></grid>
+        <grid v-bind="backpack" @changehealth="changedhealth" @changelevel="changedlevel" @changemessage="changedmessage"></grid>
        
     </div>  
     `, 
@@ -49,11 +58,22 @@ export default {
 
             message: '',
 
-            popup: 'hide'
+            popup: 'hide',
+
+            backpack:[],
+            heroGold: 0
+            
+            
+            
         }
     },
 
     methods: {
+        addItemToBackPack(item){
+            
+            this.backpack.push(item);
+            console.log(this.backpack)
+        },
         changedhealth(newhealth){
             console.log(this.healthPoints, newhealth);
             this.healthPoints = newhealth;
@@ -75,6 +95,9 @@ export default {
             }, 1000);
                       
         },
+        /*updateShopVisability(){
+            this.$refs.itemshop.updateShopVis();
+        }*/
     
     },
 

@@ -2,8 +2,11 @@ import Tile from './Tile.js'
 import Character from './Character.js'
 import Monster from './Monster.js'
 import Finalboss from './Finalboss.js'
+//import ItemShop from './ItemShop.js'
 
 export default{
+
+    props:['backpack'],
     components:{
         Tile,
         Character,
@@ -12,6 +15,7 @@ export default{
     },
 
     template:`
+   
     <div class="grid-layout">
        
        <tile  
@@ -29,44 +33,13 @@ export default{
         @changelevel="changeherolevel" 
         v-bind:position="heroPosition">
         </Character>
-
-        <!--
-        <Monster tileArray="flatTiles"></Monster>
-        <div class="buttons-div">
-        <button v-on:click="moveLeft">Left</button>
-        <button v-on:click="moveUp">Up</button>
-        <button v-on:click="moveDown">Down</button>
-        <button v-on:click="moveRight">Right</button></button>
-        </div>
-        -->
     </div>
     `,
 
     data(){
         return{
             tiles: [],
-           /* grid : [      20x20 map
-                ['W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W'],
-                ['W',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W'],
-                ['W',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W'],
-                ['W',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W'],
-                ['W',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W'],
-                ['W',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W'],
-                ['W',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W'],
-                ['W',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W'],
-                ['W',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W'],
-                ['W',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W'],
-                ['W',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W'],
-                ['W',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W'],
-                ['W',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W'],
-                ['W',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W'],
-                ['W',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W'],
-                ['W',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W'],
-                ['W',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W'],
-                ['W',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W'],
-                ['W',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W'],
-                ['W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W'],     
-              ],*/
+        
 
             grid :[
                 ['W','W','W','W','W','W','W','W','W','W','W','W','W','W','W'],
@@ -147,12 +120,8 @@ export default{
             room4: [],
             room5: [],
 
-            backPack:{
-                ironSword:'',
-                shield:'',
-                helmet:'',
-                chest:'',
-            },
+            
+
             shownMessage1: false,
         }
     },
@@ -185,6 +154,7 @@ export default{
                 }
             }
         },
+        
         createFogOfWar(){
             let index = 7*15 + 0
             console.log(this.flatTiles);
@@ -232,7 +202,7 @@ export default{
 
         checkForMonster(positionY, positionX){
             if (this.grid[positionY][positionX] === 'M'){
-                let state = this.$refs.hero.fightMonster(11,'M');
+                let state = this.$refs.hero.fightMonster(10,'M');
                 if(state == 'monsterIsDead'){
                     this.changeTileType(positionY, positionX);
                 }
@@ -422,9 +392,9 @@ export default{
                   
                 }
             }
-             if(match===0){
+            if(match===0){
                  this.grabTreasureChest(positionY, positionX)
-             }
+            }
         },
    
         grabTreasure(positionY, positionX){
