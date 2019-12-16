@@ -25,23 +25,9 @@ export default{
             x: 0,
             y: 0,
             health: 15,
-            //attack: 10,
-            //level: 1,
+            attack: 10,
+            level: 1,
             rotate: 'right',
-
-            
-
-           /* backPack:{
-                
-                sword: 0,
-                shield: 0,
-                torch: 0,
-                healtpotion: 0,
-                gold: 0,
-
-            }*/
-
-         
         }
         
     },
@@ -81,14 +67,18 @@ export default{
     methods:{
 
         updatePosition(){
-            this.$refs.hero.style.setProperty('left', `calc(${this.position.x} * 6.6667%)`);
-            console.log(this.position.x);
-       
-            this.$refs.hero.style.setProperty('top', `calc(${this.position.y} * 6.6667%)`);
-            console.log(this.position.y);
+            var step = new Audio('audio/step-audio.mp3')
+            step.play();
 
-            //this.$refs.shadow.style.setProperty('background', `radial-gradient(circle at calc(${this.position.x} * 6.6667%) calc(${this.position.y} * 6.6667%), transparent, black 40%, black, black, black)`)
-            console.log(this.$refs.shadow);
+            this.$refs.hero.style.setProperty('left', `calc(${this.position.x} * 6.6667%)`)
+            //console.log(this.position.x)
+       
+            this.$refs.hero.style.setProperty('top', `calc(${this.position.y} * 6.6667%)`)
+           // console.log(this.position.y)
+
+           this.$refs.shadow.style.setProperty('background', 
+            `radial-gradient(circle at calc(${this.position.x} * 6.6667%) calc(${this.position.y} * 6.6667%), 
+            transparent, black 40%, black 90%, black, black)`)
         },
 
         /*updateGold(goldAmount){
@@ -150,6 +140,9 @@ export default{
 
         fightMonster(monsterHealth,type){
 
+            var punch = new Audio('audio/punch-audio.mp3')
+            punch.play();
+
             while (this.health > 0){
 
                 let isSwordEquipped = this.$refs.backpack.isItemEquipped('sword');
@@ -194,15 +187,14 @@ export default{
         },
 
         updateHealth(){
-
-           console.log(this.health);
+          // console.log(this.health);
            this.$emit('changehealth', this.health);
             
         },
 
         updateLevel(){
             
-            console.log(this.level);
+            //console.log(this.level);
             this.$emit('changelevel', this.level);
 
         },
@@ -229,7 +221,11 @@ export default{
                      this.$emit('changemessage', this.message);
                      break;
                  case 'dead':
-                     this.message = 'You have died GAME OVER!'
+                     this.message = 'You have died. GAME OVER!'
+                     this.$emit('changemessage', this.message);
+                     break;
+                case 'mustDefeatMonster':
+                     this.message = 'There is a monster nearby! Defeat it to get to the treasure.'
                      this.$emit('changemessage', this.message);
                      break;
                 case 'storyMessage1':
@@ -238,7 +234,13 @@ export default{
                     "'If you want to get out alive, you better collect yourself enough gold. Good luck, old friend.' ... Old friend?... You can't help but wonder. "+
                     "Who on earth did this to you?"
                     this.$emit('changemessage', this.message);
-                     break;
+                    break;
+                case 'storyMessage2':
+                    this.message = "You find yourself at a crossroads. Left or right? But before you make the decision, you spot another note on the wall right in "+
+                    "front of you. 'DO NOT GO RIGHT. RIGHT IS NEVER THE RIGHT PATH. WHATEVER YOU DO, DO NOT GO RIGHT.' At the bottom of the note, a tiny scribble: "+
+                    "If you do go right... don't touch the diamond."
+                    this.$emit('changemessage', this.message);
+                    break;
             }
         }
     },
