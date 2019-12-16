@@ -365,6 +365,14 @@
                         this.$refs.hero.updateMessage('storyMessage1'); 
                         this.shownMessage1 = true;
                     }
+                    if ((y === 9) && (x === 9) && (this.shownMessage2 == false)){
+                        this.$refs.hero.updateMessage('storyMessage2'); 
+                        this.shownMessage2 = true;
+                    }
+                    if ((y === 13) && (x === 12) && (this.shownMessage3 == false)){
+                        this.$refs.hero.updateMessage('storyMessage3'); 
+                        this.shownMessage2 = true;
+                    }
                     },
                     getRandomNumber(array) {
                         // randomly pick one position from the array and remove it afterwards so it can't be chosen again
