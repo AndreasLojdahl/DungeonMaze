@@ -10,8 +10,8 @@ export default{
 
     template:`
     <div>
-        <BackPack v-bind="backPack" ref="backpack"></BackPack>
-        <ItemShop v-bind="backPack" @addItem="updateBackPack" ref="itemshop"></ItemShop>
+        <BackPack ref="backpack"></BackPack>
+        <ItemShop @addItem="updateBackPack" ref="itemshop"></ItemShop>
         <div :class="rotate" ref="hero" id="character"></div>
     </div>
     
@@ -25,13 +25,13 @@ export default{
             x: 0,
             y: 0,
             health: 15,
-            attack: 10,
-            level: 1,
+            //attack: 10,
+            //level: 1,
             rotate: 'right',
 
             
 
-            backPack:{
+           /* backPack:{
                 
                 sword: 0,
                 shield: 0,
@@ -39,7 +39,7 @@ export default{
                 healtpotion: 0,
                 gold: 0,
 
-            }
+            }*/
 
          
         }
@@ -91,43 +91,43 @@ export default{
             console.log(this.$refs.shadow);
         },
 
-        updateGold(goldAmount){
+        /*updateGold(goldAmount){
             this.gold = this.gold + goldAmount;
-        },
+        },*/
 
         updateBackPack(typeOfItem,costOfItem){
 
             switch(typeOfItem){
                 case 'sword':
                     console.log('inne i sword')
-                    this.backPack.sword += 1;
+                    //this.backPack.sword += 1;
                     this.$refs.backpack.updateBackpack('sword',costOfItem);
-                    this.backPack.gold = this.backPack.gold - costOfItem;
+                    //this.backPack.gold = this.backPack.gold - costOfItem;
                     
                     
                     console.log(this.backPack.sword)
                     //this.backpack.push(item)
                     break;
                 case 'shield':
-                    this.backPack.shield += 1;
+                    //this.backPack.shield += 1;
                     this.$refs.backpack.updateBackpack('shield',costOfItem);
-                    this.backPack.gold = this.backPack.gold - costOfItem;
+                    //this.backPack.gold = this.backPack.gold - costOfItem;
                     
                     //this.backpack.push(item)
                     break;
                 case 'torch':
-                    this.backPack.torch += 1;
+                    //this.backPack.torch += 1;
                     this.$refs.backpack.updateBackpack('torch',costOfItem);
-                    this.backPack.gold = this.backPack.gold - costOfItem;
+                    //this.backPack.gold = this.backPack.gold - costOfItem;
                     
 
                     //this.backpack.push(item)
                     break;
                 case 'potion':
                     console.log('inne i potion')
-                    this.backPack.potion += 1;
+                    //this.backPack.potion += 1;
                     this.$refs.backpack.updateBackpack('potion',costOfItem);
-                    this.backPack.gold = this.backPack.gold - costOfItem;
+                    //this.backPack.gold = this.backPack.gold - costOfItem;
                     
                     //this.backpack.push(item)
                     this.health += 5;
@@ -152,20 +152,27 @@ export default{
 
             while (this.health > 0){
 
-                if(this.backPack.sword == 1){
+                let isSwordEquipped = this.$refs.backpack.isItemEquipped('sword');
+                let isShieldEquipped = this.$refs.backpack.isItemEquipped('shield');
+
+                if(isSwordEquipped == true){
                     monsterHealth = monsterHealth -2;
                 }else{
                     monsterHealth--;
                 }
+                if(isShieldEquipped == true){
+                    this.health--;
+                }
+                else{
+                    this.health = this.health -2;
+                }
                 
-                this.health--;
-
-                if (monsterHealth == 0){
+                if (monsterHealth < 0){
                     this.updateMessage(type);
                     //alert('You have defeated the monster!');
                     return 'monsterIsDead';
                 } 
-                if (this.health == 0){
+                if (this.health < 0){
 
                     this.updateMessage('dead');
 
@@ -180,13 +187,14 @@ export default{
         updateHeroLevel(){
             this.level += 1;
             this.health += 10;
-            this.backPack.gold += 20;
+            //this.backPack.gold += 20;
             this.$refs.backpack.updateBackpack('gold',20);
-            this.$refs.itemshop.updateHeroGold(20,'add');
+           // this.$refs.itemshop.updateItemShopGold(20,'add');
             
         },
 
         updateHealth(){
+
            console.log(this.health);
            this.$emit('changehealth', this.health);
             
@@ -196,28 +204,17 @@ export default{
             
             console.log(this.level);
             this.$emit('changelevel', this.level);
+
         },
         updateShopVisability(){
             this.$refs.itemshop.updateShopVis();
         },
 
         updateDirection(newDirection){
-            console.log('inne i updateDirection')
+
             if(newDirection !== this.direction){
                 this.rotate = newDirection;
             }
-           
-
-            /*switch(newDirection){
-                case 'right':
-                    console.log('inne i rgiht direct')
-                        this.direction = 'right';
-                        break;
-                case 'left':
-                        this.direction = 'left';
-                        break;
-            }*/
-          
         },
 
         updateMessage(type){
@@ -251,6 +248,7 @@ export default{
         this.updateDirection();
         this.updatePosition();
         this.updateHealth();
+        this.$refs.itemshop.setBackPack(this.$refs.backpack);
         //this.updateLevel();
     } 
 

@@ -382,10 +382,9 @@ h3{
   position: fixed;
   display: flex;
   justify-content: center;
- 
- 
-  
 }
+
+
 .item-shop-window{
   z-index: 3;
   display: flex;
@@ -486,5 +485,9 @@ h3{
 .shop-gold-text{
   font-family: monospace;
   font-size: 180%;
+}
+
+.span-pack{
+  font-size: 150%;
 }
 

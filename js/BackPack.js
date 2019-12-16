@@ -1,6 +1,6 @@
 export default{
 
-    props:['backPack'],
+    //props:['backPack'],
 
     template:`
     <div ref="backpack">
@@ -9,23 +9,23 @@ export default{
         
         <div class="items-backpack">
             <div class="backpack-pic-sword"></div>
-            <div class="backpack-item-text">Sword x<span>{{swordamount}}</span></div>        
+            <div class="backpack-item-text">Sword - <span class="span-pack">{{swordamount}}</span></div>        
         </div>
         <div class="items-backpack">
             <div class="backpack-pic-shield"></div>
-            <div class="backpack-item-text">Shield x<span>{{shieldamount}}</span></div>        
+            <div class="backpack-item-text">Shield - <span class="span-pack">{{shieldamount}}</span></div>        
         </div>
         <div class="items-backpack">
             <div class="backpack-pic-torch"></div>
-            <div class="backpack-item-text">Torch x<span>{{torchamount}}</span></div>        
+            <div class="backpack-item-text">Torch -<span class="span-pack">{{torchamount}}</span></div>        
         </div>
         <div class="items-backpack">
             <div class="backpack-pic-potion"></div>
-            <div class="backpack-item-text">Potion x<span>{{potionamount}}</span></div>        
+            <div class="backpack-item-text">Potion - <span class="span-pack">{{potionamount}}</span></div>        
         </div>
         <div class="items-backpack">
             <div class="backpack-pic-gold"></div>
-            <div class="backpack-item-text">Gold x<span>{{goldamount}}</span></div>        
+            <div class="backpack-item-text">Gold - <span class="span-pack">{{goldamount}}</span></div>        
         </div> 
     </div>
     
@@ -35,59 +35,60 @@ export default{
     data(){
         return{
             
-            
+            packwindow: 'showPack',
+
             swordamount: 0,
             shieldamount: 0,
             torchamount: 0,
             potionamount: 0,
             goldamount: 0,
-
-            packwindow: 'showPack'
-
+            
         }
     },
 
-    watch:{
+    /*watch:{
         backPack:{
             deep:true,
             handler(){
                 this.updateBackpack()
             }
         }
-    },
+    },*/
 
     
 
     methods:{
 
-        updateBackpack(item,amount){
+        updateBackpack(item,gold){
             
             console.log('inne i updatebackpack')
             switch(item){
                 case 'gold':
-                    this.goldamount += amount;
+                    this.goldamount += gold;
+                    console.log('updatebackpack'+this.goldamount)
                     break;
                 case 'sword':
                     this.swordamount += 1;
-                    this.goldamount -= amount;
-                    //this.backPack.sword = this.swordamount;
+                    this.goldamount -= gold;
+                    
                     break;
                 case 'shield':
                     this.shieldamount +=1;
-                    this.goldamount -= amount;
+                    this.goldamount -= gold;
                     break;
                 case 'torch':
                     this.torchamount += 1;
-                    this.goldamount -= amount;
+                    this.goldamount -= gold;
                     break;
                 case 'potion':
                     this.potionamount += 1;
-                    this.goldamount -= amount;
+                    this.goldamount -= gold;
                     break;
             }
 
         },
         updateBackVis(){
+
             if(this.packwindow == 'hidePack'){
                 this.packwindow = 'showPack';
             }
@@ -96,6 +97,29 @@ export default{
             }
 
         },
+
+        isItemEquipped(item){
+
+            switch(item){
+                case 'sword':
+                    if(this.swordamount == 1){
+                        return true;
+                    }
+                    break;
+                case 'shield':
+                    if(this.shieldamount == 1){
+                        return true;
+                    }
+                    break;
+                case 'torch':
+                    if(this.swordamount == 1){
+                        return true;
+                    }
+                    break;
+
+            }   
+
+        }
        
     }
 

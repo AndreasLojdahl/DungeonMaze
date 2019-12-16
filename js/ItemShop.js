@@ -1,6 +1,6 @@
 export default{
 
-    props:['backPack'],
+    //props:['backPack'],
 
     template:`
     <div class="item-shop-window">
@@ -45,18 +45,20 @@ export default{
 
             shopwindow:'hideShop',
 
-            sword: 0,
-            shield: 0,
-            torch: 0,
-            potion: 0,
-            heroGold: 0,  
+            //sword: 0,
+            //shield: 0,
+            //torch: 0,
+            //potion: 0,
+            //heroGold: 0,  
 
             itemList:{
                 potion: 5,
                 shield: 10,
                 sword: 15,
                 torch: 30,
-            }
+            },
+
+            backpack: null,
                 
             
         }
@@ -74,21 +76,21 @@ export default{
 
         addSword(){
               
-            if(this.sword < 1){
-                if(this.heroGold > this.itemList.sword){
-                    this.sword++;
+            if(this.backpack.swordamount < 1){
+                if(this.backpack.goldamount >= this.itemList.sword){
+                    //this.sword++;
                     this.$emit('addItem','sword',this.itemList.sword);
-                    this.heroGold = this.heroGold - this.itemList.sword;
+                    //this.heroGold = this.heroGold - this.itemList.sword;
                 }        
             }
             
         },
         addShield(){
-            if(this.shield < 1){
-                if(this.heroGold > this.itemList.shield){
-                    this.shield++;
+            if(this.backpack.shieldamount < 1){
+                if(this.backpack.goldamount >= this.itemList.shield){
+                    //this.shield++;
                     this.$emit('addItem','shield',this.itemList.shield);
-                    this.heroGold = this.heroGold - this.itemList.shield;
+                    //this.heroGold = this.heroGold - this.itemList.shield;
                 }
                 
             }
@@ -96,11 +98,11 @@ export default{
             //this.backPack.push(this.shield);
         },
         addTorch(){
-            if(this.torch < 1){
-                if(this.heroGold > this.itemList.torch){
-                    this.torch++;
+            if(this.backpack.torchamount < 1){
+                if(this.backpack.goldamount >= this.itemList.torch){
+                    //this.torch++;
                     this.$emit('addItem','torch',this.itemList.torch);
-                    this.heroGold = this.heroGold - this.itemList.torch;
+                    //this.heroGold = this.heroGold - this.itemList.torch;
                 }
                 
             }
@@ -108,11 +110,11 @@ export default{
             //this.backPack.push(this.shield);
         },
         addHp(){
-            if(this.potion < 4){
-                if(this.heroGold > this.itemList.potion){
-                    this.potion++;
+            if(this.backpack.potionamount < 4){
+                if(this.backpack.goldamount >= this.itemList.potion){
+                    //this.potion++;
                     this.$emit('addItem','potion',this.itemList.potion);
-                    this.heroGold = this.heroGold - this.itemList.potion;
+                    //this.heroGold = this.heroGold - this.itemList.potion;
                 }
                 
             }
@@ -120,17 +122,22 @@ export default{
             //this.backPack.push(this.healthPotion);
         },
 
-        updateHeroGold(amountOfGold,action){
+        /*updateItemShopGold(amountOfGold,action){
 
             switch(action){
                 case 'add':
                     this.heroGold += amountOfGold;
+                    console.log('inne i updateitemshop'+this.heroGold)
                     break;
                 case 'remove':
                     this.heroGold -= amountOfGold;
                     break;
                 }
             
+        },*/
+
+        setBackPack(backpack){
+            this.backpack = backpack
         }
     }
 }

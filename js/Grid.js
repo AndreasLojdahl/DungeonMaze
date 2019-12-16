@@ -6,7 +6,7 @@ import Finalboss from './Finalboss.js'
 
 export default{
 
-    props:['backpack'],
+    //props:['backpack'],
     components:{
         Tile,
         Character,
