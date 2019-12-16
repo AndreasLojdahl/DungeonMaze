@@ -24,6 +24,7 @@
                     
                     <Character 
                     ref="hero" 
+                    @restart="restartGame"
                     @changemessage="changeheromessage"
                     @changehealth="changeherohealth" 
                     @changelevel="changeherolevel" 
@@ -305,6 +306,7 @@
                                 this.changeTileType(positionY, positionX);
                             }
                             setTimeout(function(){ window.location.reload();},1000);
+                            //this.restartGame('winner');
                         }
                     },
                 
@@ -537,6 +539,17 @@
                         else{
                             this.monsterInRoom = false
                             return false
+                        }
+                        
+                    },
+                    restartGame(stateOfGame){
+
+                        switch(stateOfGame){
+                            case 'dead':
+                                this.createMap();
+                                break;
+                            case 'winner':
+
                         }
                         
                     }

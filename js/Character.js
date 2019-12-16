@@ -135,6 +135,7 @@ export default{
 
                     this.$refs.hero.style.setProperty('background','none')
                     setTimeout(function(){ window.location.reload();},1000);
+                    //this.$emit('restart','dead')
                     
                     //alert("You have died. GAME OVER."); 
                     //window.location.reload();
@@ -151,7 +152,7 @@ export default{
         updateHeroLevel(gold){
             this.level += 1;
             this.health += 10;
-            //this.backPack.gold += 20;
+           
             this.$refs.backpack.updateBackpack('gold',gold);
            
             
