@@ -55,11 +55,19 @@ export default{
     methods:{
 
         updatePosition(){
-            this.$refs.hero.style.setProperty('left', `calc(${this.position.x} * 6.6667%)`);
-            console.log(this.position.x);
+            var step = new Audio('audio/step-audio.mp3')
+            step.play();
+
+            this.$refs.hero.style.setProperty('left', `calc(${this.position.x} * 6.6667%)`)
+            //console.log(this.position.x)
        
-            this.$refs.hero.style.setProperty('top', `calc(${this.position.y} * 6.6667%)`);
-            console.log(this.position.y);
+            this.$refs.hero.style.setProperty('top', `calc(${this.position.y} * 6.6667%)`)
+           // console.log(this.position.y)
+
+           this.$refs.shadow.style.setProperty('background', 
+            `radial-gradient(circle at calc(${this.position.x} * 6.6667%) calc(${this.position.y} * 6.6667%), 
+            transparent, black 40%, black 90%, black, black)`)
+        },
 
             this.$refs.shadow.style.setProperty('background', 
             `radial-gradient(circle at calc(${this.position.x} * 6.6667%) calc(${this.position.y} * 6.6667%), 
@@ -78,6 +86,9 @@ export default{
         },*/
 
         fightMonster(monsterHealth,type){
+
+            var punch = new Audio('audio/punch-audio.mp3')
+            punch.play();
 
             while (this.health > 0){
 
@@ -139,7 +150,7 @@ export default{
         },
 
         updateHealth(){
-           console.log(this.health);
+          // console.log(this.health);
            this.$emit('changehealth', this.health);
             
         },
@@ -150,7 +161,7 @@ export default{
 
         updateLevel(){
             
-            console.log(this.level);
+            //console.log(this.level);
             this.$emit('changelevel', this.level);
         },
 
@@ -186,6 +197,10 @@ export default{
                      break;
                  case 'dead':
                      this.message = 'You have died. GAME OVER!'
+                     this.$emit('changemessage', this.message);
+                     break;
+                case 'mustDefeatMonster':
+                     this.message = 'There is a monster nearby! Defeat it to get to the treasure.'
                      this.$emit('changemessage', this.message);
                      break;
                
