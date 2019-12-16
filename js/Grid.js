@@ -24,6 +24,7 @@
                     
                     <Character 
                     ref="hero" 
+                    @restart="restartGame"
                     @changemessage="changeheromessage"
                     @changehealth="changeherohealth" 
                     @changelevel="changeherolevel" 
@@ -147,12 +148,12 @@
                         room4: [],
                         room5: [],
 
-                    backPack:{
+                    /*backPack:{
                         ironSword:'',
                         shield:'',
                         helmet:'',
                         chest:'',
-                    },
+                    },*/
                     shownMessage1: false,
                     shownMessage2: false,
                     monsterInRoom: false,
@@ -305,6 +306,7 @@
                                 this.changeTileType(positionY, positionX);
                             }
                             setTimeout(function(){ window.location.reload();},1000);
+                            //this.restartGame('winner');
                         }
                     },
                 
@@ -317,9 +319,19 @@
                     grabTreasureChest(positionY, positionX){
                         var treasureAudio = new Audio('audio/treasure-audio.mp3')
                         treasureAudio.play()
+                        console.log('grabchest')
+                        for(let chest of this.chests){
+                            if((chest.y == positionY) && (chest.x == positionX)){
+                                console.log(positionY,chest.y)
+                                console.log(positionX,chest.x)
+                                console.log('inne i if sats')
+                                this.$refs.hero.updateHeroLevel(chest.amountOfGold);          
+                                this.changeTileType(positionY, positionX);
+                            }
+                            
+                        }
 
-                        this.$refs.hero.updateHeroLevel();          
-                        this.changeTileType(positionY, positionX);
+                        
                     },
 
                     spawnTreasureChests(){
@@ -527,6 +539,17 @@
                         else{
                             this.monsterInRoom = false
                             return false
+                        }
+                        
+                    },
+                    restartGame(stateOfGame){
+
+                        switch(stateOfGame){
+                            case 'dead':
+                                this.createMap();
+                                break;
+                            case 'winner':
+
                         }
                         
                     }

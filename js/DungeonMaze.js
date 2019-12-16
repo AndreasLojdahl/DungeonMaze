@@ -1,5 +1,5 @@
 import Grid from './Grid.js'
-
+//import ItemShop from './ItemShop.js'
 export default {
 
     props:['health'],
@@ -7,6 +7,7 @@ export default {
 
     components:{
         Grid,
+        //ItemShop
     },
     
     template: ` 
@@ -130,7 +131,7 @@ export default {
             setTimeout(() => {
                 this.$refs.modal.style.setProperty('display', 'none');
                 //this.popup = 'hide';
-                }, 200000);
+                }, 1000);
             }          
         },
         hideDiv(){
