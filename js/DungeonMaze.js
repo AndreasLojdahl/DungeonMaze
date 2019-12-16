@@ -36,8 +36,7 @@ export default {
         -->
 
         <div :class="{popup, mymodal: isVisible, storypopup: isActive}"
-        tabindex="0" 
-        ref="modal">
+        tabindex="0" ref="modal">
             <span ref="modalspan" @click="hideDiv()" :class="{mymodalspan: isVisible, storypopupspan: isActive}"
             >{{ message }}
             <span ref="pressenter" class="pressentertext"> 

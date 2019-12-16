@@ -76,7 +76,7 @@ export default{
         fightMonster(monsterHealth,type){
 
             var punch = new Audio('audio/punch-audio.mp3')
-            punch.play()
+            punch.play();
 
             while (this.health > 0){
 
