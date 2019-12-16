@@ -421,8 +421,8 @@ h3{
   border-radius: 10px;
   font-size: 150%;
   position: fixed;
-  margin-top: -33.5%;
-  margin-left: 16%;
+  margin-top: -32%;
+  margin-left: 17%;
   
 }
 
@@ -447,8 +447,8 @@ h3{
   height: 5%;
   border-radius: 10px;
   font-size: 150%;
-  margin-top: -26.5%;
-  margin-left:10%;
+  margin-top: 5%;
+  margin-left:51%;
   position: fixed;
   display: flex;
   justify-content: center;
@@ -459,8 +459,8 @@ h3{
   z-index: 3;
   display: flex;
   justify-content: center;
-  margin-left: 0%;
-  margin-top: 0%;
+  margin-left: 40%;
+  margin-top: 30%;
   margin-bottom: 50%;
   position: fixed;
   width: 0%;
@@ -528,8 +528,8 @@ h3{
   position: fixed;
   width: 20%;
   height: 45%;
-  margin-left: 6.3%;
-  margin-top: -19.5%;
+  margin-left: 47%;
+  margin-top: 10%;
   flex-direction: column;
   border: solid 5px   rgb(161, 95, 41);
   background-color: black;

@@ -16,22 +16,22 @@ export default{
                 <div class="sword-option">
                     <div class="sword" @click="addSword"></div>
                     <div class="sword-text">Ironsword</div>
-                    <div class="shop-gold-text">15 gold</div>
+                    <div class="shop-gold-text">{{itemList.sword}} gold</div>
                 </div>
                 <div class="torch-option">
                     <div class="torch" @click="addTorch"></div>
                     <div class="torch-text">Torch</div>
-                    <div class="shop-gold-text">30 gold</div>
+                    <div class="shop-gold-text">{{itemList.torch}} gold</div>
                 </div>
                 <div class="shield-option">
                     <div class="shield" @click="addShield">Sword</div>
                     <div class="shield-text">Shield</div>
-                    <div class="shop-gold-text">10 gold</div>
+                    <div class="shop-gold-text">{{itemList.shield}} gold</div>
                 </div>
                 <div class="health-option">
                     <div class="health-potion" @click="addHp"></div>
                     <div class="health-text">Health Potion</div>
-                    <div class="shop-gold-text">5 gold</div>
+                    <div class="shop-gold-text">{{itemList.potion}} gold</div>
                 </div>
             </div>
 
@@ -52,10 +52,10 @@ export default{
             //heroGold: 0,  
 
             itemList:{
-                potion: 5,
-                shield: 10,
-                sword: 15,
-                torch: 30,
+                potion: 50,
+                shield: 150,
+                sword: 200,
+                torch: 300,
             },
 
             backpack: null,

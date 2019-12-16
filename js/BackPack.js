@@ -9,23 +9,23 @@ export default{
         
         <div class="items-backpack">
             <div class="backpack-pic-sword"></div>
-            <div class="backpack-item-text">Sword - <span class="span-pack">{{swordamount}}</span></div>        
+            <div class="backpack-item-text">Sword x<span class="span-pack">{{swordamount}}</span></div>        
         </div>
         <div class="items-backpack">
             <div class="backpack-pic-shield"></div>
-            <div class="backpack-item-text">Shield - <span class="span-pack">{{shieldamount}}</span></div>        
+            <div class="backpack-item-text">Shield x<span class="span-pack">{{shieldamount}}</span></div>        
         </div>
         <div class="items-backpack">
             <div class="backpack-pic-torch"></div>
-            <div class="backpack-item-text">Torch -<span class="span-pack">{{torchamount}}</span></div>        
+            <div class="backpack-item-text">Torch x<span class="span-pack">{{torchamount}}</span></div>        
         </div>
         <div class="items-backpack">
             <div class="backpack-pic-potion"></div>
-            <div class="backpack-item-text">Potion - <span class="span-pack">{{potionamount}}</span></div>        
+            <div class="backpack-item-text">Potion x<span class="span-pack">{{potionamount}}</span></div>        
         </div>
         <div class="items-backpack">
             <div class="backpack-pic-gold"></div>
-            <div class="backpack-item-text">Gold - <span class="span-pack">{{goldamount}}</span></div>        
+            <div class="backpack-item-text">Gold x<span class="span-pack">{{goldamount}}</span></div>        
         </div> 
     </div>
     
@@ -119,7 +119,15 @@ export default{
 
             }   
 
+        },
+
+        isTorchEquipped(){
+            if(this.torchamount == 1){
+                return true;
+            }
         }
+
+
        
     }
 

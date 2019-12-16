@@ -9,15 +9,13 @@ export default{
     },
 
     template:`
-    <div>
+    <div ref="shadow" id="shadow-overlay">
         <BackPack ref="backpack"></BackPack>
         <ItemShop @addItem="updateBackPack" ref="itemshop"></ItemShop>
+        
         <div :class="rotate" ref="hero" id="character"></div>
+          
     </div>
-    
-    <!--<div ref="shadow" id="shadow-overlay">-->
-       <!-- <div :class="rotate" ref="hero" id="character"></div>-->
-    <!--</div>-->
     `,
     
     data() {
@@ -26,7 +24,7 @@ export default{
             y: 0,
             health: 15,
             attack: 10,
-            level: 1,
+            level: 0,
             rotate: 'right',
         }
         
@@ -55,12 +53,12 @@ export default{
                 this.updateMessage()
             }
         },
-        backPack:{
+        /*backPack:{
             deep: true,
             handler(){
                 this.updateBackPack()
             }
-        }
+        }*/
 
     },
 
@@ -75,68 +73,40 @@ export default{
        
             this.$refs.hero.style.setProperty('top', `calc(${this.position.y} * 6.6667%)`)
            // console.log(this.position.y)
-
-           this.$refs.shadow.style.setProperty('background', 
+            
+           let isTorchEquipped = this.$refs.backpack.isTorchEquipped();
+           if(isTorchEquipped == true){
+            this.$refs.shadow.style.setProperty('background', 
+            `radial-gradient(circle at calc(${this.position.x} * 6.6667%) calc(${this.position.y} * 6.6667%), 
+            transparent, black 200%, black 200%, black, black)`)
+           }
+           else{
+            this.$refs.shadow.style.setProperty('background', 
             `radial-gradient(circle at calc(${this.position.x} * 6.6667%) calc(${this.position.y} * 6.6667%), 
             transparent, black 40%, black 90%, black, black)`)
+           }
+           
         },
-
-        /*updateGold(goldAmount){
-            this.gold = this.gold + goldAmount;
-        },*/
-
+        
         updateBackPack(typeOfItem,costOfItem){
 
             switch(typeOfItem){
+
                 case 'sword':
-                    console.log('inne i sword')
-                    //this.backPack.sword += 1;
                     this.$refs.backpack.updateBackpack('sword',costOfItem);
-                    //this.backPack.gold = this.backPack.gold - costOfItem;
-                    
-                    
-                    console.log(this.backPack.sword)
-                    //this.backpack.push(item)
                     break;
                 case 'shield':
-                    //this.backPack.shield += 1;
                     this.$refs.backpack.updateBackpack('shield',costOfItem);
-                    //this.backPack.gold = this.backPack.gold - costOfItem;
-                    
-                    //this.backpack.push(item)
                     break;
                 case 'torch':
-                    //this.backPack.torch += 1;
                     this.$refs.backpack.updateBackpack('torch',costOfItem);
-                    //this.backPack.gold = this.backPack.gold - costOfItem;
-                    
-
-                    //this.backpack.push(item)
                     break;
                 case 'potion':
-                    console.log('inne i potion')
-                    //this.backPack.potion += 1;
                     this.$refs.backpack.updateBackpack('potion',costOfItem);
-                    //this.backPack.gold = this.backPack.gold - costOfItem;
-                    
-                    //this.backpack.push(item)
                     this.health += 5;
                     break;
             }
-            
-
         },
-
-        /*checkChest() {
-        this.health++;
-        this.level++;
-        },*/
-
-       /* heroLevelsUp(){
-            level++,
-            this.attack++,
-            this.health++
-        },*/
 
         fightMonster(monsterHealth,type){
 
@@ -159,13 +129,7 @@ export default{
                 else{
                     this.health = this.health -2;
                 }
-                
-                if (monsterHealth < 0){
-                    this.updateMessage(type);
-                    //alert('You have defeated the monster!');
-                    return 'monsterIsDead';
-                } 
-                if (this.health < 0){
+                if (this.health <= 0){
 
                     this.updateMessage('dead');
 
@@ -175,14 +139,21 @@ export default{
                     //alert("You have died. GAME OVER."); 
                     //window.location.reload();
                 }
+                
+                if (monsterHealth <= 0){
+                    this.updateMessage(type);
+                    //alert('You have defeated the monster!');
+                    return 'monsterIsDead';
+                } 
+                
             }
         },
-        updateHeroLevel(){
+        updateHeroLevel(gold){
             this.level += 1;
             this.health += 10;
             //this.backPack.gold += 20;
-            this.$refs.backpack.updateBackpack('gold',20);
-           // this.$refs.itemshop.updateItemShopGold(20,'add');
+            this.$refs.backpack.updateBackpack('gold',gold);
+           
             
         },
 
