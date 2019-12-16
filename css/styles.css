@@ -164,38 +164,10 @@ h3{
   display: flex;
   justify-content: center;
   font-display: center;
-  background-image: none;
-  background-color: rgba(199, 118, 48, 0.719);
+  background-color: rgba(187, 113, 49, 0);
   background-position: center;
   z-index: 1;
   height: 20%;
-  width: 80%;
-  position: fixed;
-  margin-top: 17%;
-  margin-left: 10%;
-  border-radius: 28px;
-  background-repeat: space;
-}
-
-.mymodalspan{
-  display: flex;
-  color:  rgb(236, 205, 178);
-  font-family: monospace;
-  font-size: 300%;
-  justify-content: center;
-  align-items: center;
-  padding: 5%;
-}
-
-.storypopup{
-  display: flex;
-  justify-content: center;
-  font-display: center;
-  background-image: url(/images/scroll.png);
-  background-color: none;
-  background-position: center;
-  z-index: 1;
-  height: 65%;
   width: 80%;
   position: fixed;
   margin-top: 10%;
@@ -204,15 +176,14 @@ h3{
   background-repeat: space;
 }
 
-.storypopupspan{
+.my-modal-span{
   display: flex;
+  color:  rgb(236, 205, 178);
+  font-family: monospace;
+  font-size: 300%;
   justify-content: center;
   align-items: center;
-  font-display: center;
-  color: black;
-  font-family: Mansalva;
-  font-size: 125%;
-  width: 70%;
+  padding: 18%;
 }
 
 .show{
@@ -222,13 +193,13 @@ h3{
   display: none;
 }
 
- #shadow-overlay{
+  #shadow-overlay{
   position: absolute;
   width: 100%;
   height: 100%;
-  background: radial-gradient(circle at calc(10 * 6.6667%) calc(10 * 6.6667%), transparent, black 80%, black 80%, black, black);
-  transition: 100ms;
-} 
+  background: radial-gradient(circle at calc(10 * 6.6667%) calc(10 * 6.6667%), transparent, black, black, black, black);
+  transition: 200ms;
+}  
 
 .left{
   transform: scaleX(-1);
