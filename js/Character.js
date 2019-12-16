@@ -133,20 +133,27 @@ export default{
                      this.message = 'You have died GAME OVER!'
                      this.$emit('changemessage', this.message);
                      break;
+                // case 'storyMessage1':
+                //     this.message = "What's this? You just woke up on a hard rocky floor, with a massive headache to boot. Looks like you had too much "+
+                //     "to drink last night... or did you? Close to you, hanging on the wall, you spot a note with a message scribbled on it. "+
+                //     "'If you want to get out alive, you better collect yourself enough gold. Good luck, old friend.' ... Old friend?... You can't help but wonder. "+
+                //     "Who on earth did this to you?"
+                //     this.$emit('changemessage', this.message);
+                //      break;
                 case 'storyMessage1':
-                    this.message = "What's this? You just woke up on a hard rocky floor, with a massive headache to boot. Looks like you had too much "+
-                    "to drink last night... or did you? Close to you, hanging on the wall, you spot a note with a message scribbled on it. "+
-                    "'If you want to get out alive, you better collect yourself enough gold. Good luck, old friend.' ... Old friend?... You can't help but wonder. "+
-                    "Who on earth did this to you?"
+                    this.message = "You walk down the stares of a large staircase. You wonder if this is the right place. Suddenly you remember your mission."+
+                    "I was payed to exterminate the Monster in this place " + "the Knight thought " + "Its supposed to be this Arthro fellow " + "Strange when i think this name I feel sadness " 
+                    + "The Knight looked around and saw several other monsters. He quickly hid himself." + "It semmed like the monsters had been corrupted by something"  
                     this.$emit('changemessage', this.message);
                      break;
             }
         },
-        mounted(){
+        async mounted(){
             this.updatePosition();
             this.updateHealth();
             this.updateLevel();
             this.updateMoney();
+            this.updateMessage();
         } 
 
         

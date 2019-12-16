@@ -75,9 +75,9 @@ export default {
         },
         changedmessage(newmessage){
             this.message = newmessage;
-            //this.$refs.modal.style.setProperty('display', 'flex');
-            //this.showPopUp();
-            //this.removePopUp();
+            this.$refs.modal.style.setProperty('display', 'flex');
+            this.showPopUp();
+            this.removePopUp();
             setTimeout((function(){
                 this.popup = 'show';
             }).bind(this),);

@@ -237,7 +237,7 @@ export default{
         moveRight(){
             let futurePositionX = this.heroPosition.x + 1
             if (this.grid[this.heroPosition.y][futurePositionX] !== 'W'){
-                // this.checkForStoryMessage(this.heroPosition.y,futurePositionX);
+                this.checkForStoryMessage(this.heroPosition.y,futurePositionX);
                 this.checkForMonster(this.heroPosition.y, futurePositionX);
                 this.checkForFinalBoss(this.heroPosition.y, futurePositionX);
                 this.checkForItem(this.heroPosition.y, futurePositionX);
@@ -339,12 +339,6 @@ export default{
             this.$refs.flatTiles[index].updateTileType();
 
         },
-        // checkForStoryMessage(y,x){
-        //     if ((y === 7) && (x === 1) && (this.shownMessage1 == false)){
-        //        this.$refs.hero.updateMessage('storyMessage1'); 
-        //        this.shownMessage1 = true;
-        //    }
-        // },
         getRandomNumber(array) {
             // randomly pick one position from the array and remove it afterwards so it can't be chosen again
             for (let i = 0; i < array.length; i++) {
@@ -352,6 +346,12 @@ export default{
                 let chosenPosition = array[randomNumber];
                 array.splice(randomNumber, 1);
                 return chosenPosition; 
+            }
+        },
+        checkForStoryMessage(y,x){
+            if ((y === 7) && (x === 1) && (this.shownMessage1 == false)){
+                this.$refs.hero.updateMessage('storyMessage1'); 
+                this.shownMessage1 = true;
             }
         },
         createRooms(){
