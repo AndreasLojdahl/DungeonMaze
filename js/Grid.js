@@ -169,6 +169,7 @@
                     console.log(this.flatTiles);
                     this.$refs.flatTiles[index].updateTileVisibility();
                 },
+                
                 // moveUp(){ 
                 //     let futurePositionY = this.heroPosition.y - 1
                 //     if (this.grid[futurePositionY][this.heroPosition.x] !== 'W'){
@@ -534,7 +535,6 @@
                         
                     }
                     
-
                     
                 },
 
@@ -544,23 +544,25 @@
                     console.log(this.flatTiles)
                     //this.spawnTreasureChests()
                     this.createRooms()
+                    var soundtrack = new Audio('audio/soundtrack-DungeonMaze.mp3')
+                    soundtrack.volume = 0.2;
+                   // soundtrack.play();
                     
                 },
 
                 mounted(){
                     
-                    window.addEventListener('keyup', (e) => {
-                            if(e.keyCode === 37){              
+                    window.addEventListener('keydown', (e) => {
+                            if(e.keyCode === 37){                                  
                                 this.moveLeft()
                             }
                             if(e.keyCode === 38){  
-                                this.moveUp()
+                                this.moveUp()                                                               
                             }
-                            if(e.keyCode === 39){  
+                            if(e.keyCode === 39){                                
                                 this.moveRight()
                             }
-                            if(e.keyCode === 40){
-                                e.preventDefault
+                            if(e.keyCode === 40){                               
                                 this.moveDown()
                             }
                             if (event.keyCode === 87) { //w
