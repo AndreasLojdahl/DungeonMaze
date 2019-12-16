@@ -15,7 +15,7 @@ export default{
             health: 15,
             attack: 10,
             level: 1,
-            rotate: 'right'
+            rotate: 'right',
         }
         
     },
@@ -48,6 +48,9 @@ export default{
     methods:{
 
         updatePosition(){
+            var step = new Audio('audio/step-audio.mp3')
+            step.play();
+
             this.$refs.hero.style.setProperty('left', `calc(${this.position.x} * 6.6667%)`)
             //console.log(this.position.x)
        
@@ -71,6 +74,9 @@ export default{
         },*/
 
         fightMonster(monsterHealth,type){
+
+            var punch = new Audio('audio/punch-audio.mp3')
+            punch.play()
 
             while (this.health > 0){
 
