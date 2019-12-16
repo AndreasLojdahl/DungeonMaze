@@ -20,9 +20,23 @@ export default {
         <source src="/images/Candle.mp4" type="video/mp4">
         </video>
 
+        <!--
+        <div class="mainmenu" ref="menu">
+            <span class="mainmenuspan"><h2>Welcome to Dungeon Maze!</h2></span>
+            <span class="mainmenuspan"><p>Which Story would you like to play?</p></span>
+
+            <span class="mainmenuspan">
+                <form>
+                    <input type="radio" name="kidnapped" value="kidnapped" checked>Kidnapped<br>
+                    <input type="radio" name="markusstory" value="markusstory">Markus' Story<br>
+                    <input type="radio" name="tutorial" value="tutorial">Tutorial 
+                </form> 
+            </span>
+        </div>
+        -->
+
         <div :class="{popup, mymodal: isVisible, storypopup: isActive}"
-        tabindex="0" 
-        ref="modal">
+        tabindex="0" ref="modal">
             <span ref="modalspan" @click="hideDiv()" :class="{mymodalspan: isVisible, storypopupspan: isActive}"
             >{{ message }}
             <span ref="pressenter" class="pressentertext"> 
@@ -62,10 +76,14 @@ export default {
             popup: 'hide',
             isActive: false,
             isVisible: false,
+            mainmenu: ''
         }
     },
 
     methods: {
+        showUserMenu(){ //why does it appear BEHIND the grid?????
+            this.$refs.menu.style.setProperty('display', 'flex'); 
+        },
         changedhealth(newhealth){
             console.log(this.healthPoints, newhealth);
             this.healthPoints = newhealth;
@@ -124,6 +142,11 @@ export default {
     computed: {
         
     },
+    
+    created() {
+        
+    },
+
     mounted(){
         window.addEventListener('keyup', (e) => {
                 if(e.keyCode === 13){                

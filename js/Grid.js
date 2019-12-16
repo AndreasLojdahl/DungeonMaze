@@ -222,6 +222,7 @@
                     moveUp(){ 
                         let futurePositionY = this.heroPosition.y - 1
                         if (this.grid[futurePositionY][this.heroPosition.x] !== 'W'){
+                            this.checkForStoryMessage(futurePositionY,this.heroPosition.x);
                             this.checkForMonster(futurePositionY, this.heroPosition.x); 
                             this.checkForItem(futurePositionY,this.heroPosition.x);
                             if(!this.monsterInRoom && this.futurePositionY !== 'C'){
@@ -281,36 +282,33 @@
                 
 
                     checkForMonster(positionY, positionX){
-                    if (this.grid[positionY][positionX] === 'M'){
-                        let state = this.$refs.hero.fightMonster(11,'M');
-                        if(state == 'monsterIsDead'){
-                            this.changeTileType(positionY, positionX);
-                        }
-                    }
-
-                    else if(this.grid[positionY][positionX] === 'B'){
-                            let state = this.$refs.hero.fightMonster(15,'B')
-                        // setTimeout(function(){ window.location.reload();},1000);
+                        let state = ''
+                        if (this.grid[positionY][positionX] === 'M'){ //check for M first to avoid going through monsters array each time
+                            for (let monster of this.monsters){ //get specific monsterHealth
+                                if ((monster.y == positionY) && (monster.x == positionX)){
+                                    console.log ('monsterHealth = '+monster.monsterHealth);
+                                    state = this.$refs.hero.fightMonster(monster.monsterHealth,'M');
+                                }
+                            }
                             if(state == 'monsterIsDead'){
                                 this.changeTileType(positionY, positionX);
                             }
-                        // this.changeTileType(positionY, positionX);
-                            //this.loadMap(15,15,this.grid2)
+                        }
+                        else if(this.grid[positionY][positionX] === 'B'){
+                            let state = this.$refs.hero.fightMonster(50,'B')
+                            if(state == 'monsterIsDead'){
+                                this.changeTileType(positionY, positionX);
+                            }
                             setTimeout(function(){ window.location.reload();},1000);
                         }
-                        /*
-                        if (this.grid[positionY][positionX] === 'M'){
-                            this.$refs.hero.fightMonster(11);
-                            this.changeTileType(positionY, positionX);  
-                        }*/
-
                     },
+                
                     checkForItem(positionY, positionX){
                         if(this.grid[positionY][positionX] === 'C'){
                             this.isHeroInRoom(positionY, positionX)      
                         } 
-                    
                     },
+
                     grabTreasureChest(positionY, positionX){
                         var treasureAudio = new Audio('audio/treasure-audio.mp3')
                         treasureAudio.play()
@@ -367,6 +365,14 @@
                         if ((y === 7) && (x === 1) && (this.shownMessage1 == false)){
                         this.$refs.hero.updateMessage('storyMessage1'); 
                         this.shownMessage1 = true;
+                    }
+                    if ((y === 9) && (x === 9) && (this.shownMessage2 == false)){
+                        this.$refs.hero.updateMessage('storyMessage2'); 
+                        this.shownMessage2 = true;
+                    }
+                    if ((y === 13) && (x === 12) && (this.shownMessage3 == false)){
+                        this.$refs.hero.updateMessage('storyMessage3'); 
+                        this.shownMessage2 = true;
                     }
                     },
                     getRandomNumber(array) {
