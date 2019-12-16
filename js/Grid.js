@@ -155,6 +155,7 @@
                     },
                     shownMessage1: false,
                     shownMessage2: false,
+                    monsterInRoom: false,
                 }
             },
 
@@ -222,7 +223,13 @@
                         if (this.grid[futurePositionY][this.heroPosition.x] !== 'W'){
                             this.checkForMonster(futurePositionY, this.heroPosition.x); 
                             this.checkForItem(futurePositionY,this.heroPosition.x);
-                            this.heroPosition.y -= 1;
+                            if(!this.monsterInRoom && this.futurePositionY !== 'C'){
+                                this.heroPosition.y -= 1;
+                            }
+                            else{
+                                this.heroPosition.y = this.heroPosition.y
+                            }
+                            
                         }         
                         
                     },
@@ -230,33 +237,43 @@
                     moveRight(){
                         let futurePositionX = this.heroPosition.x + 1
                         if (this.grid[this.heroPosition.y][futurePositionX] !== 'W'){
-                            this.checkForStoryMessage(this.heroPosition.y,futurePositionX);
+                         //   this.checkForStoryMessage(this.heroPosition.y,futurePositionX);
                             this.checkForMonster(this.heroPosition.y, futurePositionX);
                             this.checkForItem(this.heroPosition.y, futurePositionX)
                             this.$refs.hero.updateDirection('right');
+                            if(!this.monsterInRoom && this.futurePositionX !== 'C'){
                             this.heroPosition.x += 1;
+                            }
+                            else{
+                                this.heroPosition.x = this.heroPosition.x
+                            }
                         }
                     },
                     moveDown(){
                         let futurePositionY = this.heroPosition.y + 1
                         if (this.grid[futurePositionY][this.heroPosition.x] !== 'W'){
-                            this.checkForStoryMessage(futurePositionY,this.heroPosition.x);
+                        //    this.checkForStoryMessage(futurePositionY,this.heroPosition.x);
                             this.checkForMonster(futurePositionY,this.heroPosition.x);
                             this.checkForItem(futurePositionY,this.heroPosition.x);
+                            if(!this.monsterInRoom && this.futurePositionY !== 'C'){
                             this.heroPosition.y += 1;
+                            }else{
+                                this.heroPosition.y = this.heroPosition.y
+                            }
                         }
-                        //this.checkForMonster(futurePositionY, this.heroPosition.x);
-                        console.log(futurePositionY, this.heroPosition.x)
+
                     },
                     moveLeft(){
                         let futurePositionX = this.heroPosition.x - 1
                         if (this.grid[this.heroPosition.y][futurePositionX] !== 'W'){
-                            this.checkForStoryMessage(this.heroPosition.y,futurePositionX);
+                        //    this.checkForStoryMessage(this.heroPosition.y,futurePositionX);
                             this.checkForMonster(this.heroPosition.y, futurePositionX);
                             this.checkForItem(this.heroPosition.y, futurePositionX);
                             this.$refs.hero.updateDirection('left');
                             if(futurePositionX != -1){
+                                if(!this.monsterInRoom && this.futurePositionX !== 'C'){
                                 this.heroPosition.x -= 1;
+                                }
                             }
                         }
                     },
@@ -294,6 +311,9 @@
                     
                     },
                     grabTreasureChest(positionY, positionX){
+                        var treasureAudio = new Audio('audio/treasure-audio.mp3')
+                        treasureAudio.play()
+
                         this.$refs.hero.updateHeroLevel();          
                         this.changeTileType(positionY, positionX);
                     },
@@ -498,9 +518,11 @@
                             }
                         }
                         if(monsterCount>0){
+                            this.monsterInRoom = true
                             return true
                         }
                         else{
+                            this.monsterInRoom = false
                             return false
                         }
                         
@@ -522,16 +544,17 @@
                 mounted(){
                     
                     window.addEventListener('keyup', (e) => {
-                            if(e.keyCode === 37){                   
-                            this.moveLeft()
+                            if(e.keyCode === 37){              
+                                this.moveLeft()
                             }
                             if(e.keyCode === 38){  
                                 this.moveUp()
                             }
-                            if(e.keyCode === 39){   
+                            if(e.keyCode === 39){  
                                 this.moveRight()
                             }
                             if(e.keyCode === 40){
+                                e.preventDefault
                                 this.moveDown()
                             }
                             if (event.keyCode === 87) { //w
