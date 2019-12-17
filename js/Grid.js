@@ -1,104 +1,117 @@
-import Tile from './Tile.js'
-import Character from './Character.js'
-import Chest1 from './Chest.js'
-import Monster from './Monster.js'
-import Finalboss from './Finalboss.js'
+            import Tile from './Tile.js'
+            import Character from './Character.js'
+            import Monster from './Monster.js'
+            import Finalboss from './Finalboss.js'
 
-export default{
-    components:{
-        Tile,
-        Character,
-        // Chest1,
-        Monster,
-        Finalboss
-    },
-
-    template:`
-    <div class="grid-layout">
-       
-       <tile  
-        v-for="(tile, i) of flatTiles"
-        v-bind:properties="tile"
-        v-bind:key="'tile' + i + tile.x + tile.y"
-        v-bind:class="'tile-type-' + tile.type"
-        ref="flatTiles"
-        ></tile>
-        
-        <Character 
-        ref="hero" 
-        @changemessage="changeheromessage"
-        @changehealth="changeherohealth" 
-        @changelevel="changeherolevel" 
-        @changemoney="changeheromoney" 
-        v-bind:position="heroPosition">
-        </Character>
-
-        <Finalboss v-bind:position="finalBossData"></Finalboss>
-        <!-- <Chest1 v-bind:position="itemPosition1"></Chest1> -->
-
-    data(){
-        return{
-            tiles: [],
-           /* grid : [      20x20 map
-                ['W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W'],
-                ['W',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W'],
-                ['W',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W'],
-                ['W',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W'],
-                ['W',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W'],
-                ['W',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W'],
-                ['W',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W'],
-                ['W',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W'],
-                ['W',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W'],
-                ['W',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W'],
-                ['W',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W'],
-                ['W',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W'],
-                ['W',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W'],
-                ['W',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W'],
-                ['W',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W'],
-                ['W',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W'],
-                ['W',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W'],
-                ['W',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W'],
-                ['W',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W'],
-                ['W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W'],     
-              ],*/
-
-            grid :[
-                ['W','W','W','W','W','W','W','W','W','W','W','W','W','W','W'],
-                ['W','W','W',' ',' ',' ',' ',' ',' ',' ','W',' ',' ',' ','W'],
-                ['W','W',' ',' ',' ','W','W','W','W',' ',' ',' ',' ',' ','W'],
-                ['W',' ',' ',' ',' ','W',' ',' ','W',' ','W','W','M',' ','W'],
-                ['W',' ','W','W',' ','W','F',' ',' ',' ',' ','W','C','W','W'],
-                ['W',' ',' ',' ',' ','W',' ',' ','W',' ','W','W','W','W','W'],
-                ['W','W',' ',' ',' ','W','W','W','W',' ',' ',' ',' ','W','W'],
-                [' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W','W',' ',' ','W'],
-                ['W',' ','W','W','W','W','W','W','W',' ','W','W',' ','B','W'],
-                ['W',' ','W',' ',' ',' ','W','W',' ',' ',' ','W','W','W','W'],
-                ['W',' ',' ',' ',' ',' ','W',' ',' ','W',' ',' ',' ','W','W'],
-                ['W',' ','W','W','W','W','W',' ','W','W','W','W',' ',' ','W'],
-                ['W',' ',' ','W','W',' ',' ',' ',' ','W','W','W',' ',' ','W'],
-                ['W','W','W','W',' ',' ',' ',' ',' ','W',' ',' ',' ',' ','W'],
-                ['W','W','W','W','W','W','W','W','W','W','W','W','W','W','W'],
-            ],
             
-            // W = Wall
-            // M = Monster
-            // B = Boss
-            // C = Treasure Chest
-            // K = Key?
+            
+            export default{
+                components:{
+                    Tile,
+                    Character,
+                    Monster,
+                    // shownMessage2,
+                    Finalboss
+                },
 
-            heroPosition:{
-                x:0,
-                y:7
-            },
+                template:`
+                <div class="grid-layout">
+                
+                <tile  
+                    v-for="(tile, i) of flatTiles"
+                    v-bind:properties="tile"
+                    v-bind:key="'tile' + i + tile.x + tile.y"
+                    v-bind:class="'tile-type-' + tile.type"
+                    ref="flatTiles"
+                    ></tile>
+                    
+                    <Character 
+                    ref="hero" 
+                    @changemessage="changeheromessage"
+                    @changehealth="changeherohealth" 
+                    @changelevel="changeherolevel" 
+                    @changemoney="changeheromoney" 
+                    v-bind:position="heroPosition">
+                    </Character>
 
-            // itemPosition1:{
-            //     x:12,
-            //     y:4
-            // },
-                        itemPosition2:{
-                            x:4,
-                            y:13
+                    <Finalboss v-bind:position="finalBossData"></Finalboss>
+
+                    <!--
+                    <Monster tileArray="flatTiles"></Monster>
+                    <div class="buttons-div">
+                    <button v-on:click="moveLeft">Left</button>
+                    <button v-on:click="moveUp">Up</button>
+                    <button v-on:click="moveDown">Down</button>
+                    <button v-on:click="moveRight">Right</button></button>
+                    </div>
+                    -->
+                </div>
+                `,
+
+            data(){
+                return{
+                    tiles: [],
+                /* grid : [      20x20 map
+                        ['W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W'],
+                        ['W',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W'],
+                        ['W',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W'],
+                        ['W',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W'],
+                        ['W',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W'],
+                        ['W',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W'],
+                        ['W',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W'],
+                        ['W',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W'],
+                        ['W',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W'],
+                        ['W',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W'],
+                        ['W',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W'],
+                        ['W',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W'],
+                        ['W',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W'],
+                        ['W',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W'],
+                        ['W',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W'],
+                        ['W',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W'],
+                        ['W',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W'],
+                        ['W',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W'],
+                        ['W',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W'],
+                        ['W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W'],     
+                    ],*/
+
+                    grid :[
+                        ['W','W','W','W','W','W','W','W','W','W','W','W','W','W','W'],
+                        ['W','W','W',' ',' ',' ',' ',' ',' ',' ','W',' ',' ',' ','W'],
+                        ['W','W',' ',' ',' ','W','W','W','W',' ',' ',' ',' ',' ','W'],
+                        ['W',' ',' ',' ',' ','W',' ',' ','W',' ','W','W',' ',' ','W'],
+                        ['W',' ','W','W',' ','W','F',' ',' ',' ',' ','W','C','W','W'],
+                        ['W',' ',' ',' ',' ','W',' ',' ','W',' ','W','W','W','W','W'],
+                        ['W','W',' ',' ',' ','W','W','W','W',' ',' ',' ',' ','W','W'],
+                        [' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W','W',' ',' ','W'],
+                        ['W',' ','W','W','W','W','W','W','W',' ','W','W',' ',' ','W'],
+                        ['W',' ','W',' ',' ',' ','W','W',' ',' ',' ','W','W','W','W'],
+                        ['W',' ',' ',' ',' ',' ','W',' ',' ','W',' ',' ',' ','W','W'],
+                        ['W',' ','W','W','W','W','W',' ','W','W','W','W',' ',' ','W'],
+                        ['W',' ',' ','W','W',' ',' ',' ',' ','W','W','W',' ',' ','W'],
+                        ['W','W','W','W',' ',' ',' ',' ',' ','W',' ',' ',' ',' ','W'],
+                        ['W','W','W','W','W','W','W','W','W','W','W','W','W','W','W'],
+                    ],
+                    
+                    // W = Wall
+                    // M = Monster
+                    // B = Boss
+                    // C = Treasure Chest
+                    // K = Key?
+
+                        heroPosition:{
+                            x:0,
+                            y:7
                         },
+
+                         itemPosition1:{
+                             x:12,
+                             y:4
+                         },
+
+                         itemPosition2:{
+                             x:4,
+                             y:13
+                         },
 
                         finalBossData:{
                             x:6,
@@ -140,43 +153,25 @@ export default{
                         room4: [],
                         room5: [],
 
-            chestPositions: [
-                {x: 2, y: 12},
-                {x: 2, y: 2},
-                {x: 10, y: 4},
-                {x: 12, y: 4},
-                {x: 4, y: 13},
-                {x: 10, y: 13},
-                {x: 7, y: 3},
-                {x: 11, y: 1},
-                {x: 3, y: 9},
-                {x: 8, y: 13},
-            ],
-
-            chests: [],
-            monsters: [],
-            backPack: [],
-            room1: [],
-            room2: [],
-            room3: [],
-            room4: [],
-            room5: [],
-
-            backPack:{
-                ironSword:'',
-                shield:'',
-                helmet:'',
-                chest:'',
-            },
-            shownMessage1: false,
-            shownMessage2: true,
-            shownMessage3: false,
-            shownMessage4: false,
-            shownMessage5: false,
+                    backPack:{
+                        ironSword:'',
+                        shield:'',
+                        helmet:'',
+                        chest:'',
+                    },
             
-        }
-    },
-
+                    shownMessage1: false,
+                    shownMessage2: false,
+                    shownMessage3: false,
+                    shownMessage4: false,
+                    shownMessage5: false,
+                    monsterInRoom: false,
+                
+                }
+                 
+            
+            },
+                
                 computed:{
                     flatTiles(){
                         return this.tiles.flat()
@@ -188,27 +183,125 @@ export default{
                     this.$refs.flatTiles[index].updateTileVisibility();
                 },
                 
-            }
-        },
-        moveRight(){
-            let futurePositionX = this.heroPosition.x + 1
-            if (this.grid[this.heroPosition.y][futurePositionX] !== 'W'){
-                this.checkForStoryMessage(this.heroPosition.y,futurePositionX);
-                this.checkForMonster(this.heroPosition.y, futurePositionX);
-                this.checkForFinalBoss(this.heroPosition.y, futurePositionX);
-                this.checkForItem(this.heroPosition.y, futurePositionX)
-                this.$refs.hero.updateDirection('right');
-                this.heroPosition.x += 1;
-            }
-        },
+                // moveUp(){ 
+                //     let futurePositionY = this.heroPosition.y - 1
+                //     if (this.grid[futurePositionY][this.heroPosition.x] !== 'W'){
+                //         this.checkForStoryMessage(futurePositionY,this.heroPosition.x);
+                //         this.checkForMonster(futurePositionY, this.heroPosition.x); 
+                //         this.checkForItem(futurePositionY,this.heroPosition.x);
+                //         this.heroPosition.y -= 1;
+                //     }           
+                // },
+                // moveDown(){
+                //     let futurePositionY = this.heroPosition.y + 1
+                //     if (this.grid[futurePositionY][this.heroPosition.x] !== 'W'){
+                //         this.checkForStoryMessage(futurePositionY,this.heroPosition.x);
+                //         this.checkForMonster(futurePositionY,this.heroPosition.x);
+                //         this.checkForItem(futurePositionY,this.heroPosition.x);
+                //         this.heroPosition.y += 1;
+                //     }
+                //     this.checkForMonster(futurePositionY, this.heroPosition.x);
+                //     console.log(futurePositionY, this.heroPosition.x)
+                // },
+                // moveLeft(){
+                //     let futurePositionX = this.heroPosition.x - 1
+                //     if (this.grid[this.heroPosition.y][futurePositionX] !== 'W'){
+                //         this.checkForStoryMessage(this.heroPosition.y,futurePositionX);
+                //         this.checkForMonster(this.heroPosition.y, futurePositionX);
+                //         this.checkForItem(this.heroPosition.y, futurePositionX);
+                //         this.$refs.hero.updateDirection('left');
+                //         if(futurePositionX != -1){
+                //             this.heroPosition.x -= 1;
+                //         }
+                //     }
+                // },
 
-        checkForMonster(positionY, positionX){
-            if (this.grid[positionY][positionX] === 'M'){
-                let state = this.$refs.hero.fightMonster(11,'M');
-                if(state == 'monsterIsDead'){
-                    this.changeTileType(positionY, positionX);
-                }
-            }
+                methods:{
+                    createMap (){
+                        this.spawnTreasureChests();
+                        this.spawnMonsters();
+                        for(let rows = 0; rows < this.grid.length; rows++){
+                            this.tiles[rows] = [];
+                            for(let cols = 0; cols < this.grid.length; cols++){
+                                let properties = {
+                                    x: cols,
+                                    y: rows,
+                                    type: this.grid[rows][cols]
+                                }
+                                this.tiles[rows].push(properties)
+                            }
+                        }
+                    },
+                    moveUp(){ 
+                        let futurePositionY = this.heroPosition.y - 1
+                        if (this.grid[futurePositionY][this.heroPosition.x] !== 'W'){
+                            this.checkForStoryMessage(futurePositionY,this.heroPosition.x);
+                            this.checkForMonster(futurePositionY, this.heroPosition.x); 
+                            this.checkForFinalBoss(futurePositionY, this.heroPosition.x); 
+                            this.checkForItem(futurePositionY,this.heroPosition.x);
+                            if(!this.monsterInRoom && this.grid[futurePositionY][this.heroPosition.x] !== 'C'){
+                                this.heroPosition.y -= 1;
+                            }
+                            else if(this.monsterInRoom && this.grid[futurePositionY][this.heroPosition.x] !== 'C'){
+                                this.heroPosition.y -= 1;
+                            }
+                            
+                        }         
+                        
+                    },
+                
+                    moveRight(){
+                        let futurePositionX = this.heroPosition.x + 1
+                        if (this.grid[this.heroPosition.y][futurePositionX] !== 'W'){
+                            this.checkForStoryMessage(this.heroPosition.y,futurePositionX);
+                            this.checkForMonster(this.heroPosition.y, futurePositionX);
+                            this.checkForFinalBoss(this.heroPosition.y, futurePositionX);
+                            this.checkForItem(this.heroPosition.y, futurePositionX)
+                            this.$refs.hero.updateDirection('right');
+                            if(!this.monsterInRoom && this.grid[this.heroPosition.y][futurePositionX] !== 'C'){
+                            this.heroPosition.x += 1;
+                            }
+                            else if(this.monsterInRoom && this.grid[this.heroPosition.y][futurePositionX] !== 'C'){
+                                this.heroPosition.x += 1;
+                            }
+                        }
+                    },
+                    moveDown(){
+                        let futurePositionY = this.heroPosition.y + 1
+                        if (this.grid[futurePositionY][this.heroPosition.x] !== 'W'){
+                            this.checkForStoryMessage(futurePositionY,this.heroPosition.x);
+                            this.checkForMonster(futurePositionY,this.heroPosition.x);
+                            this.checkForFinalBoss(futurePositionY,this.heroPosition.x);
+                            this.checkForItem(futurePositionY,this.heroPosition.x);
+                            if(!this.monsterInRoom && this.grid[futurePositionY][this.heroPosition.x] !== 'C'){
+                            this.heroPosition.y += 1;
+                            }
+                            else if(this.monsterInRoom && this.grid[futurePositionY][this.heroPosition.x] !== 'C'){
+                                this.heroPosition.y += 1;
+                            }
+                            console.log(this.heroPosition.y, this.heroPosition.x)
+                        }
+
+                    },
+                    moveLeft(){
+                        let futurePositionX = this.heroPosition.x - 1
+                        if (this.grid[this.heroPosition.y][futurePositionX] !== 'W'){
+                            this.checkForStoryMessage(this.heroPosition.y,futurePositionX);
+                            this.checkForMonster(this.heroPosition.y, futurePositionX);
+                            this.checkForFinalBoss(this.heroPosition.y, futurePositionX);
+                            this.checkForItem(this.heroPosition.y, futurePositionX);
+                            this.$refs.hero.updateDirection('left');
+                            if(futurePositionX != -1){
+                                if(!this.monsterInRoom && this.grid[this.heroPosition.y][futurePositionX] !== 'C'){
+                                this.heroPosition.x -= 1;
+                                }
+                                else if(this.monsterInRoom && this.grid[this.heroPosition.y][futurePositionX] !== 'C'){
+                                    this.heroPosition.x -= 1;
+                                }
+                            }
+                        }
+                    },
+                
 
                     checkForMonster(positionY, positionX){
                         let state = ''
@@ -232,6 +325,17 @@ export default{
                         }
                     },
                 
+                    checkForFinalBoss(positionY, positionX){
+                        if (this.grid[positionY][positionX] === 'F'){
+                          this.$refs.hero.fightFinalBoss(40);
+                          this.grid[positionY][positionX] === ' '
+                          if ((shownMessage2 == true) && (this.shownMessage5 == false)){
+                            this.$refs.hero.updateMessage('storyMessage5'); 
+                            this.shownMessage5 = true;
+                        }
+                                 }
+                                },
+
                     checkForItem(positionY, positionX){
                         if(this.grid[positionY][positionX] === 'C'){
                             this.isHeroInRoom(positionY, positionX)      
@@ -246,26 +350,6 @@ export default{
                         this.changeTileType(positionY, positionX);
                     },
 
-        },
-            }
-                this.shownMessage2 = true;
-                this.$refs.hero.updateMessage('storyMessage2');
-            if ((y === 4) && (x === 12) && (this.shownMessage2 == false)){
-           }
-               this.shownMessage3 = true;
-               this.$refs.hero.updateMessage('storyMessage3');
-           if ((y === 4) && (x === 8) && (this.shownMessage3 == false)){
-           }
-               this.shownMessage1 = true;
-               this.$refs.hero.updateMessage('storyMessage1'); 
-            if ((y === 7) && (x === 1) && (this.shownMessage1 == false)){
-        checkForStoryMessage(y,x){
-        //  },
-        //      }
-        //          this.shownMessage5 = true;
-        //          this.$refs.hero.updateMessage('storyMessage5'); 
-        //      if ((shownMessage2 == true) && (this.shownMessage5 == false)){
-        //  checkForStoryMessage5(shownMessage2){
                     spawnTreasureChests(){
                             let generatedAmountOfGold = Math.floor((Math.random() * 150) + 50);
                         for(let i = 0; i < 5; i++){
@@ -290,6 +374,7 @@ export default{
                                 monsterHealth: generatedAmountOfHealth
                             }
                             this.grid[generatedMonsterPosition.y][generatedMonsterPosition.x] = 'M'; //places a Monster in the grid
+                            console.log(this.monsters);
                             
                         }
                     },
@@ -299,6 +384,9 @@ export default{
                     },
                     changeherolevel(newlevel){
                         this.$emit('changelevel', newlevel);
+                    },
+                    changeheromoney(newmoney){
+                        this.$emit('changemoney', newmoney);
                     },
                     changeheromessage(newmessage){
                         this.$emit('changemessage', newmessage);
@@ -312,17 +400,17 @@ export default{
                     },
                     checkForStoryMessage(y,x){
                         if ((y === 7) && (x === 1) && (this.shownMessage1 == false)){
-                        this.$refs.hero.updateMessage('storyMessage1'); 
-                        this.shownMessage1 = true;
-                    }
-                    if ((y === 9) && (x === 9) && (this.shownMessage2 == false)){
-                        this.$refs.hero.updateMessage('storyMessage2'); 
-                        this.shownMessage2 = true;
-                    }
-                    if ((y === 13) && (x === 12) && (this.shownMessage3 == false)){
-                        this.$refs.hero.updateMessage('storyMessage3'); 
-                        this.shownMessage2 = true;
-                    }
+                           this.$refs.hero.updateMessage('storyMessage1'); 
+                           this.shownMessage1 = true;
+                       }
+                       if ((y === 4) && (x === 8) && (this.shownMessage3 == false)){
+                           this.$refs.hero.updateMessage('storyMessage3');
+                           this.shownMessage3 = true;
+                       }
+                        if ((y === 4) && (x === 12) && (this.shownMessage2 == false)){
+                            this.$refs.hero.updateMessage('storyMessage2');
+                            this.shownMessage2 = true;
+                        }
                     },
                     getRandomNumber(array) {
                         // randomly pick one position from the array and remove it afterwards so it can't be chosen again
@@ -383,9 +471,7 @@ export default{
                         let match = 0 
                         for (let r of this.room1) {
                             if(this.heroPosition.x === r[0] && this.heroPosition.y === r[1]){
-                                console.log('in room 1')
                                 if(this.isMonsterNearBy(this.room1, positionY, positionX)){
-                                    console.log('must defeat monster')
                                     this.$refs.hero.updateMessage('mustDefeatMonster')
                                     match++
                                 }
@@ -398,9 +484,7 @@ export default{
                         }
                         for (let r of this.room2) {
                             if(this.heroPosition.x === r[0] && this.heroPosition.y === r[1]){
-                                console.log('in room 2')
                                 if(this.isMonsterNearBy(this.room2, positionY, positionX)){
-                                    console.log('must defeat monster')
                                     this.$refs.hero.updateMessage('mustDefeatMonster')
                                     match++
                                 }
@@ -413,9 +497,7 @@ export default{
                         }
                         for (let r of this.room3) {
                             if(this.heroPosition.x === r[0] && this.heroPosition.y === r[1]){
-                                console.log('in room 3')
                                 if(this.isMonsterNearBy(this.room3, positionY, positionX)){
-                                    console.log('must defeat monster')
                                     this.$refs.hero.updateMessage('mustDefeatMonster')
                                     match++
                                 }
@@ -427,9 +509,7 @@ export default{
                         }
                         for (let r of this.room4) {
                             if(this.heroPosition.x === r[0] && this.heroPosition.y === r[1]){
-                                console.log('in room 4')
                                 if(this.isMonsterNearBy(this.room4, positionY, positionX)){
-                                    console.log('must defeat monster')
                                     this.$refs.hero.updateMessage('mustDefeatMonster')
                                     match++
                                 }
@@ -442,9 +522,7 @@ export default{
                         }
                         for (let r of this.room5) {
                             if(this.heroPosition.x === r[0] && this.heroPosition.y === r[1]){
-                                console.log('in room 5')
                                 if(this.isMonsterNearBy(this.room5, positionY, positionX)){
-                                    console.log('must defeat monster')
                                     this.$refs.hero.updateMessage('mustDefeatMonster')
                                     match++
                                 }
@@ -495,7 +573,7 @@ export default{
                     this.createRooms()
                     var soundtrack = new Audio('audio/soundtrack-DungeonMaze.mp3')
                     soundtrack.volume = 0.2;
-                   // soundtrack.play();
+                    soundtrack.play();
                     
                 },
 
@@ -506,12 +584,14 @@ export default{
                                 this.moveLeft()
                             }
                             if(e.keyCode === 38){  
+                                e.preventDefault()
                                 this.moveUp()                                                               
                             }
                             if(e.keyCode === 39){                                
                                 this.moveRight()
                             }
-                            if(e.keyCode === 40){                               
+                            if(e.keyCode === 40){     
+                                e.preventDefault()                          
                                 this.moveDown()
                             }
                             if (event.keyCode === 87) { //w
@@ -526,112 +606,9 @@ export default{
                             else if (event.keyCode === 65) { //a
                                 this.moveLeft();
                             }
+                            
                     })
                 }
             }
-            for (let r of this.room2) {
-                if(this.heroPosition.x === r[0] && this.heroPosition.y === r[1]){
-                    //checkForTreasure(this.room2)
-                    console.log('in room 2')
-                    this.isMonsterNearBy(this.room2, positionY, positionX)
-                    match++
-                  
-                }
-            }
-            for (let r of this.room3) {
-                if(this.heroPosition.x === r[0] && this.heroPosition.y === r[1]){
-                    //checkForTreasure(this.room3)
-                    console.log('in room 3')
-                    this.isMonsterNearBy(this.room3, positionY, positionX)
-                    match++
-                }
-            }
-            for (let r of this.room4) {
-                if(this.heroPosition.x === r[0] && this.heroPosition.y === r[1]){
-                    //checkForTreasure(this.room4)
-                    console.log('in room 4')
-                    this.isMonsterNearBy(this.room4, positionY, positionX)
-                    match++
-                  
-                }
-            }
-            for (let r of this.room5) {
-                if(this.heroPosition.x === r[0] && this.heroPosition.y === r[1]){
-                    //checkForTreasure(this.room5)
-                    console.log('in room 5')
-                    this.isMonsterNearBy(this.room5, positionY, positionX)
-                    match++
-                    
-                  
-                }
-            }
-             if(match===0){
-                 this.grabTreasureChest(positionY, positionX)
-             }
-        },
-   
-        grabTreasure(positionY, positionX){
-        },
-        isMonsterNearBy(room, positionY, positionX){
-           
-            let monsterCount = 0; 
-            this.room = room
-            this.positionY = positionY
-            this.positionX = positionX
-            for (let r of this.room) {
-                if(this.grid[r[0]][r[1]]==='M'){
-                    monsterCount++                
-
-                }
-
-            }
-            if(monsterCount>0){
-                console.log('You can not grab treasure, there is a monster in the room!') 
-            }
-            else{
-                this.grabTreasureChest(positionY, positionX)
-            }
-            
-         },
-         
-
         
-    },
 
-    created(){
-        this.createMap()         //undefined = this.
-        console.log(this.tiles)
-        console.log(this.flatTiles)
-        this.createRooms()
-        //this.createFogOfWar();
-    },
-
-    mounted(){
-        window.addEventListener('keyup', (e) => {
-                if(e.keyCode === 37){                   
-                   this.moveLeft()
-                }
-                if(e.keyCode === 38){  
-                    this.moveUp()
-                }
-                if(e.keyCode === 39){   
-                    this.moveRight()
-                }
-                if(e.keyCode === 40){
-                    this.moveDown()
-                }
-                if (event.keyCode === 87) { //w
-                    this.moveUp()
-                }
-                else if (event.keyCode === 83) { //s
-                    this.moveDown();
-                }
-                else if (event.keyCode === 68) { //d
-                    this.moveRight();
-                }
-                else if (event.keyCode === 65) { //a
-                    this.moveLeft();
-                }
-        })
-    }
-}

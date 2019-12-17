@@ -35,10 +35,6 @@ export default{
                 this.$refs.tile.style.setProperty('background', 'none')
                 this.properties.type = ' ';
             }
-            else if( this.properties.type === 'F'){
-                this.$refs.tile.style.setProperty('background', 'none')
-                this.properties.type = ' ';
-            }
             else if(this.properties.type === 'C'){
                 this.$refs.tile.style.setProperty('background', 'none')
                 this.properties.type = ' ';

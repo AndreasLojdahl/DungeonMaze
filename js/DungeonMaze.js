@@ -64,7 +64,12 @@ export default {
             </span>
         </h3>
         </div>
-        <grid @changehealth="changedhealth" @changelevel="changedlevel" @changemoney="changedmoney" @changemessage="changedmessage"></grid>
+
+        <grid @changehealth="changedhealth" 
+        @changelevel="changedlevel" 
+        @changemoney="changedmoney" 
+        @changemessage="changedmessage"
+        ></grid>
        
     </div>  
     `, 

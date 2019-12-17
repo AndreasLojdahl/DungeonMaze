@@ -1,3 +1,7 @@
+// import shownMessage2 from './Grid.js';
+
+// shownMessage2;
+
 export default{
 
     props:['position','backPack'],
@@ -16,7 +20,7 @@ export default{
             attack: 10,
             level: 1,
             money: 0,
-            rotate: 'right'
+            rotate: 'right',
         }
         
     },
@@ -69,11 +73,6 @@ export default{
             transparent, black 40%, black 90%, black, black)`)
         },
 
-            this.$refs.shadow.style.setProperty('background', 
-            `radial-gradient(circle at calc(${this.position.x} * 6.6667%) calc(${this.position.y} * 6.6667%), 
-            transparent, black 40%, black 90%, black, black)`)
-        },
-
         /*checkChest() {
         this.health++;
         this.level++;
@@ -112,22 +111,31 @@ export default{
                 }
             }
         },
-        fightFinalBoss(finalBossHealth,type,storyMessage){
+        fightFinalBoss(finalBossHealth,type){
 
             while (this.health > 0){
 
                 finalBossHealth--;
                 this.health--;
 
-                if (finalBossHealth == 0 && this.storyMessage == true ){
+                if (finalBossHealth == 0 && this.shownMessage2 == false ){
                     this.updateMessage('storyMessage4');
                 
+                    this.$refs.hero.style.setProperty('background','none')
+                    setTimeout(function(){ window.location.reload();},1000);
+                    
                     return 'finalBossIsDead';
+
+                    
                 } 
                  else if (finalBossHealth == 0) {
                      this.updateMessage('storyMessage5');
                 
-                     return 'finalBossIsDead';
+                    alert("Your winner");
+                    
+                    return 'finalBossIsDead';
+
+                     
                     
                  } 
                 else if (this.health == 0){
@@ -154,6 +162,7 @@ export default{
            this.$emit('changehealth', this.health);
             
         },
+        
         updateMoney(){
             console.log(this.money);
             this.$emit('changemoney', this.money);
@@ -166,7 +175,7 @@ export default{
         },
 
         updateDirection(newDirection){
-            console.log('inne i updateDirection')
+            //console.log('inne i updateDirection')
             if(newDirection !== this.direction){
                 this.rotate = newDirection;
             }
@@ -183,7 +192,6 @@ export default{
             }*/
           
         },
-
         updateMessage(type){
 
             switch(type){
@@ -199,15 +207,11 @@ export default{
                      this.message = 'You have died. GAME OVER!'
                      this.$emit('changemessage', this.message);
                      break;
-                case 'mustDefeatMonster':
-                     this.message = 'There is a monster nearby! Defeat it to get to the treasure.'
-                     this.$emit('changemessage', this.message);
-                     break;
                
                      case 'storyMessage1':
                     this.message = "You walk down the stares of a large staircase. You wonder if this is the right place. Suddenly you remember your mission. "+
                     "I was payed to exterminate the Monster in this place " + "the Knight thought. " + "Its supposed to be this Arthro fellow " + "Strange when i think this name I feel sadness. " 
-                    + "The Knight looked around and saw several other monsters. He quickly hid himself. " + "It semmed like the monsters had been corrupted by something " + "I need to find the source of this curse and destroy it. "
+                    + "The Knight looked around and saw several other monsters. He quickly hid himself. " + "What a bunch of fishmen fellow " + "It semmed like the monsters had been corrupted by something " + "I need to find the source of this curse and destroy it. "
                     this.$emit('changemessage', this.message);
                     break;
                 
@@ -221,7 +225,7 @@ export default{
                     case 'storyMessage3':
                     this.message = "As the Knight entered the chamber he sensed that the source of the curse was close. " + "And there he was Arthro the source of the curse. "
                     + "Arthro had sealed himself in this champer to seal away the curse forever but i seems that he has reached his limit. " + "If something wasnt done soon the curse would spead beyond the maze. "
-                    + "Suddenly the Knight heared a voice in his head! " + "If you want to avoid this fate you need the dreamneil. " + ""  
+                    + "Suddenly the Knight heared a voice in his head! " + "wow i found the monster i most be going in the right direction" 
                     this.$emit('changemessage', this.message);
                     break;   
                     
@@ -238,7 +242,7 @@ export default{
                     break;
 
                     case 'storyMessage6':
-                    this.message = "The Knight's body hit the floor as his face turned pale. "
+                    this.message = "The Knight's body hit the floor as his face turned pale. " + "Are you still counting my deaths player "
                     this.$emit('changemessage', this.message);
                     break;
                             

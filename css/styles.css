@@ -88,32 +88,6 @@ h3{
   transition: 170ms;
 }
 
-.monster{
-  display: flex;
-  width: 6.6667%;
-  height: 6.6667%;   
-  /*background-color: green;*/
-  position: absolute;
-  background: url("/images/monster.jpg");
-  background-size: 100% 100%;
-  /*left: calc(0 * 6.6667%);   
-  top: calc(7 * 6.6667%); */
-  /*border: 1px solid black;*/
-}
-
-.monster{
-  display: flex;
-  width: 6.6667%;
-  height: 6.6667%;   
-  /*background-color: green;*/
-  position: absolute;
-  background: url("/images/fish.png");
-  background-size: 100% 100%;
-  left: calc(0 * 6.6667%);   
-  top: calc(7 * 6.6667%); 
-  border: 1px solid black;
-}
-
 .finalboss{
   display: flex;
   width: 6.6667%;
@@ -225,7 +199,7 @@ h3{
   height: 20%;
   width: 80%;
   position: fixed;
-  margin-top: 10%;
+  margin-top: 17%;
   margin-left: 10%;
   border-radius: 28px;
   background-repeat: space;
@@ -267,6 +241,7 @@ h3{
   font-family: Mansalva;
   font-size: 125%;
   width: 70%;
+  padding: 5%;
 }
 
 .show{
