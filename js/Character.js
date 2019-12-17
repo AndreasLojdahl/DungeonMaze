@@ -78,12 +78,12 @@ export default{
            if(isTorchEquipped == true){
             this.$refs.shadow.style.setProperty('background', 
             `radial-gradient(circle at calc(${this.position.x} * 6.6667%) calc(${this.position.y} * 6.6667%), 
-            transparent, black 200%, black 200%, black, black)`)
+            transparent, black 50%, black 80%, black, black)`)
            }
            else{
             this.$refs.shadow.style.setProperty('background', 
             `radial-gradient(circle at calc(${this.position.x} * 6.6667%) calc(${this.position.y} * 6.6667%), 
-            transparent, black 40%, black 90%, black, black)`)
+            transparent, black, black, black, black)`)
            }
            
         },
