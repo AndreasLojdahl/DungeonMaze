@@ -116,7 +116,7 @@
                         heroStats:{
                             hp: 10,
                             attack: 3,
-                            level: 1
+                            level: 0
                         },
 
                     monsterPositions: [
@@ -127,33 +127,27 @@
                         {x: 12, y: 12},
                     ],
 
-                        chestPositions: [
-                            {x: 2, y: 12},
-                            {x: 2, y: 2},
-                            {x: 10, y: 4},
-                            {x: 12, y: 4},
-                            {x: 4, y: 13},
-                            {x: 10, y: 13},
-                            {x: 7, y: 3},
-                            {x: 11, y: 1},
-                            {x: 3, y: 9},
-                            {x: 8, y: 13},
-                        ],
+                    chestPositions: [
+                        {x: 2, y: 12},
+                        {x: 2, y: 2},
+                        {x: 10, y: 4},
+                        {x: 12, y: 4},
+                        {x: 4, y: 13},
+                        {x: 10, y: 13},
+                        {x: 13, y: 1},
+                        {x: 11, y: 1},
+                        {x: 3, y: 9},
+                        {x: 8, y: 13},
+                    ],
 
-                        chests: [],
-                        monsters: [],
-                        room1: [],
-                        room2: [],
-                        room3: [],
-                        room4: [],
-                        room5: [],
+                    chests: [],
+                    monsters: [],
+                    room1: [],
+                    room2: [],
+                    room3: [],
+                    room4: [],
+                    room5: [],
 
-                    /*backPack:{
-                        ironSword:'',
-                        shield:'',
-                        helmet:'',
-                        chest:'',
-                    },*/
                     shownMessage1: false,
                     shownMessage2: false,
                     monsterInRoom: false,
@@ -164,11 +158,6 @@
                     flatTiles(){
                         return this.tiles.flat()
                     }
-                },
-                createFogOfWar(){
-                    let index = 7*15 + 0
-                    console.log(this.flatTiles);
-                    this.$refs.flatTiles[index].updateTileVisibility();
                 },
                 
                 // moveUp(){ 
@@ -358,7 +347,7 @@
                                 monsterHealth: generatedAmountOfHealth
                             }
                             this.grid[generatedMonsterPosition.y][generatedMonsterPosition.x] = 'M'; //places a Monster in the grid
-                            console.log(this.monsters);
+                            //console.log(this.monsters);
                             
                         }
                     },
@@ -546,12 +535,79 @@
 
                         switch(stateOfGame){
                             case 'dead':
+                                this.resetGlobalVariables(stateOfGame);
                                 this.createMap();
+                                this.createRooms();
                                 break;
                             case 'winner':
-
+                                this.resetGlobalVariables(stateOfGame);
+                                this.createMap();
+                                this.createRooms();
                         }
                         
+                    },
+                    resetGlobalVariables(stateOfGame){
+                        this.tiles = [];
+                        this.grid = [
+                            ['W','W','W','W','W','W','W','W','W','W','W','W','W','W','W'],
+                            ['W','W','W',' ',' ',' ',' ',' ',' ',' ','W',' ',' ',' ','W'],
+                            ['W','W',' ',' ',' ','W','W','W','W',' ',' ',' ',' ',' ','W'],
+                            ['W',' ',' ',' ',' ','W',' ',' ','W',' ','W','W',' ',' ','W'],
+                            ['W',' ','W','W',' ','W','B',' ',' ',' ',' ','W',' ','W','W'],
+                            ['W',' ',' ',' ',' ','W',' ',' ','W',' ','W','W','W','W','W'],
+                            ['W','W',' ',' ',' ','W','W','W','W',' ',' ',' ',' ','W','W'],
+                            [' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W','W',' ',' ','W'],
+                            ['W',' ','W','W','W','W','W','W','W',' ','W','W',' ',' ','W'],
+                            ['W',' ','W',' ',' ',' ','W','W',' ',' ',' ','W','W','W','W'],
+                            ['W',' ',' ',' ',' ',' ','W',' ',' ','W',' ',' ',' ','W','W'],
+                            ['W',' ','W','W','W','W','W',' ','W','W','W','W',' ',' ','W'],
+                            ['W',' ',' ','W','W',' ',' ',' ',' ','W','W','W',' ',' ','W'],
+                            ['W','W','W','W',' ',' ',' ',' ',' ','W',' ',' ',' ',' ','W'],
+                            ['W','W','W','W','W','W','W','W','W','W','W','W','W','W','W'],
+                        ],
+                        this.monsterPositions = [
+                            {x: 12, y: 2},
+                            {x: 4, y: 10},
+                            {x: 13, y: 8},
+                            {x: 7, y: 13},
+                            {x: 12, y: 12},
+                        ],
+    
+                        this.chestPositions = [
+                            {x: 2, y: 12},
+                            {x: 2, y: 2},
+                            {x: 10, y: 4},
+                            {x: 12, y: 4},
+                            {x: 4, y: 13},
+                            {x: 10, y: 13},
+                            {x: 13, y: 1},
+                            {x: 11, y: 1},
+                            {x: 3, y: 9},
+                            {x: 8, y: 13},
+                        ],
+                        this.chests = [];
+                        this.monsters = [];
+                        this.room1 = [];
+                        this.room2 = [];
+                        this.room3 = [];
+                        this.room4 = [];
+                        this.room5 = [];
+                        this.heroPosition.x = 0;
+                        this.heroPosition.y = 7;
+                        this.monsterInRoom = false;
+
+                        switch(stateOfGame){
+                            case 'dead':
+                                this.heroStats.level = 0;
+                                this.heroStats.hp = 10;
+
+                                break;
+                            case 'winner':
+                                
+                                
+                        }
+
+
                     }
                     
                     
