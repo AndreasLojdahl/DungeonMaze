@@ -33,8 +33,8 @@ export default {
                     <input type="radio" name="tutorial" value="tutorial">Tutorial 
                 </form> 
             </span>
-        </div>
-        -->
+        </div>-->
+        
 
         <div :class="{popup, mymodal: isVisible, storypopup: isActive}"
         tabindex="0" ref="modal">
@@ -54,7 +54,7 @@ export default {
             </span>
         </h3>
         <h3 class="level">
-            Level: 
+            Character-level: 
             <span class="level-number">
                 {{ levelNumber }}
             </span>

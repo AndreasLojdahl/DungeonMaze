@@ -1,7 +1,5 @@
 export default{
 
-    //props:['backPack'],
-
     template:`
     <div class="item-shop-window">
         <div class="buttons">
@@ -24,7 +22,7 @@ export default{
                     <div class="shop-gold-text">{{itemList.torch}} gold</div>
                 </div>
                 <div class="shield-option">
-                    <div class="shield" @click="addShield">Sword</div>
+                    <div class="shield" @click="addShield"></div>
                     <div class="shield-text">Shield</div>
                     <div class="shop-gold-text">{{itemList.shield}} gold</div>
                 </div>
@@ -43,13 +41,7 @@ export default{
     data(){
         return{
 
-            shopwindow:'hideShop',
-
-            //sword: 0,
-            //shield: 0,
-            //torch: 0,
-            //potion: 0,
-            //heroGold: 0,  
+            shopwindow:'hideShop', 
 
             itemList:{
                 potion: 50,
@@ -60,7 +52,6 @@ export default{
 
             backpack: null,
                 
-            
         }
     },
     methods:{
@@ -77,64 +68,57 @@ export default{
         addSword(){
               
             if(this.backpack.swordamount < 1){
+
                 if(this.backpack.goldamount >= this.itemList.sword){
-                    //this.sword++;
                     this.$emit('addItem','sword',this.itemList.sword);
-                    //this.heroGold = this.heroGold - this.itemList.sword;
+                    this.$emit('transaction','afford')
+                }
+                else{
+                    this.$emit('transaction','notAfford')
                 }        
             }
-            
         },
         addShield(){
+
             if(this.backpack.shieldamount < 1){
+
                 if(this.backpack.goldamount >= this.itemList.shield){
-                    //this.shield++;
                     this.$emit('addItem','shield',this.itemList.shield);
-                    //this.heroGold = this.heroGold - this.itemList.shield;
+                    this.$emit('transaction','afford') 
                 }
-                
+                else{
+                    this.$emit('transaction','notAfford')
+                }  
             }
-            
-            //this.backPack.push(this.shield);
         },
+
         addTorch(){
             if(this.backpack.torchamount < 1){
-                if(this.backpack.goldamount >= this.itemList.torch){
-                    //this.torch++;
+
+                if(this.backpack.goldamount >= this.itemList.torch){ 
                     this.$emit('addItem','torch',this.itemList.torch);
-                    //this.heroGold = this.heroGold - this.itemList.torch;
+                    this.$emit('transaction','afford')    
                 }
-                
+                else{
+                    this.$emit('transaction','notAfford')
+                }
             }
-            
-            //this.backPack.push(this.shield);
         },
+
         addHp(){
+
             if(this.backpack.potionamount < 4){
+
                 if(this.backpack.goldamount >= this.itemList.potion){
-                    //this.potion++;
                     this.$emit('addItem','potion',this.itemList.potion);
-                    //this.heroGold = this.heroGold - this.itemList.potion;
+                    this.$emit('transaction','afford')
                 }
-                
+                else{
+                    this.$emit('transaction','notAfford')
+                } 
             }
             
-            //this.backPack.push(this.healthPotion);
         },
-
-        /*updateItemShopGold(amountOfGold,action){
-
-            switch(action){
-                case 'add':
-                    this.heroGold += amountOfGold;
-                    console.log('inne i updateitemshop'+this.heroGold)
-                    break;
-                case 'remove':
-                    this.heroGold -= amountOfGold;
-                    break;
-                }
-            
-        },*/
 
         setBackPack(backpack){
             this.backpack = backpack
