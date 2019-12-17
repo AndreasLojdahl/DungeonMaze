@@ -323,9 +323,10 @@
                         
                     },
 
-                    spawnTreasureChests(){
-                            let generatedAmountOfGold = Math.floor((Math.random() * 150) + 50);
+                    spawnTreasureChests(){ 
                         for(let i = 0; i < 5; i++){
+                            let generatedAmountOfGold = Math.floor((Math.random() * 100) + 50);
+                            console.log('generated gold: '+generatedAmountOfGold);
                             let generatedChestPosition = this.getRandomNumber(this.chestPositions);
                         
                             this.chests[i] = {
@@ -443,6 +444,7 @@
                         
                         let match = 0 
                         for (let r of this.room1) {
+                            console.log('inne i room 1');
                             if(this.heroPosition.x === r[0] && this.heroPosition.y === r[1]){
                                 if(this.isMonsterNearBy(this.room1, positionY, positionX)){
                                     this.$refs.hero.updateMessage('mustDefeatMonster')
@@ -450,12 +452,14 @@
                                 }
                                 else{
                                     this.grabTreasureChest(positionY, positionX)
+                                    match++
                                 }                        
                             
                             }
                         
                         }
                         for (let r of this.room2) {
+                            console.log('inne i room 2');
                             if(this.heroPosition.x === r[0] && this.heroPosition.y === r[1]){
                                 if(this.isMonsterNearBy(this.room2, positionY, positionX)){
                                     this.$refs.hero.updateMessage('mustDefeatMonster')
@@ -463,12 +467,14 @@
                                 }
                                 else{
                                     this.grabTreasureChest(positionY, positionX)
+                                    match++
                                 }
                             
                             }
                             
                         }
                         for (let r of this.room3) {
+                            console.log('inne i room 3');
                             if(this.heroPosition.x === r[0] && this.heroPosition.y === r[1]){
                                 if(this.isMonsterNearBy(this.room3, positionY, positionX)){
                                     this.$refs.hero.updateMessage('mustDefeatMonster')
@@ -476,11 +482,13 @@
                                 }
                                 else{
                                     this.grabTreasureChest(positionY, positionX)
+                                    match++
                                 }
                             }
                             
                         }
                         for (let r of this.room4) {
+                            console.log('inne i room 4');
                             if(this.heroPosition.x === r[0] && this.heroPosition.y === r[1]){
                                 if(this.isMonsterNearBy(this.room4, positionY, positionX)){
                                     this.$refs.hero.updateMessage('mustDefeatMonster')
@@ -488,12 +496,14 @@
                                 }
                                 else{
                                     this.grabTreasureChest(positionY, positionX)
+                                    match++
                                 }
                                 
                             }
                             
                         }
                         for (let r of this.room5) {
+                            console.log('inne i room 5');
                             if(this.heroPosition.x === r[0] && this.heroPosition.y === r[1]){
                                 if(this.isMonsterNearBy(this.room5, positionY, positionX)){
                                     this.$refs.hero.updateMessage('mustDefeatMonster')
@@ -501,15 +511,14 @@
                                 }
                                 else{
                                     this.grabTreasureChest(positionY, positionX)
+                                    match++
                                 }
                             }
                             
                         }
-                        
                         if(match === 0 ){
                             this.grabTreasureChest(positionY, positionX)
                         }
-                        
                         
                     },
                     isMonsterNearBy(room, positionY, positionX){
