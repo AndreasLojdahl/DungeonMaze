@@ -32,8 +32,8 @@ export default {
                     <input type="radio" name="tutorial" value="tutorial">Tutorial 
                 </form> 
             </span>
-        </div>
-        -->
+        </div>-->
+        
 
         <div :class="{popup, mymodal: isVisible, storypopup: isActive}"
         tabindex="0" ref="modal">

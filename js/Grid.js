@@ -369,6 +369,9 @@
                         if ((y === 7) && (x === 1) && (this.shownMessage1 == false)){
                         this.$refs.hero.updateMessage('storyMessage1'); 
                         this.shownMessage1 = true;
+                        var soundtrack = new Audio('audio/soundtrack-DungeonMaze.mp3')
+                        soundtrack.volume = 0.2;
+                        soundtrack.play();
                     }
                     if ((y === 9) && (x === 9) && (this.shownMessage2 == false)){
                         this.$refs.hero.updateMessage('storyMessage2'); 
@@ -537,10 +540,7 @@
                     console.log(this.tiles)
                     console.log(this.flatTiles)
                     //this.spawnTreasureChests()
-                    this.createRooms()
-                    var soundtrack = new Audio('audio/soundtrack-DungeonMaze.mp3')
-                    soundtrack.volume = 0.2;
-                    soundtrack.play();
+                    this.createRooms()                                    
                     
                 },
 
