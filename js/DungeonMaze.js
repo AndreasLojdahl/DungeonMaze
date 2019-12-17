@@ -54,7 +54,7 @@ export default {
             </span>
         </h3>
         <h3 class="level">
-            Level: 
+            Character-level: 
             <span class="level-number">
                 {{ levelNumber }}
             </span>

@@ -11,7 +11,7 @@ export default{
     template:`
     <div ref="shadow" id="shadow-overlay">
         <BackPack ref="backpack"></BackPack>
-        <ItemShop @addItem="updateBackPack" ref="itemshop"></ItemShop>
+        <ItemShop @addItem="updateBackPack" @transaction="updateMessage" ref="itemshop"></ItemShop>
         
         <div :class="rotate" ref="hero" id="character"></div>
           
@@ -211,6 +211,14 @@ export default{
                     this.message = "You find yourself at a crossroads. Left or right? But before you make the decision, you spot another note on the wall right in "+
                     "front of you. 'DO NOT GO RIGHT. RIGHT IS NEVER THE RIGHT PATH. WHATEVER YOU DO, DO NOT GO RIGHT.' At the bottom of the note, a tiny scribble: "+
                     "If you do go right... don't touch the diamond."
+                    this.$emit('changemessage', this.message);
+                    break;
+                case 'afford':
+                    this.message = 'You have bought an Item!'
+                    this.$emit('changemessage', this.message);
+                    break;
+                case 'notAfford':
+                    this.message = "You don't have enough gold!"
                     this.$emit('changemessage', this.message);
                     break;
             }
