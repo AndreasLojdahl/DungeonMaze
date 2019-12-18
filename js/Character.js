@@ -1,15 +1,20 @@
-import Monster from './Monster.js'
-import Hero from './Hero.js'
-import Finalboss from './Finalboss.js'
-
-
+import ItemShop from './ItemShop.js'
+import BackPack from './BackPack.js'
 export default{
 
-    props:['position','backPack'],
+    props:['position'],
+    components:{
+        ItemShop,
+        BackPack
+    },
 
     template:`
     <div ref="shadow" id="shadow-overlay">
+        <BackPack ref="backpack"></BackPack>
+        <ItemShop @addItem="updateBackPack" @transaction="updateMessage" ref="itemshop"></ItemShop>
+        
         <div :class="rotate" ref="hero" id="character"></div>
+          
     </div>
     `,
     
@@ -19,7 +24,7 @@ export default{
             y: 0,
             health: 15,
             attack: 10,
-            level: 1,
+            level: 0,
             rotate: 'right',
         }
         
@@ -47,7 +52,14 @@ export default{
             handler(){
                 this.updateMessage()
             }
-        }
+        },
+        /*backPack:{
+            deep: true,
+            handler(){
+                this.updateBackPack()
+            }
+        }*/
+
     },
 
     methods:{
@@ -61,20 +73,47 @@ export default{
        
             this.$refs.hero.style.setProperty('top', `calc(${this.position.y} * 6.6667%)`)
            // console.log(this.position.y)
-
-           this.$refs.shadow.style.setProperty('background', 
+            
+           let isTorchEquipped = this.$refs.backpack.isTorchEquipped();
+           if(isTorchEquipped == true){
+            this.$refs.shadow.style.setProperty('background', 
             `radial-gradient(circle at calc(${this.position.x} * 6.6667%) calc(${this.position.y} * 6.6667%), 
-            transparent, black 40%, black 90%, black, black)`)
+            transparent, black 50%, black 80%, black, black)`)
+           }
+           else{
+            this.$refs.shadow.style.setProperty('background', 
+            `radial-gradient(circle at calc(${this.position.x} * 6.6667%) calc(${this.position.y} * 6.6667%), 
+            transparent, black, black, black, black)`)
+           }
+           
         },
+        
+        updateBackPack(typeOfItem,costOfItem){
 
         checkChest() {
         this.heroLevelsUp()
         },
+            switch(typeOfItem){
 
         heroLevelsUp(){
             this.level++,
             this.health++
         },*/
+                case 'sword':
+                    this.$refs.backpack.updateBackpack('sword',costOfItem);
+                    break;
+                case 'shield':
+                    this.$refs.backpack.updateBackpack('shield',costOfItem);
+                    break;
+                case 'torch':
+                    this.$refs.backpack.updateBackpack('torch',costOfItem);
+                    break;
+                case 'potion':
+                    this.$refs.backpack.updateBackpack('potion',costOfItem);
+                    this.health += 5;
+                    break;
+            }
+        },
 
         fightMonster(monsterHealth,type){
 
@@ -83,28 +122,47 @@ export default{
 
             while (this.health > 0){
 
-                monsterHealth--;
-                this.health--;
+                let isSwordEquipped = this.$refs.backpack.isItemEquipped('sword');
+                let isShieldEquipped = this.$refs.backpack.isItemEquipped('shield');
 
-                if (monsterHealth == 0){
-                    alert("You defeated the monster!");  
-                    return;
-                } 
-                if (this.health == 0){
+                if(isSwordEquipped == true){
+                    monsterHealth = monsterHealth -2;
+                }else{
+                    monsterHealth--;
+                }
+                if(isShieldEquipped == true){
+                    this.health--;
+                }
+                else{
+                    this.health = this.health -2;
+                }
+                if (this.health <= 0){
 
                     this.updateMessage('dead');
 
                     this.$refs.hero.style.setProperty('background','none')
                     setTimeout(function(){ window.location.reload();},1000);
+                    //this.$emit('restart','dead')
                     
                     //alert("You have died. GAME OVER."); 
                     //window.location.reload();
                 }
+                
+                if (monsterHealth <= 0){
+                    this.updateMessage(type);
+                    //alert('You have defeated the monster!');
+                    return 'monsterIsDead';
+                } 
+                
             }
         },
-        updateHeroLevel(){
+        updateHeroLevel(gold){
             this.level += 1;
             this.health += 10;
+           
+            this.$refs.backpack.updateBackpack('gold',gold);
+           
+            
         },
 
         updateHealth(){
@@ -117,25 +175,17 @@ export default{
             
             //console.log(this.level);
             this.$emit('changelevel', this.level);
+
+        },
+        updateShopVisability(){
+            this.$refs.itemshop.updateShopVis();
         },
 
         updateDirection(newDirection){
-            console.log('inne i updateDirection')
+
             if(newDirection !== this.direction){
                 this.rotate = newDirection;
             }
-           
-
-            /*switch(newDirection){
-                case 'right':
-                    console.log('inne i rgiht direct')
-                        this.direction = 'right';
-                        break;
-                case 'left':
-                        this.direction = 'left';
-                        break;
-            }*/
-          
         },
 
         updateMessage(type){
@@ -170,6 +220,14 @@ export default{
                     "If you do go right... don't touch the diamond."
                     this.$emit('changemessage', this.message);
                     break;
+                case 'afford':
+                    this.message = 'You have bought an Item!'
+                    this.$emit('changemessage', this.message);
+                    break;
+                case 'notAfford':
+                    this.message = "You don't have enough gold!"
+                    this.$emit('changemessage', this.message);
+                    break;
             }
         }
     },
@@ -179,6 +237,7 @@ export default{
         this.updateDirection();
         this.updatePosition();
         this.updateHealth();
+        this.$refs.itemshop.setBackPack(this.$refs.backpack);
         //this.updateLevel();
     } 
 

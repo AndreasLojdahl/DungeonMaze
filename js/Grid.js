@@ -7,6 +7,25 @@ import Hero from './Hero.js'
 import Finalboss from './Finalboss.js'
 
 
+                template:`
+                <div class="grid-layout">
+                
+                <tile  
+                    v-for="(tile, i) of flatTiles"
+                    v-bind:properties="tile"
+                    v-bind:key="'tile' + i + tile.x + tile.y"
+                    v-bind:class="'tile-type-' + tile.type"
+                    ref="flatTiles"
+                    ></tile>
+                    
+                    <Character 
+                    ref="hero" 
+                    @restart="restartGame"
+                    @changemessage="changeheromessage"
+                    @changehealth="changeherohealth" 
+                    @changelevel="changeherolevel" 
+                    v-bind:position="heroPosition">
+                    </Character>
 
 
 
@@ -93,11 +112,11 @@ export default{
                         ['W','W','W',' ',' ',' ',' ',' ',' ',' ','W',' ',' ',' ','W'],
                         ['W','W',' ',' ',' ','W','W','W','W',' ',' ',' ',' ',' ','W'],
                         ['W',' ',' ',' ',' ','W',' ',' ','W',' ','W','W',' ',' ','W'],
-                        ['W',' ','W','W',' ','W',' ',' ',' ',' ',' ','W',' ','W','W'],
+                        ['W',' ','W','W',' ','W','B',' ',' ',' ',' ','W',' ','W','W'],
                         ['W',' ',' ',' ',' ','W',' ',' ','W',' ','W','W','W','W','W'],
                         ['W','W',' ',' ',' ','W','W','W','W',' ',' ',' ',' ','W','W'],
                         [' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W','W',' ',' ','W'],
-                        ['W',' ','W','W','W','W','W','W','W',' ','W','W',' ','B','W'],
+                        ['W',' ','W','W','W','W','W','W','W',' ','W','W',' ',' ','W'],
                         ['W',' ','W',' ',' ',' ','W','W',' ',' ',' ','W','W','W','W'],
                         ['W',' ',' ',' ',' ',' ','W',' ',' ','W',' ',' ',' ','W','W'],
                         ['W',' ','W','W','W','W','W',' ','W','W','W','W',' ',' ','W'],
@@ -154,7 +173,7 @@ export default{
                         heroStats:{
                             hp: 10,
                             attack: 3,
-                            level: 1
+                            level: 0
                         },
 
                     monsterPositions: [
@@ -165,26 +184,26 @@ export default{
                         {x: 12, y: 12},
                     ],
 
-                        chestPositions: [
-                            {x: 2, y: 12},
-                            {x: 2, y: 2},
-                            {x: 10, y: 4},
-                            {x: 12, y: 4},
-                            {x: 4, y: 13},
-                            {x: 10, y: 13},
-                            {x: 7, y: 3},
-                            {x: 11, y: 1},
-                            {x: 3, y: 9},
-                            {x: 8, y: 13},
-                        ],
+                    chestPositions: [
+                        {x: 2, y: 12},
+                        {x: 2, y: 2},
+                        {x: 10, y: 4},
+                        {x: 12, y: 4},
+                        {x: 4, y: 13},
+                        {x: 10, y: 13},
+                        {x: 13, y: 1},
+                        {x: 11, y: 1},
+                        {x: 3, y: 9},
+                        {x: 8, y: 13},
+                    ],
 
-                        chests: [],
-                        monsters: [],
-                        room1: [],
-                        room2: [],
-                        room3: [],
-                        room4: [],
-                        room5: [],
+                    chests: [],
+                    monsters: [],
+                    room1: [],
+                    room2: [],
+                    room3: [],
+                    room4: [],
+                    room5: [],
 
             chestPositions: [
                 {x: 2, y: 12},
@@ -213,17 +232,16 @@ export default{
                 shield:'',
                 helmet:'',
                 chest:'',
+                    shownMessage1: false,
+                    shownMessage2: false,
+                    monsterInRoom: false,
+                }
             },
 
                 computed:{
                     flatTiles(){
                         return this.tiles.flat()
                     }
-                },
-                createFogOfWar(){
-                    let index = 7*15 + 0
-                    console.log(this.flatTiles);
-                    this.$refs.flatTiles[index].updateTileVisibility();
                 },
                 
                 // moveUp(){ 
@@ -281,11 +299,11 @@ export default{
                             this.checkForStoryMessage(futurePositionY,this.heroPosition.x);
                             this.checkForMonster(futurePositionY, this.heroPosition.x); 
                             this.checkForItem(futurePositionY,this.heroPosition.x);
-                            if(!this.monsterInRoom && this.futurePositionY !== 'C'){
+                            if(!this.monsterInRoom && this.grid[futurePositionY][this.heroPosition.x] !== 'C'){
                                 this.heroPosition.y -= 1;
                             }
-                            else{
-                                this.heroPosition.y = this.heroPosition.y
+                            else if(this.monsterInRoom && this.grid[futurePositionY][this.heroPosition.x] !== 'C'){
+                                this.heroPosition.y -= 1;
                             }
                             
                         }         
@@ -299,11 +317,11 @@ export default{
                             this.checkForMonster(this.heroPosition.y, futurePositionX);
                             this.checkForItem(this.heroPosition.y, futurePositionX)
                             this.$refs.hero.updateDirection('right');
-                            if(!this.monsterInRoom && this.futurePositionX !== 'C'){
+                            if(!this.monsterInRoom && this.grid[this.heroPosition.y][futurePositionX] !== 'C'){
                             this.heroPosition.x += 1;
                             }
-                            else{
-                                this.heroPosition.x = this.heroPosition.x
+                            else if(this.monsterInRoom && this.grid[this.heroPosition.y][futurePositionX] !== 'C'){
+                                this.heroPosition.x += 1;
                             }
                         }
                     },
@@ -313,11 +331,13 @@ export default{
                             this.checkForStoryMessage(futurePositionY,this.heroPosition.x);
                             this.checkForMonster(futurePositionY,this.heroPosition.x);
                             this.checkForItem(futurePositionY,this.heroPosition.x);
-                            if(!this.monsterInRoom && this.futurePositionY !== 'C'){
+                            if(!this.monsterInRoom && this.grid[futurePositionY][this.heroPosition.x] !== 'C'){
                             this.heroPosition.y += 1;
-                            }else{
-                                this.heroPosition.y = this.heroPosition.y
                             }
+                            else if(this.monsterInRoom && this.grid[futurePositionY][this.heroPosition.x] !== 'C'){
+                                this.heroPosition.y += 1;
+                            }
+                            console.log(this.heroPosition.y, this.heroPosition.x)
                         }
 
                     },
@@ -329,8 +349,11 @@ export default{
                             this.checkForItem(this.heroPosition.y, futurePositionX);
                             this.$refs.hero.updateDirection('left');
                             if(futurePositionX != -1){
-                                if(!this.monsterInRoom && this.futurePositionX !== 'C'){
+                                if(!this.monsterInRoom && this.grid[this.heroPosition.y][futurePositionX] !== 'C'){
                                 this.heroPosition.x -= 1;
+                                }
+                                else if(this.monsterInRoom && this.grid[this.heroPosition.y][futurePositionX] !== 'C'){
+                                    this.heroPosition.x -= 1;
                                 }
                             }
                         }
@@ -356,6 +379,7 @@ export default{
                                 this.changeTileType(positionY, positionX);
                             }
                             setTimeout(function(){ window.location.reload();},1000);
+                            //this.restartGame('winner');
                         }
                     },
                 
@@ -368,14 +392,25 @@ export default{
                     grabTreasureChest(positionY, positionX){
                         var treasureAudio = new Audio('audio/treasure-audio.mp3')
                         treasureAudio.play()
+                        console.log('grabchest')
+                        for(let chest of this.chests){
+                            if((chest.y == positionY) && (chest.x == positionX)){
+                                console.log(positionY,chest.y)
+                                console.log(positionX,chest.x)
+                                console.log('inne i if sats')
+                                this.$refs.hero.updateHeroLevel(chest.amountOfGold);          
+                                this.changeTileType(positionY, positionX);
+                            }
+                            
+                        }
 
-                        this.$refs.hero.updateHeroLevel();          
-                        this.changeTileType(positionY, positionX);
+                        
                     },
 
-                    spawnTreasureChests(){
-                            let generatedAmountOfGold = Math.floor((Math.random() * 150) + 50);
+                    spawnTreasureChests(){ 
                         for(let i = 0; i < 5; i++){
+                            let generatedAmountOfGold = Math.floor((Math.random() * 100) + 50);
+                            console.log('generated gold: '+generatedAmountOfGold);
                             let generatedChestPosition = this.getRandomNumber(this.chestPositions);
                         
                             this.chests[i] = {
@@ -397,6 +432,7 @@ export default{
                                 monsterHealth: generatedAmountOfHealth
                             }
                             this.grid[generatedMonsterPosition.y][generatedMonsterPosition.x] = 'M'; //places a Monster in the grid
+                            //console.log(this.monsters);
                             
                         }
                     },
@@ -421,6 +457,9 @@ export default{
                         if ((y === 7) && (x === 1) && (this.shownMessage1 == false)){
                         this.$refs.hero.updateMessage('storyMessage1'); 
                         this.shownMessage1 = true;
+                        var soundtrack = new Audio('audio/soundtrack-DungeonMaze.mp3')
+                        soundtrack.volume = 0.2;
+                        soundtrack.play();
                     }
                     if ((y === 9) && (x === 9) && (this.shownMessage2 == false)){
                         this.$refs.hero.updateMessage('storyMessage2'); 
@@ -489,83 +528,81 @@ export default{
                         
                         let match = 0 
                         for (let r of this.room1) {
+                            console.log('inne i room 1');
                             if(this.heroPosition.x === r[0] && this.heroPosition.y === r[1]){
-                                console.log('in room 1')
                                 if(this.isMonsterNearBy(this.room1, positionY, positionX)){
-                                    console.log('must defeat monster')
                                     this.$refs.hero.updateMessage('mustDefeatMonster')
                                     match++
                                 }
                                 else{
                                     this.grabTreasureChest(positionY, positionX)
+                                    match++
                                 }                        
                             
                             }
                         
                         }
                         for (let r of this.room2) {
+                            console.log('inne i room 2');
                             if(this.heroPosition.x === r[0] && this.heroPosition.y === r[1]){
-                                console.log('in room 2')
                                 if(this.isMonsterNearBy(this.room2, positionY, positionX)){
-                                    console.log('must defeat monster')
                                     this.$refs.hero.updateMessage('mustDefeatMonster')
                                     match++
                                 }
                                 else{
                                     this.grabTreasureChest(positionY, positionX)
+                                    match++
                                 }
                             
                             }
                             
                         }
                         for (let r of this.room3) {
+                            console.log('inne i room 3');
                             if(this.heroPosition.x === r[0] && this.heroPosition.y === r[1]){
-                                console.log('in room 3')
                                 if(this.isMonsterNearBy(this.room3, positionY, positionX)){
-                                    console.log('must defeat monster')
                                     this.$refs.hero.updateMessage('mustDefeatMonster')
                                     match++
                                 }
                                 else{
                                     this.grabTreasureChest(positionY, positionX)
+                                    match++
                                 }
                             }
                             
                         }
                         for (let r of this.room4) {
+                            console.log('inne i room 4');
                             if(this.heroPosition.x === r[0] && this.heroPosition.y === r[1]){
-                                console.log('in room 4')
                                 if(this.isMonsterNearBy(this.room4, positionY, positionX)){
-                                    console.log('must defeat monster')
                                     this.$refs.hero.updateMessage('mustDefeatMonster')
                                     match++
                                 }
                                 else{
                                     this.grabTreasureChest(positionY, positionX)
+                                    match++
                                 }
                                 
                             }
                             
                         }
                         for (let r of this.room5) {
+                            console.log('inne i room 5');
                             if(this.heroPosition.x === r[0] && this.heroPosition.y === r[1]){
-                                console.log('in room 5')
                                 if(this.isMonsterNearBy(this.room5, positionY, positionX)){
-                                    console.log('must defeat monster')
                                     this.$refs.hero.updateMessage('mustDefeatMonster')
                                     match++
                                 }
                                 else{
                                     this.grabTreasureChest(positionY, positionX)
+                                    match++
                                 }
                             }
                             
                         }
-                        
                         if(match === 0 ){
                             this.grabTreasureChest(positionY, positionX)
                         }
-                        
                         
                     },
                     isMonsterNearBy(room, positionY, positionX){
@@ -589,6 +626,84 @@ export default{
                             return false
                         }
                         
+                    },
+                    restartGame(stateOfGame){
+
+                        switch(stateOfGame){
+                            case 'dead':
+                                this.resetGlobalVariables(stateOfGame);
+                                this.createMap();
+                                this.createRooms();
+                                break;
+                            case 'winner':
+                                this.resetGlobalVariables(stateOfGame);
+                                this.createMap();
+                                this.createRooms();
+                        }
+                        
+                    },
+                    resetGlobalVariables(stateOfGame){
+                        this.tiles = [];
+                        this.grid = [
+                            ['W','W','W','W','W','W','W','W','W','W','W','W','W','W','W'],
+                            ['W','W','W',' ',' ',' ',' ',' ',' ',' ','W',' ',' ',' ','W'],
+                            ['W','W',' ',' ',' ','W','W','W','W',' ',' ',' ',' ',' ','W'],
+                            ['W',' ',' ',' ',' ','W',' ',' ','W',' ','W','W',' ',' ','W'],
+                            ['W',' ','W','W',' ','W','B',' ',' ',' ',' ','W',' ','W','W'],
+                            ['W',' ',' ',' ',' ','W',' ',' ','W',' ','W','W','W','W','W'],
+                            ['W','W',' ',' ',' ','W','W','W','W',' ',' ',' ',' ','W','W'],
+                            [' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W','W',' ',' ','W'],
+                            ['W',' ','W','W','W','W','W','W','W',' ','W','W',' ',' ','W'],
+                            ['W',' ','W',' ',' ',' ','W','W',' ',' ',' ','W','W','W','W'],
+                            ['W',' ',' ',' ',' ',' ','W',' ',' ','W',' ',' ',' ','W','W'],
+                            ['W',' ','W','W','W','W','W',' ','W','W','W','W',' ',' ','W'],
+                            ['W',' ',' ','W','W',' ',' ',' ',' ','W','W','W',' ',' ','W'],
+                            ['W','W','W','W',' ',' ',' ',' ',' ','W',' ',' ',' ',' ','W'],
+                            ['W','W','W','W','W','W','W','W','W','W','W','W','W','W','W'],
+                        ],
+                        this.monsterPositions = [
+                            {x: 12, y: 2},
+                            {x: 4, y: 10},
+                            {x: 13, y: 8},
+                            {x: 7, y: 13},
+                            {x: 12, y: 12},
+                        ],
+    
+                        this.chestPositions = [
+                            {x: 2, y: 12},
+                            {x: 2, y: 2},
+                            {x: 10, y: 4},
+                            {x: 12, y: 4},
+                            {x: 4, y: 13},
+                            {x: 10, y: 13},
+                            {x: 13, y: 1},
+                            {x: 11, y: 1},
+                            {x: 3, y: 9},
+                            {x: 8, y: 13},
+                        ],
+                        this.chests = [];
+                        this.monsters = [];
+                        this.room1 = [];
+                        this.room2 = [];
+                        this.room3 = [];
+                        this.room4 = [];
+                        this.room5 = [];
+                        this.heroPosition.x = 0;
+                        this.heroPosition.y = 7;
+                        this.monsterInRoom = false;
+
+                        switch(stateOfGame){
+                            case 'dead':
+                                this.heroStats.level = 0;
+                                this.heroStats.hp = 10;
+
+                                break;
+                            case 'winner':
+                                
+                                
+                        }
+
+
                     }
                     
                     
@@ -599,10 +714,7 @@ export default{
                     console.log(this.tiles)
                     console.log(this.flatTiles)
                     //this.spawnTreasureChests()
-                    this.createRooms()
-                    var soundtrack = new Audio('audio/soundtrack-DungeonMaze.mp3')
-                    soundtrack.volume = 0.2;
-                   // soundtrack.play();
+                    this.createRooms()                                    
                     
                 },
 
@@ -613,12 +725,14 @@ export default{
                                 this.moveLeft()
                             }
                             if(e.keyCode === 38){  
+                                e.preventDefault()
                                 this.moveUp()                                                               
                             }
                             if(e.keyCode === 39){                                
                                 this.moveRight()
                             }
-                            if(e.keyCode === 40){                               
+                            if(e.keyCode === 40){     
+                                e.preventDefault()                          
                                 this.moveDown()
                             }
                             if (event.keyCode === 87) { //w

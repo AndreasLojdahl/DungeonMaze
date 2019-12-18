@@ -1,5 +1,5 @@
 import Grid from './Grid.js'
-
+//import ItemShop from './ItemShop.js'
 export default {
 
     props:['health'],
@@ -7,6 +7,7 @@ export default {
 
     components:{
         Grid,
+        //ItemShop
     },
     
     template: ` 
@@ -32,8 +33,8 @@ export default {
                     <input type="radio" name="tutorial" value="tutorial">Tutorial 
                 </form> 
             </span>
-        </div>
-        -->
+        </div>-->
+        
 
         <div :class="{popup, mymodal: isVisible, storypopup: isActive}"
         tabindex="0" ref="modal">
@@ -53,7 +54,7 @@ export default {
             </span>
         </h3>
         <h3 class="level">
-            Level: 
+            Character-level: 
             <span class="level-number">
                 {{ levelNumber }}
             </span>
@@ -130,7 +131,7 @@ export default {
             setTimeout(() => {
                 this.$refs.modal.style.setProperty('display', 'none');
                 //this.popup = 'hide';
-                }, 200000);
+                }, 1000);
             }          
         },
         hideDiv(){
