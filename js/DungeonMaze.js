@@ -59,12 +59,18 @@ export default {
                 {{ levelNumber }}
             </span>
         </h3>
+        <h3 class="money">Money: 
+            <span class="money-amount" 
+            >{{ moneyAmount }}
+            </span>
+        </h3>
         </div>
 
         <grid @changehealth="changedhealth" 
         @changelevel="changedlevel" 
-        @changemessage="changedmessage">
-        </grid>
+        @changemoney="changedmoney" 
+        @changemessage="changedmessage"
+        ></grid>
        
     </div>  
     `, 
@@ -73,6 +79,7 @@ export default {
         return{
             healthPoints: 0,
             levelNumber: 0,
+            moneyAmount: 0,
             message: '',
             popup: 'hide',
             isActive: false,
@@ -92,6 +99,10 @@ export default {
         changedlevel(newlevel){
             console.log(this.levelNumber, newlevel);
             this.levelNumber = newlevel;
+        },
+        changedmoney(newmoney){
+            console.log(this.moneyAmount, newmoney);
+            this.moneyAmount = newmoney;
         },
         changedmessage(newmessage){
             this.message = newmessage;

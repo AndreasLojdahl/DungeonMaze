@@ -88,6 +88,32 @@ h3{
   transition: 170ms;
 }
 
+.finalboss{
+  display: flex;
+  width: 6.6667%;
+  height: 6.6667%;   
+  /*background-color: green;*/
+  position: absolute;
+  background: url("/images/finalboss.png");
+  background-size: 100% 100%;
+  left: calc(0 * 6.6667%);   
+  top: calc(7 * 6.6667%); 
+  border: 1px solid black;
+}
+
+.chest1{
+  display: flex;
+  width: 6.6667%;
+  height: 6.6667%;   
+  /*background-color: green;*/
+  position: absolute;
+  background: url("/images/BossQuestItemChest.png");
+  background-size: 100% 100%;
+  left: calc(0 * 6.6667%);   
+  top: calc(7 * 6.6667%); 
+  border: 1px solid black;
+}
+
 .monster{
   display: flex;
   width: 6.6667%;
@@ -233,7 +259,6 @@ h3{
   font-size: 125%;
   width: 70%;
   padding: 5%;
-  
 }
 
 .show{

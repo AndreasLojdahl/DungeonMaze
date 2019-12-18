@@ -3,11 +3,14 @@
             import Monster from './Monster.js'
             import Finalboss from './Finalboss.js'
 
+            
+            
             export default{
                 components:{
                     Tile,
                     Character,
                     Monster,
+                    // shownMessage2,
                     Finalboss
                 },
 
@@ -24,12 +27,14 @@
                     
                     <Character 
                     ref="hero" 
-                    @restart="restartGame"
                     @changemessage="changeheromessage"
                     @changehealth="changeherohealth" 
                     @changelevel="changeherolevel" 
+                    @changemoney="changeheromoney" 
                     v-bind:position="heroPosition">
                     </Character>
+
+                    <Finalboss v-bind:position="finalBossData"></Finalboss>
 
                     <!--
                     <Monster tileArray="flatTiles"></Monster>
@@ -74,7 +79,7 @@
                         ['W','W','W',' ',' ',' ',' ',' ',' ',' ','W',' ',' ',' ','W'],
                         ['W','W',' ',' ',' ','W','W','W','W',' ',' ',' ',' ',' ','W'],
                         ['W',' ',' ',' ',' ','W',' ',' ','W',' ','W','W',' ',' ','W'],
-                        ['W',' ','W','W',' ','W','B',' ',' ',' ',' ','W',' ','W','W'],
+                        ['W',' ','W','W',' ','W','F',' ',' ',' ',' ','W','C','W','W'],
                         ['W',' ',' ',' ',' ','W',' ',' ','W',' ','W','W','W','W','W'],
                         ['W','W',' ',' ',' ','W','W','W','W',' ',' ',' ',' ','W','W'],
                         [' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','W','W',' ',' ','W'],
@@ -98,15 +103,15 @@
                             y:7
                         },
 
-                        itemPosition1:{
-                            x:12,
-                            y:4
-                        },
+                         itemPosition1:{
+                             x:12,
+                             y:4
+                         },
 
-                        itemPosition2:{
-                            x:4,
-                            y:13
-                        },
+                         itemPosition2:{
+                             x:4,
+                             y:13
+                         },
 
                         finalBossData:{
                             x:6,
@@ -148,12 +153,25 @@
                     room4: [],
                     room5: [],
 
+                    backPack:{
+                        ironSword:'',
+                        shield:'',
+                        helmet:'',
+                        chest:'',
+                    },
+            
                     shownMessage1: false,
                     shownMessage2: false,
+                    shownMessage3: false,
+                    shownMessage4: false,
+                    shownMessage5: false,
                     monsterInRoom: false,
+                
                 }
+                 
+            
             },
-
+                
                 computed:{
                     flatTiles(){
                         return this.tiles.flat()
@@ -214,6 +232,7 @@
                         if (this.grid[futurePositionY][this.heroPosition.x] !== 'W'){
                             this.checkForStoryMessage(futurePositionY,this.heroPosition.x);
                             this.checkForMonster(futurePositionY, this.heroPosition.x); 
+                            this.checkForFinalBoss(futurePositionY, this.heroPosition.x); 
                             this.checkForItem(futurePositionY,this.heroPosition.x);
                             if(!this.monsterInRoom && this.grid[futurePositionY][this.heroPosition.x] !== 'C'){
                                 this.heroPosition.y -= 1;
@@ -231,6 +250,7 @@
                         if (this.grid[this.heroPosition.y][futurePositionX] !== 'W'){
                             this.checkForStoryMessage(this.heroPosition.y,futurePositionX);
                             this.checkForMonster(this.heroPosition.y, futurePositionX);
+                            this.checkForFinalBoss(this.heroPosition.y, futurePositionX);
                             this.checkForItem(this.heroPosition.y, futurePositionX)
                             this.$refs.hero.updateDirection('right');
                             if(!this.monsterInRoom && this.grid[this.heroPosition.y][futurePositionX] !== 'C'){
@@ -246,6 +266,7 @@
                         if (this.grid[futurePositionY][this.heroPosition.x] !== 'W'){
                             this.checkForStoryMessage(futurePositionY,this.heroPosition.x);
                             this.checkForMonster(futurePositionY,this.heroPosition.x);
+                            this.checkForFinalBoss(futurePositionY,this.heroPosition.x);
                             this.checkForItem(futurePositionY,this.heroPosition.x);
                             if(!this.monsterInRoom && this.grid[futurePositionY][this.heroPosition.x] !== 'C'){
                             this.heroPosition.y += 1;
@@ -262,6 +283,7 @@
                         if (this.grid[this.heroPosition.y][futurePositionX] !== 'W'){
                             this.checkForStoryMessage(this.heroPosition.y,futurePositionX);
                             this.checkForMonster(this.heroPosition.y, futurePositionX);
+                            this.checkForFinalBoss(this.heroPosition.y, futurePositionX);
                             this.checkForItem(this.heroPosition.y, futurePositionX);
                             this.$refs.hero.updateDirection('left');
                             if(futurePositionX != -1){
@@ -299,6 +321,17 @@
                         }
                     },
                 
+                    checkForFinalBoss(positionY, positionX){
+                        if (this.grid[positionY][positionX] === 'F'){
+                          this.$refs.hero.fightFinalBoss(70);
+                          this.grid[positionY][positionX] === ' '
+                          if ((shownMessage2 == true) && (this.shownMessage5 == false)){
+                            this.$refs.hero.updateMessage('storyMessage5'); 
+                            this.shownMessage5 = true;
+                        }
+                                 }
+                                },
+
                     checkForItem(positionY, positionX){
                         if(this.grid[positionY][positionX] === 'C'){
                             this.isHeroInRoom(positionY, positionX)      
@@ -359,6 +392,9 @@
                     changeherolevel(newlevel){
                         this.$emit('changelevel', newlevel);
                     },
+                    changeheromoney(newmoney){
+                        this.$emit('changemoney', newmoney);
+                    },
                     changeheromessage(newmessage){
                         this.$emit('changemessage', newmessage);
                     },
@@ -371,20 +407,17 @@
                     },
                     checkForStoryMessage(y,x){
                         if ((y === 7) && (x === 1) && (this.shownMessage1 == false)){
-                        this.$refs.hero.updateMessage('storyMessage1'); 
-                        this.shownMessage1 = true;
-                        var soundtrack = new Audio('audio/soundtrack-DungeonMaze.mp3')
-                        soundtrack.volume = 0.2;
-                        soundtrack.play();
-                    }
-                    if ((y === 9) && (x === 9) && (this.shownMessage2 == false)){
-                        this.$refs.hero.updateMessage('storyMessage2'); 
-                        this.shownMessage2 = true;
-                    }
-                    if ((y === 13) && (x === 12) && (this.shownMessage3 == false)){
-                        this.$refs.hero.updateMessage('storyMessage3'); 
-                        this.shownMessage2 = true;
-                    }
+                           this.$refs.hero.updateMessage('storyMessage1'); 
+                           this.shownMessage1 = true;
+                       }
+                       if ((y === 4) && (x === 8) && (this.shownMessage3 == false)){
+                           this.$refs.hero.updateMessage('storyMessage3');
+                           this.shownMessage3 = true;
+                       }
+                        if ((y === 4) && (x === 12) && (this.shownMessage2 == false)){
+                            this.$refs.hero.updateMessage('storyMessage2');
+                            this.shownMessage2 = true;
+                        }
                     },
                     getRandomNumber(array) {
                         // randomly pick one position from the array and remove it afterwards so it can't be chosen again
@@ -630,7 +663,10 @@
                     console.log(this.tiles)
                     console.log(this.flatTiles)
                     //this.spawnTreasureChests()
-                    this.createRooms()                                    
+                    this.createRooms()
+                    var soundtrack = new Audio('audio/soundtrack-DungeonMaze.mp3')
+                    soundtrack.volume = 0.2;
+                    soundtrack.play();
                     
                 },
 
@@ -663,6 +699,7 @@
                             else if (event.keyCode === 65) { //a
                                 this.moveLeft();
                             }
+                            
                     })
                 }
             }
