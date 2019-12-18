@@ -323,7 +323,7 @@
                 
                     checkForFinalBoss(positionY, positionX){
                         if (this.grid[positionY][positionX] === 'F'){
-                          this.$refs.hero.fightFinalBoss(70);
+                          this.$refs.hero.fightFinalBoss(40);
                           this.grid[positionY][positionX] === ' '
                           if ((shownMessage2 == true) && (this.shownMessage5 == false)){
                             this.$refs.hero.updateMessage('storyMessage5'); 
