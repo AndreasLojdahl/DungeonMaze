@@ -35,7 +35,7 @@ export default{
     data(){
         return{
             
-            packwindow: 'showPack',
+            packwindow: 'hidePack',
 
             swordamount: 0,
             shieldamount: 0,
