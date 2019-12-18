@@ -189,7 +189,7 @@ export default{
                 
                     alert("Your winner");
 
-                    alert(money);
+                    alert("You have a highscore of" + this.money);
                     
                     return 'finalBossIsDead';
 
