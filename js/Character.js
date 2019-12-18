@@ -188,6 +188,8 @@ export default{
                      this.updateMessage('storyMessage5');
                 
                     alert("Your winner");
+
+                    alert(money);
                     
                     return 'finalBossIsDead';
 
