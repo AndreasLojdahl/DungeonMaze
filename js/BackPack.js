@@ -65,12 +65,12 @@ export default{
             switch(item){
                 case 'gold':
                     this.goldamount += gold;
-                    console.log('updatebackpack'+this.goldamount)
+                    console.log('gold from chest = '+gold)
+                    console.log('updatebackpack '+this.goldamount)
                     break;
                 case 'sword':
                     this.swordamount += 1;
                     this.goldamount -= gold;
-                    
                     break;
                 case 'shield':
                     this.shieldamount +=1;
