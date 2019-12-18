@@ -96,17 +96,21 @@ export default{
         },
         
         updateBackPack(typeOfItem,costOfItem){
+        
 
-        checkChest() {
-        this.heroLevelsUp()
-        },
-            switch(typeOfItem){
-
-       /* heroLevelsUp(){
+/* heroLevelsUp(){
             level++,
             this.attack++,
             this.health++
         },*/
+        // checkChest() {
+        
+        // this.heroLevelsUp()
+        // }
+            
+        switch(typeOfItem){
+
+       
                 case 'sword':
                     this.$refs.backpack.updateBackpack('sword',costOfItem);
                     break;
@@ -203,7 +207,7 @@ export default{
            
             }
         },
-        updateHeroLevel(){
+        // updateHeroLevel(){
         updateHeroLevel(gold){
             this.level += 1;
             this.health += 10;
