@@ -121,8 +121,7 @@ export default{
                 if (finalBossHealth == 0 && this.shownMessage2 == false ){
                     this.updateMessage('storyMessage4');
                 
-                    this.$refs.hero.style.setProperty('background','none')
-                    setTimeout(function(){ window.location.reload();},1000);
+                   
                     
                     return 'finalBossIsDead';
 
@@ -196,7 +195,7 @@ export default{
 
             switch(type){
                  case 'M':
-                    this.message = 'You have defeated a monster!';
+                    this.message = 'You have defeated a Fishmen!';
                     this.$emit('changemessage', this.message);
                     break;
                  case 'B':
@@ -210,8 +209,8 @@ export default{
                
                      case 'storyMessage1':
                     this.message = "You walk down the stares of a large staircase. You wonder if this is the right place. Suddenly you remember your mission. "+
-                    "I was payed to exterminate the Monster in this place " + "the Knight thought. " + "Its supposed to be this Arthro fellow " + "Strange when i think this name I feel sadness. " 
-                    + "The Knight looked around and saw several other monsters. He quickly hid himself. " + "What a bunch of fishmen fellow " + "It semmed like the monsters had been corrupted by something " + "I need to find the source of this curse and destroy it. "
+                    "I was payed to exterminate the Monster in this place " + "the Knight thought. " + "Its supposed to be this Arthro fella " + "Strange when i think this name I feel sadness. " 
+                    + "The Knight looked around and saw several other monsters. He quickly hid himself. " + "What a bunch of fishmen fellas " + "It semmed like the monsters had been corrupted by something " + "I need to find the source of this curse and destroy it. "
                     this.$emit('changemessage', this.message);
                     break;
                 
@@ -223,9 +222,10 @@ export default{
                     break;
                     
                     case 'storyMessage3':
-                    this.message = "As the Knight entered the chamber he sensed that the source of the curse was close. " + "And there he was Arthro the source of the curse. "
-                    + "Arthro had sealed himself in this champer to seal away the curse forever but i seems that he has reached his limit. " + "If something wasnt done soon the curse would spead beyond the maze. "
-                    + "Suddenly the Knight heared a voice in his head! " + "wow i found the monster i most be going in the right direction" 
+                    this.message ="Wow i found the monster i most be going in the right direction. " + "As the Knight entered the chamber he sensed that the source of the curse was close. " + "And there he was Arthro the source of the curse. "
+                    + "Arthro had sealed himself in this champer to seal away the curse forever but i seems that he has reached his limit. " + "If something wasnt done soon the curse would spead beyond the maze. " + "Suddenly a voice told the knight something important. "
+                    + "You need atleast 70 health to defeat him! "
+                     
                     this.$emit('changemessage', this.message);
                     break;   
                     
@@ -235,14 +235,14 @@ export default{
                     break;
                     
                     case 'storyMessage5':
-                    this.message = "as the Knight prepared to deal the killing blow against the puppet that was once his father." + "suddenly the neil he found earlier acted on its own accord "
+                    this.message = "As the Knight prepared to deal the killing blow against the puppet that was once his father." + "suddenly the neil he found earlier acted on its own accord "
                     + "its swong into Arthro and like a anchor dragged the core of the curse out. now it could be destroyed" + "the Knight thrusted fowrad at the curse with his sword and destroyed it. suddenly the celling started to collapse "
-                    + "I need to escape here before i am crushed as well the knight thought " + "The knight looked att the blocked intrance that was his home but he felt no saddness only relief that it was finnaly over"
+                    + "I need to escape here before i am crushed as well the knight thought " + "The knight looked att the blocked intrance that was his home but he felt no saddness only relief that it was finally over"
                     this.$emit('changemessage', this.message);
                     break;
 
                     case 'storyMessage6':
-                    this.message = "The Knight's body hit the floor as his face turned pale. " + "Are you still counting my deaths player "
+                    this.message = "The Knight's body hit the floor as his face turned pale. " + "Are you still counting my deaths player! "
                     this.$emit('changemessage', this.message);
                     break;
                             
